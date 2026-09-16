@@ -1,0 +1,119 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+    darkMode: "class",
+    content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+    theme: {
+        extend: {
+            colors: {
+                brand: {
+                    blue: "#2590C7",
+                    orange: "#E86E2B",
+                    green: "#0E6843",
+                    cream: "#FFF8EE",
+                },
+                theme: {
+                    page: "var(--page-bg)",
+                    surface: "var(--surface)",
+                    "surface-soft": "var(--surface-soft)",
+                    "surface-elevated": "var(--surface-elevated)",
+                    "surface-hover": "var(--surface-hover)",
+                    "surface-warm": "var(--surface-warm)",
+                    primary: "var(--primary)",
+                    "primary-hover": "var(--primary-hover)",
+                    "primary-active": "var(--primary-active)",
+                    secondary: "var(--secondary)",
+                    "secondary-hover": "var(--secondary-hover)",
+                    "brand-green": "var(--brand-green)",
+                    "brand-green-hover": "var(--brand-green-hover)",
+                    link: "var(--link)",
+                    "link-hover": "var(--link-hover)",
+                    input: "var(--input-bg)",
+                    "input-border": "var(--input-border)",
+                    "input-placeholder": "var(--input-placeholder)",
+                    "focus-ring": "var(--focus-ring)",
+                    "icon-primary": "var(--icon-primary)",
+                    "icon-secondary": "var(--icon-secondary)",
+                    "icon-muted": "var(--icon-muted)",
+                    sidebar: "var(--sidebar-bg)",
+                    "sidebar-text": "var(--sidebar-text)",
+                    "sidebar-muted": "var(--sidebar-muted)",
+                    "success-bg": "var(--success-bg)",
+                    "success-text": "var(--success-text)",
+                    "warning-bg": "var(--warning-bg)",
+                    "warning-text": "var(--warning-text)",
+                    "danger-bg": "var(--danger-bg)",
+                    "danger-text": "var(--danger-text)",
+                    "info-bg": "var(--info-bg)",
+                    "info-text": "var(--info-text)",
+                    "skeleton-base": "var(--skeleton-base)",
+                    "skeleton-highlight": "var(--skeleton-highlight)",
+                    "modal-backdrop": "var(--modal-backdrop)",
+                    "tooltip-bg": "var(--tooltip-bg)",
+                    "tooltip-text": "var(--tooltip-text)",
+                },
+                content: {
+                    DEFAULT: "var(--text-primary)",
+                    primary: "var(--text-primary)",
+                    secondary: "var(--text-secondary)",
+                    muted: "var(--text-muted)",
+                    inverse: "var(--text-inverse)",
+                },
+                line: {
+                    DEFAULT: "var(--border)",
+                    strong: "var(--border-strong)",
+                },
+            },
+            fontFamily: {
+                sans: [
+                    "Manrope",
+                    "Inter",
+                    "Noto Sans Arabic",
+                    "system-ui",
+                    "sans-serif",
+                ],
+                arabic: ["Noto Sans Arabic", "Manrope", "sans-serif"],
+            },
+            borderRadius: {
+                card: "18px",
+                btn: "12px",
+            },
+            boxShadow: {
+                card: "var(--shadow)",
+                "card-hover": "var(--shadow-hover)",
+                soft: "var(--shadow-soft)",
+            },
+            maxWidth: {
+                content: "1280px",
+            },
+            transitionTimingFunction: {
+                premium: "cubic-bezier(0.22, 1, 0.36, 1)",
+            },
+            keyframes: {
+                "fade-up": {
+                    "0%": { opacity: "0", transform: "translateY(18px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" },
+                },
+                "fade-in": {
+                    "0%": { opacity: "0" },
+                    "100%": { opacity: "1" },
+                },
+                float: {
+                    "0%, 100%": { transform: "translateY(0)" },
+                    "50%": { transform: "translateY(-8px)" },
+                },
+                "slide-down": {
+                    "0%": { opacity: "0", transform: "translateY(-8px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" },
+                },
+            },
+            animation: {
+                "fade-up": "fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both",
+                "fade-in": "fade-in 0.35s ease both",
+                float: "float 5s ease-in-out infinite",
+                "slide-down":
+                    "slide-down 0.22s cubic-bezier(0.22, 1, 0.36, 1) both",
+            },
+        },
+    },
+    plugins: [],
+};
