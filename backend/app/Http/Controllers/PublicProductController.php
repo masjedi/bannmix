@@ -15,7 +15,7 @@ class PublicProductController extends Controller
     public function index(Request $request)
     {
         $filters = $request->validate([
-            'search' => ['nullable', 'string', 'max:255'],
+            'search' => ['nullable', 'string', 'max:50'],
             'category' => ['nullable', 'string', 'max:255'],
             'brand' => ['nullable', 'string', 'max:255'],
 
@@ -43,7 +43,8 @@ class PublicProductController extends Controller
         ]);
 
         $query = Post::query()
-            ->where('status', 'published');
+            ->where('status', 'published')
+            ->withReviewStats();
 
         if (!empty($filters['search'])) {
             $search = trim($filters['search']);
@@ -94,6 +95,7 @@ class PublicProductController extends Controller
     {
         $product = Post::query()
             ->where('status', 'published')
+            ->withReviewStats()
             ->findOrFail($id);
 
         return new PublicProductResource($product);

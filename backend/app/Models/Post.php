@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
@@ -101,5 +102,22 @@ class Post extends Model
     public function reviewer()
     {
         return $this->belongsTo(User::class, 'reviewed_by');
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
+    public function approvedReviews(): HasMany
+    {
+        return $this->reviews()->where('status', ProductReview::STATUS_APPROVED);
+    }
+
+    public function scopeWithReviewStats($query)
+    {
+        return $query
+            ->withCount(['approvedReviews as review_count'])
+            ->withAvg('approvedReviews', 'rating');
     }
 }

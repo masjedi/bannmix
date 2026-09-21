@@ -37,6 +37,11 @@ class PublicProductResource extends JsonResource
 
             'status' => $this->status,
 
+            'average_rating' => $this->approved_reviews_avg_rating !== null
+                ? round((float) $this->approved_reviews_avg_rating, 1)
+                : null,
+            'review_count' => (int) ($this->review_count ?? 0),
+
             'published_at' => $this->reviewed_at?->toISOString(),
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),

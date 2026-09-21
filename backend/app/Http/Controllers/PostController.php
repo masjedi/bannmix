@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AdminPostListResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -14,10 +16,33 @@ class PostController extends Controller
             'status' => ['nullable', 'string', 'in:pending,published,rejected'],
             'from_date' => ['nullable', 'date'],
             'to_date' => ['nullable', 'date', 'after_or_equal:from_date'],
+            'page' => ['nullable', 'integer', 'min:1'],
+            'per_page' => ['nullable', 'integer', 'min:1', 'max:100'],
+            'include_stats' => ['nullable', 'boolean'],
+            'stats_only' => ['nullable', 'boolean'],
+            'compact' => ['nullable', 'boolean'],
         ]);
 
+        if ($request->boolean('stats_only')) {
+            return response()->json([
+                'meta' => [
+                    'stats' => $this->postStats(),
+                ],
+            ]);
+        }
+
         $query = Post::query()
-            ->with(['user:id,name,email', 'reviewer'])
+            ->select([
+                'id',
+                'title',
+                'status',
+                'category',
+                'price',
+                'currency',
+                'main_image',
+                'created_at',
+            ])
+            ->selectRaw($this->contentExcerptSelect())
             ->when(
                 ! empty($filters['status']),
                 fn ($posts) => $posts->where('status', $filters['status'])
@@ -31,9 +56,68 @@ class PostController extends Controller
                 fn ($posts) => $posts->whereDate('created_at', '<=', $filters['to_date'])
             );
 
-        return response()->json([
-            'data' => $query->latest()->get(),
-        ]);
+        $perPage = min(max((int) ($filters['per_page'] ?? 25), 1), 100);
+
+        if ($request->boolean('compact')) {
+            $perPage = min($perPage, 100);
+        }
+
+        $posts = $query
+            ->latest('created_at')
+            ->paginate($perPage)
+            ->withQueryString();
+
+        $response = [
+            'data' => AdminPostListResource::collection($posts->getCollection())->resolve(),
+            'meta' => [
+                'current_page' => $posts->currentPage(),
+                'last_page' => $posts->lastPage(),
+                'per_page' => $posts->perPage(),
+                'total' => $posts->total(),
+                'from' => $posts->firstItem(),
+                'to' => $posts->lastItem(),
+            ],
+        ];
+
+        if ($request->boolean('include_stats')) {
+            $response['meta']['stats'] = $this->postStats();
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * @return array<string, int>
+     */
+    private function postStats(): array
+    {
+        $row = Post::query()
+            ->selectRaw(
+                'COUNT(*) as total,
+                SUM(CASE WHEN status IN (?, ?) THEN 1 ELSE 0 END) as published,
+                SUM(CASE WHEN status = ? THEN 1 ELSE 0 END) as pending,
+                SUM(CASE WHEN status = ? THEN 1 ELSE 0 END) as rejected',
+                ['published', 'approved', 'pending', 'rejected']
+            )
+            ->first();
+
+        return [
+            'total' => (int) ($row->total ?? 0),
+            'published' => (int) ($row->published ?? 0),
+            'pending' => (int) ($row->pending ?? 0),
+            'rejected' => (int) ($row->rejected ?? 0),
+        ];
+    }
+
+    private function contentExcerptSelect(): string
+    {
+        $driver = DB::connection()->getDriverName();
+
+        return match ($driver) {
+            'mysql', 'mariadb' => 'LEFT(content, 220) as content_excerpt',
+            'pgsql' => 'LEFT(content, 220) as content_excerpt',
+            default => 'SUBSTR(content, 1, 220) as content_excerpt',
+        };
     }
 
     public function store(Request $request)
@@ -67,7 +151,9 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::with(['user', 'reviewer'])->findOrFail($id);
+        $post = Post::with(['user', 'reviewer'])
+            ->withReviewStats()
+            ->findOrFail($id);
 
         return response()->json([
             'data' => $post,

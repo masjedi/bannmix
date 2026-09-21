@@ -68,6 +68,12 @@ class StoreSiteContentRequest extends FormRequest
                 ),
             ]);
         }
+
+        $this->merge([
+            'removed_image_paths' => $this->decodeJsonField(
+                'removed_image_paths'
+            ),
+        ]);
     }
 
     /**
@@ -116,7 +122,7 @@ class StoreSiteContentRequest extends FormRequest
 
             'title' => [
                 'nullable',
-                'array:en,ps,fa',
+                'array',
             ],
             'title.en' => [
                 'nullable',
@@ -136,7 +142,7 @@ class StoreSiteContentRequest extends FormRequest
 
             'subtitle' => [
                 'nullable',
-                'array:en,ps,fa',
+                'array',
             ],
             'subtitle.en' => [
                 'nullable',
@@ -156,7 +162,7 @@ class StoreSiteContentRequest extends FormRequest
 
             'content' => [
                 'nullable',
-                'array:en,ps,fa',
+                'array',
             ],
             'content.en' => [
                 'nullable',
@@ -173,7 +179,7 @@ class StoreSiteContentRequest extends FormRequest
 
             'button_text' => [
                 'nullable',
-                'array:en,ps,fa',
+                'array',
             ],
             'button_text.en' => [
                 'nullable',
@@ -214,6 +220,25 @@ class StoreSiteContentRequest extends FormRequest
                 'file',
                 'mimetypes:image/*',
                 'max:5120',
+            ],
+
+            'images' => [
+                'nullable',
+                'array',
+            ],
+            'images.*' => [
+                'file',
+                'mimetypes:image/*',
+                'max:5120',
+            ],
+
+            'removed_image_paths' => [
+                'nullable',
+                'array',
+            ],
+            'removed_image_paths.*' => [
+                'string',
+                'max:500',
             ],
 
             /*
@@ -269,16 +294,30 @@ class StoreSiteContentRequest extends FormRequest
                     'button_text',
                 ];
 
-                foreach ($translationFields as $field) {
-                    $translations = $this->input($field);
+                if ($this->input('section') === 'intro_video') {
+                    $videoUrl = trim((string) $this->input('video_url', ''));
+                    $isActive = filter_var(
+                        $this->input('is_active', true),
+                        FILTER_VALIDATE_BOOLEAN
+                    );
+
+                    if ($isActive && $videoUrl === '') {
+                        $validator->errors()->add(
+                            'video_url',
+                            'A YouTube URL is required while the intro video section is visible.'
+                        );
+                    }
 
                     if (
-                        is_array($translations) &&
-                        !$this->hasTranslation($translations)
+                        $videoUrl !== '' &&
+                        !preg_match(
+                            '/^https?:\/\/(?:www\.|m\.|music\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)[A-Za-z0-9_-]{11}(?:[\/?&#].*)?$/i',
+                            $videoUrl
+                        )
                     ) {
                         $validator->errors()->add(
-                            $field,
-                            "The {$field} field must contain at least one non-empty translation."
+                            'video_url',
+                            'Enter a valid YouTube watch, youtu.be, or embed URL.'
                         );
                     }
                 }
@@ -299,6 +338,7 @@ class StoreSiteContentRequest extends FormRequest
 
                     $hasMedia =
                         $this->hasFile('image') ||
+                        $this->hasFile('images') ||
                         filled($this->input('image_path')) ||
                         filled($this->input('video_url'));
 
@@ -424,9 +464,20 @@ class StoreSiteContentRequest extends FormRequest
             return $nullable ? null : '';
         }
 
-        return Str::snake(
-            trim((string) $value)
-        );
+        $normalized = Str::of($value)
+            ->trim()
+            ->lower()
+            ->replaceMatches('/[^a-z0-9]+/', '_')
+            ->replaceMatches('/_+/', '_')
+            ->trim('_')
+            ->limit(150, '')
+            ->toString();
+
+        if ($normalized === '') {
+            return $nullable ? null : '';
+        }
+
+        return $normalized;
     }
 
     /**

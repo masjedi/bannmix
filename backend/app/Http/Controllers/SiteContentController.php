@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSiteContentRequest;
 use App\Models\SiteContent;
+use App\Services\PublicContentCache;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
@@ -126,20 +128,40 @@ class SiteContentController extends Controller
     ): JsonResponse {
         $page = $this->normalizeIdentifier($page);
         $locale = $this->resolveLocale($request);
-
-        $contents = SiteContent::query()
-            ->active()
-            ->forContentPage($page)
-            ->when(
-                $request->filled('section'),
-                fn($builder) => $builder->forSection(
-                    $this->normalizeIdentifier(
-                        $request->string('section')->toString()
-                    )
-                )
+        $section = $request->filled('section')
+            ? $this->normalizeIdentifier(
+                $request->string('section')->toString()
             )
-            ->ordered()
-            ->get()
+            : null;
+
+        $payload = PublicContentCache::rememberPage(
+            $page,
+            $locale,
+            $section,
+            fn() => $this->buildPublicPagePayload(
+                $page,
+                $locale,
+                $section
+            )
+        );
+
+        return response()->json([
+            'message' => 'Public website content retrieved successfully.',
+            'data' => $payload,
+        ])->header('Cache-Control', 'public, max-age=60, stale-while-revalidate=300');
+    }
+
+    /**
+     * Build localized public page payload.
+     *
+     * @return array<string, mixed>
+     */
+    private function buildPublicPagePayload(
+        string $page,
+        string $locale,
+        ?string $section = null
+    ): array {
+        $contents = $this->queryPublicPageContents($page, $section)
             ->map(
                 fn(SiteContent $siteContent) =>
                 $this->publicContentResource(
@@ -152,23 +174,62 @@ class SiteContentController extends Controller
         $sections = $contents
             ->groupBy('section')
             ->map(
-                fn($items) => $items->values()
-            );
+                fn($items) => $items->values()->all()
+            )
+            ->all();
 
-        return response()->json([
-            'message' => 'Public website content retrieved successfully.',
-            'data' => [
-                'page' => $page,
-                'locale' => $locale,
-                'direction' => in_array(
-                    $locale,
-                    ['ps', 'fa'],
-                    true
-                ) ? 'rtl' : 'ltr',
-                'sections' => $sections,
-                'items' => $contents,
-            ],
-        ]);
+        $payload = [
+            'page' => $page,
+            'locale' => $locale,
+            'direction' => in_array(
+                $locale,
+                ['ps', 'fa'],
+                true
+            ) ? 'rtl' : 'ltr',
+            'sections' => $sections,
+            'items' => $contents->all(),
+        ];
+
+        if ($page === 'home' && $section === null) {
+            $eventItems = $this->queryPublicPageContents('events', 'items')
+                ->map(
+                    fn(SiteContent $siteContent) =>
+                    $this->publicContentResource(
+                        $siteContent,
+                        $locale
+                    )
+                )
+                ->values()
+                ->all();
+
+            $payload['includes'] = [
+                'events' => [
+                    'sections' => [
+                        'items' => $eventItems,
+                    ],
+                ],
+            ];
+        }
+
+        return $payload;
+    }
+
+    /**
+     * @return Collection<int, SiteContent>
+     */
+    private function queryPublicPageContents(
+        string $page,
+        ?string $section = null
+    ): Collection {
+        return SiteContent::query()
+            ->active()
+            ->forContentPage($page)
+            ->when(
+                $section !== null,
+                fn($builder) => $builder->forSection($section)
+            )
+            ->ordered()
+            ->get();
     }
 
     /**
@@ -192,21 +253,22 @@ class SiteContentController extends Controller
         StoreSiteContentRequest $request
     ): JsonResponse {
         $validated = $request->validated();
-        $storedImagePath = null;
+        $uploadedPaths = [];
 
         try {
-            if ($request->hasFile('image')) {
-                $storedImagePath = $this->storeImage(
-                    $request->file('image'),
-                    $validated['page'],
-                    $validated['section']
-                );
+            $this->applyUploadedImages(
+                $request,
+                $validated
+            );
 
-                $validated['image_path'] = $storedImagePath;
-            }
+            $uploadedPaths = is_array($validated['metadata']['images'] ?? null)
+                ? $validated['metadata']['images']
+                : [];
 
             unset(
                 $validated['image'],
+                $validated['images'],
+                $validated['removed_image_paths'],
                 $validated['remove_image']
             );
 
@@ -218,6 +280,8 @@ class SiteContentController extends Controller
                 ])
             );
 
+            PublicContentCache::forgetPage($siteContent->page);
+
             return response()->json([
                 'message' => 'Website content created successfully.',
                 'data' => $this->adminContentResource(
@@ -225,8 +289,8 @@ class SiteContentController extends Controller
                 ),
             ], 201);
         } catch (Throwable $exception) {
-            if ($storedImagePath) {
-                $this->deleteStoredImage($storedImagePath);
+            foreach ($uploadedPaths as $uploadedPath) {
+                $this->deleteStoredImage($uploadedPath);
             }
 
             throw $exception;
@@ -241,30 +305,36 @@ class SiteContentController extends Controller
         SiteContent $siteContent
     ): JsonResponse {
         $validated = $request->validated();
-
-        $oldImagePath = $siteContent->image_path;
-        $newImagePath = null;
-        $shouldRemoveOldImage = false;
+        $uploadedPaths = [];
+        $previousPage = $siteContent->page;
 
         try {
-            if ($request->hasFile('image')) {
-                $newImagePath = $this->storeImage(
-                    $request->file('image'),
-                    $validated['page'] ?? $siteContent->page,
-                    $validated['section'] ?? $siteContent->section
-                );
+            $previousPaths = $this->collectImagePaths(
+                $siteContent->image_path,
+                $siteContent->metadata ?? []
+            );
 
-                $validated['image_path'] = $newImagePath;
-                $shouldRemoveOldImage = true;
-            } elseif (
-                $request->boolean('remove_image')
-            ) {
-                $validated['image_path'] = null;
-                $shouldRemoveOldImage = true;
-            }
+            $this->applyUploadedImages(
+                $request,
+                $validated,
+                $siteContent
+            );
+
+            $nextPaths = $this->collectImagePaths(
+                $validated['image_path'] ?? $siteContent->image_path,
+                $validated['metadata'] ?? $siteContent->metadata ?? []
+            );
+
+            $uploadedPaths = array_values(
+                array_diff($nextPaths, $previousPaths)
+            );
+
+            $shouldRemoveOldImage = $previousPaths !== $nextPaths;
 
             unset(
                 $validated['image'],
+                $validated['images'],
+                $validated['removed_image_paths'],
                 $validated['remove_image']
             );
 
@@ -275,12 +345,21 @@ class SiteContentController extends Controller
                 $siteContent->update($validated);
             });
 
+            if ($shouldRemoveOldImage) {
+                foreach ($previousPaths as $path) {
+                    if (!in_array($path, $nextPaths, true)) {
+                        $this->deleteStoredImage($path);
+                    }
+                }
+            }
+
+            PublicContentCache::forgetPage($siteContent->fresh()->page);
+
             if (
-                $shouldRemoveOldImage &&
-                $oldImagePath &&
-                $oldImagePath !== $siteContent->image_path
+                isset($validated['page']) &&
+                $validated['page'] !== $previousPage
             ) {
-                $this->deleteStoredImage($oldImagePath);
+                PublicContentCache::forgetPage($previousPage);
             }
 
             return response()->json([
@@ -290,8 +369,8 @@ class SiteContentController extends Controller
                 ),
             ]);
         } catch (Throwable $exception) {
-            if ($newImagePath) {
-                $this->deleteStoredImage($newImagePath);
+            foreach ($uploadedPaths as $uploadedPath) {
+                $this->deleteStoredImage($uploadedPath);
             }
 
             throw $exception;
@@ -304,15 +383,22 @@ class SiteContentController extends Controller
     public function destroy(
         SiteContent $siteContent
     ): JsonResponse {
-        $imagePath = $siteContent->image_path;
+        $page = $siteContent->page;
+
+        $imagePaths = $this->collectImagePaths(
+            $siteContent->image_path,
+            $siteContent->metadata ?? []
+        );
 
         DB::transaction(function () use ($siteContent): void {
             $siteContent->delete();
         });
 
-        if ($imagePath) {
+        foreach ($imagePaths as $imagePath) {
             $this->deleteStoredImage($imagePath);
         }
+
+        PublicContentCache::forgetPage($page);
 
         return response()->json([
             'message' => 'Website content deleted successfully.',
@@ -336,6 +422,8 @@ class SiteContentController extends Controller
         $siteContent->update([
             'is_active' => $validated['is_active'],
         ]);
+
+        PublicContentCache::forgetPage($siteContent->page);
 
         return response()->json([
             'message' => $siteContent->is_active
@@ -378,6 +466,14 @@ class SiteContentController extends Controller
             ],
         ]);
 
+        $affectedPages = SiteContent::query()
+            ->whereIn(
+                'id',
+                collect($validated['items'])->pluck('id')
+            )
+            ->distinct()
+            ->pluck('page');
+
         DB::transaction(function () use ($validated): void {
             foreach ($validated['items'] as $item) {
                 SiteContent::query()
@@ -387,6 +483,10 @@ class SiteContentController extends Controller
                     ]);
             }
         });
+
+        foreach ($affectedPages as $affectedPage) {
+            PublicContentCache::forgetPage((string) $affectedPage);
+        }
 
         return response()->json([
             'message' => 'Website content order updated successfully.',
@@ -434,6 +534,10 @@ class SiteContentController extends Controller
             'image_url' => $this->resolveMediaUrl(
                 $siteContent->image_path
             ),
+            'image_urls' => $this->resolveImageUrls(
+                $siteContent->image_path,
+                $siteContent->metadata ?? []
+            ),
             'video_url' => $siteContent->video_url,
             'metadata' => $siteContent->metadata ?? [],
             'sort_order' => $siteContent->sort_order,
@@ -479,10 +583,147 @@ class SiteContentController extends Controller
             'image_url' => $this->resolveMediaUrl(
                 $siteContent->image_path
             ),
+            'image_urls' => $this->resolveImageUrls(
+                $siteContent->image_path,
+                $siteContent->metadata ?? []
+            ),
             'video_url' => $siteContent->video_url,
             'metadata' => $siteContent->metadata ?? [],
             'sort_order' => $siteContent->sort_order,
         ];
+    }
+
+    /**
+     * Merge uploaded, existing, and removed images into validated payload.
+     */
+    private function applyUploadedImages(
+        Request $request,
+        array &$validated,
+        ?SiteContent $siteContent = null
+    ): void {
+        $page = $validated['page'] ?? $siteContent?->page ?? '';
+        $section = $validated['section'] ?? $siteContent?->section ?? '';
+
+        $metadata = is_array($siteContent?->metadata)
+            ? $siteContent->metadata
+            : [];
+
+        if (
+            isset($validated['metadata']) &&
+            is_array($validated['metadata']) &&
+            $validated['metadata'] !== []
+        ) {
+            $metadata = array_merge($metadata, $validated['metadata']);
+        }
+
+        $imagePaths = $this->collectImagePaths(
+            $siteContent?->image_path,
+            $metadata
+        );
+
+        $removedPaths = $validated['removed_image_paths'] ?? [];
+
+        if (is_array($removedPaths) && !empty($removedPaths)) {
+            $imagePaths = array_values(
+                array_filter(
+                    $imagePaths,
+                    fn(string $path) => !in_array(
+                        $path,
+                        $removedPaths,
+                        true
+                    )
+                )
+            );
+        }
+
+        if ($request->hasFile('image')) {
+            $imagePaths[] = $this->storeImage(
+                $request->file('image'),
+                $page,
+                $section
+            );
+        }
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $uploadedImage) {
+                $imagePaths[] = $this->storeImage(
+                    $uploadedImage,
+                    $page,
+                    $section
+                );
+            }
+        }
+
+        if (
+            $request->boolean('remove_image') &&
+            !$request->hasFile('image') &&
+            !$request->hasFile('images')
+        ) {
+            $imagePaths = [];
+        }
+
+        $imagePaths = array_values(
+            array_unique(
+                array_filter($imagePaths)
+            )
+        );
+
+        $validated['image_path'] = $imagePaths[0] ?? null;
+        $metadata['images'] = $imagePaths;
+        $validated['metadata'] = $metadata;
+    }
+
+    /**
+     * Collect unique stored image paths from primary and metadata fields.
+     *
+     * @param  array<string, mixed>  $metadata
+     * @return list<string>
+     */
+    private function collectImagePaths(
+        ?string $primaryPath,
+        array $metadata
+    ): array {
+        $paths = [];
+
+        if ($primaryPath) {
+            $paths[] = $primaryPath;
+        }
+
+        $metadataImages = $metadata['images'] ?? [];
+
+        if (is_array($metadataImages)) {
+            foreach ($metadataImages as $path) {
+                if (
+                    is_string($path) &&
+                    $path !== '' &&
+                    !in_array($path, $paths, true)
+                ) {
+                    $paths[] = $path;
+                }
+            }
+        }
+
+        return $paths;
+    }
+
+    /**
+     * Resolve all image paths to public URLs.
+     *
+     * @param  array<string, mixed>  $metadata
+     * @return list<string>
+     */
+    private function resolveImageUrls(
+        ?string $primaryPath,
+        array $metadata
+    ): array {
+        return array_values(
+            array_filter(
+                array_map(
+                    fn(string $path) => $this->resolveMediaUrl($path),
+                    $this->collectImagePaths($primaryPath, $metadata)
+                )
+            )
+        );
     }
 
     /**
