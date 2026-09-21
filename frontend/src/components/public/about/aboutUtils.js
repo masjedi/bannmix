@@ -7,6 +7,18 @@
 export const hasText = (value) =>
     typeof value === "string" && value.trim().length > 0;
 
+export const excerptText = (value, maxLength = 180) => {
+    if (!hasText(value)) return "";
+
+    const normalized = value.trim().replace(/\s+/g, " ");
+
+    if (normalized.length <= maxLength) {
+        return normalized;
+    }
+
+    return `${normalized.slice(0, maxLength).trim()}…`;
+};
+
 export const pickFirst = (...values) => {
     for (const value of values) {
         if (hasText(value)) return value.trim();
@@ -93,7 +105,7 @@ export const mapTeamMember = (item, index = 0) => {
     const meta = item?.metadata && typeof item.metadata === "object" ? item.metadata : {};
     return {
         id: item?.id ?? item?.content_key ?? `team-${index}`,
-        name: pickFirst(item?.title, meta.name, "Team member"),
+        name: pickFirst(item?.title, meta.name),
         position: pickFirst(
             item?.subtitle,
             meta.position,
@@ -104,6 +116,17 @@ export const mapTeamMember = (item, index = 0) => {
         image: pickImage(item),
         linkedin_url: pickFirst(meta.linkedin_url, meta.linkedin, item?.linkedin_url),
         facebook_url: pickFirst(meta.facebook_url, meta.facebook, item?.facebook_url),
+        instagram_url: pickFirst(
+            meta.instagram_url,
+            meta.instagram,
+            item?.instagram_url
+        ),
+        twitter_url: pickFirst(
+            meta.twitter_url,
+            meta.x_url,
+            meta.twitter,
+            item?.twitter_url
+        ),
         email: pickFirst(meta.email, item?.email),
     };
 };
@@ -112,7 +135,7 @@ export const mapValueItem = (item, index = 0) => {
     const meta = item?.metadata && typeof item.metadata === "object" ? item.metadata : {};
     return {
         id: item?.id ?? item?.content_key ?? `value-${index}`,
-        title: pickFirst(item?.title, meta.title, "Value"),
+        title: pickFirst(item?.title, meta.title),
         description: pickDescription(item),
         icon: pickFirst(meta.icon, item?.icon),
     };

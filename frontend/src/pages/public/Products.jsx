@@ -14,9 +14,11 @@ import ProductToolbar from "../../components/public/products/ProductToolbar";
 import WholesaleCTA from "../../components/public/products/WholesaleCTA";
 import {
     CATALOG_ID,
-    WHOLESALE_ID,
+    SEARCH_MAX_LENGTH,
+    hasProductImage,
 } from "../../components/public/products/productUtils";
 import { useLanguage } from "../../context/LanguageContext";
+import usePublicPageContent from "../../hooks/usePublicPageContent";
 import publicTranslations, {
     ORDER_CONTACTS,
 } from "../../i18n/publicTranslations";
@@ -35,6 +37,8 @@ const useDebounce = (value, delay = 350) => {
 const Products = () => {
     const { translate } = useLanguage();
     const t = publicTranslations.products;
+    const { getFirstSectionItem } = usePublicPageContent("products");
+    const hero = getFirstSectionItem("hero");
 
     const [filters, setFilters] = useState({
         search: "",
@@ -109,22 +113,27 @@ const Products = () => {
         return meta.last_page;
     }, [meta]);
 
-    const totalCount = meta?.total ?? products.length;
+    const visibleProducts = useMemo(
+        () => products.filter(hasProductImage),
+        [products]
+    );
+
+    const totalCount = meta?.total ?? visibleProducts.length;
 
     const resultLabel = useMemo(() => {
         if (filters.search.trim()) {
             return translate({
-                en: `${totalCount} results for “${filters.search.trim()}”`,
-                ps: `${totalCount} پایلې د «${filters.search.trim()}» لپاره`,
-                fa: `${totalCount} نتیجه برای «${filters.search.trim()}»`,
+                en: `${totalCount} results`,
+                ps: `${totalCount} پایلې`,
+                fa: `${totalCount} نتیجه`,
             });
         }
 
         if (filters.category) {
             return translate({
-                en: `Showing ${totalCount} products in “${filters.category}”`,
-                ps: `${totalCount} محصولات په «${filters.category}» کې ښودل شوي`,
-                fa: `نمایش ${totalCount} محصول در «${filters.category}»`,
+                en: `${totalCount} products`,
+                ps: `${totalCount} محصولات`,
+                fa: `${totalCount} محصول`,
             });
         }
 
@@ -165,19 +174,17 @@ const Products = () => {
 
     return (
         <PublicPage className="products-catalog">
-            <InnerPageHero
-                eyebrow={translate(t.heroLabel)}
-                title={translate(t.heroTitle)}
-                description={translate(t.heroBody)}
-                primaryAction={{
-                    label: translate(t.browseProducts),
-                    href: `#${CATALOG_ID}`,
-                }}
-                secondaryAction={{
-                    label: translate(t.wholesaleInquiry),
-                    href: `#${WHOLESALE_ID}`,
-                }}
-            />
+            {hero ? (
+                <InnerPageHero
+                    eyebrow={hero.subtitle || ""}
+                    title={hero.title || ""}
+                    description={hero.content || ""}
+                    primaryAction={{
+                        label: hero.button_text || "",
+                        href: hero.button_url || "",
+                    }}
+                />
+            ) : null}
 
             <section
                 id={CATALOG_ID}
@@ -190,7 +197,10 @@ const Products = () => {
                         searchPlaceholder={translate(t.searchPlaceholder)}
                         searchValue={filters.search}
                         onSearchChange={(search) =>
-                            updateFilters({ search, page: 1 })
+                            updateFilters({
+                                search: search.slice(0, SEARCH_MAX_LENGTH),
+                                page: 1,
+                            })
                         }
                         categoryLabel={translate(t.categoryLabel)}
                         allCategoriesLabel={translate(t.allCategories)}
@@ -235,7 +245,7 @@ const Products = () => {
                                     ))}
                                 </ProductGrid>
                             </>
-                        ) : products.length === 0 ? (
+                        ) : visibleProducts.length === 0 ? (
                             <ProductEmptyState
                                 title={translate(t.emptyTitle)}
                                 description={translate(t.emptyBody)}
@@ -250,20 +260,22 @@ const Products = () => {
                             />
                         ) : (
                             <ProductGrid>
-                                {products.map((product, index) => (
+                                {visibleProducts.map((product, index) => (
                                     <ProductCard
                                         key={product.id}
                                         product={product}
                                         translate={translate}
                                         eager={index < 3}
+                                        showDescription
                                         copy={{
                                             viewDetails: translate(
                                                 t.viewDetails
                                             ),
-                                            orderNow: translate(
-                                                publicTranslations.common
-                                                    .orderNow
-                                            ),
+                                            orderNow: translate({
+                                                en: "Order now",
+                                                ps: "اوس فرمایش ورکړئ",
+                                                fa: "سفارش دهید",
+                                            }),
                                             priceOnRequest: translate(
                                                 t.priceOnRequest
                                             ),

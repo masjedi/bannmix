@@ -2,13 +2,26 @@ import { useState } from "react";
 
 import { ArrowRight, Mail, MessageCircle, Phone } from "lucide-react";
 
+import contactApi from "../../../api/contactApi";
 import { Container, FadeUp, PageSection } from "../ui";
-import {
-    buildContactMailto,
-    hasText,
-} from "./contactUtils";
+import { hasText } from "./contactUtils";
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_PATTERN =
+    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+const FIELD_LIMITS = {
+    name: 50,
+    email: 50,
+    subject: 100,
+    message: 200,
+};
+
+const clampText = (value, max) => value.slice(0, max);
+
+const formatCharCount = (template, current, max) =>
+    template
+        .replace("{current}", String(current))
+        .replace("{max}", String(max));
 
 const ContactInfoItem = ({ icon: Icon, label, value, href }) => {
     if (!hasText(value)) return null;
@@ -66,33 +79,50 @@ const ContactMainSection = ({
     formSubmitLabel,
     formSendingLabel,
     formSentLabel,
+    formErrorName,
+    formErrorNameMax,
     formErrorEmail,
+    formErrorEmailMax,
+    formErrorSubjectMax,
     formErrorMessage,
+    formErrorMessageMax,
+    formMessageCount,
     formErrorInvalidEmail,
     formSubjectDefault,
 }) => {
     const [form, setForm] = useState({
         name: "",
         email: "",
-        subject: formSubjectDefault || "",
+        subject: clampText(formSubjectDefault || "", FIELD_LIMITS.subject),
         message: "",
     });
     const [fieldErrors, setFieldErrors] = useState({});
     const [submitState, setSubmitState] = useState("idle");
+    const [submitError, setSubmitError] = useState("");
+
+    const clearFieldError = (field) => {
+        if (!fieldErrors[field]) {
+            return;
+        }
+
+        setFieldErrors((current) => {
+            const next = { ...current };
+            delete next[field];
+            return next;
+        });
+    };
 
     const updateField = (field) => (event) => {
+        const rawValue = event.target.value;
+        const limit = FIELD_LIMITS[field];
+        const nextValue = limit ? clampText(rawValue, limit) : rawValue;
+
         setForm((current) => ({
             ...current,
-            [field]: event.target.value,
+            [field]: nextValue,
         }));
 
-        if (fieldErrors[field]) {
-            setFieldErrors((current) => {
-                const next = { ...current };
-                delete next[field];
-                return next;
-            });
-        }
+        clearFieldError(field);
 
         if (submitState === "sent") {
             setSubmitState("idle");
@@ -101,22 +131,38 @@ const ContactMainSection = ({
 
     const validate = () => {
         const errors = {};
+        const normalizedName = form.name.trim();
         const normalizedEmail = form.email.trim();
+        const normalizedMessage = form.message.trim();
+
+        if (!normalizedName) {
+            errors.name = formErrorName;
+        } else if (form.name.length > FIELD_LIMITS.name) {
+            errors.name = formErrorNameMax;
+        }
 
         if (!normalizedEmail) {
             errors.email = formErrorEmail;
+        } else if (form.email.length > FIELD_LIMITS.email) {
+            errors.email = formErrorEmailMax;
         } else if (!EMAIL_PATTERN.test(normalizedEmail)) {
             errors.email = formErrorInvalidEmail;
         }
 
-        if (!form.message.trim()) {
+        if (form.subject.length > FIELD_LIMITS.subject) {
+            errors.subject = formErrorSubjectMax;
+        }
+
+        if (!normalizedMessage) {
             errors.message = formErrorMessage;
+        } else if (form.message.length > FIELD_LIMITS.message) {
+            errors.message = formErrorMessageMax;
         }
 
         return errors;
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const errors = validate();
@@ -127,24 +173,47 @@ const ContactMainSection = ({
         }
 
         setFieldErrors({});
+        setSubmitError("");
         setSubmitState("sending");
 
-        const mailto = buildContactMailto({
-            name: form.name,
-            email: form.email,
-            subject: form.subject,
-            message: form.message,
-            to: email,
-        });
+        try {
+            await contactApi.submitMessage({
+                name: form.name.trim(),
+                email: form.email.trim(),
+                subject: form.subject.trim() || undefined,
+                message: form.message.trim(),
+            });
 
-        window.setTimeout(() => {
-            window.location.href = mailto;
             setSubmitState("sent");
-        }, 320);
+        } catch (requestError) {
+            const validationErrors = requestError?.response?.data?.errors;
+
+            if (validationErrors && typeof validationErrors === "object") {
+                const mapped = {};
+                Object.entries(validationErrors).forEach(([key, messages]) => {
+                    mapped[key] = Array.isArray(messages)
+                        ? messages[0]
+                        : String(messages);
+                });
+                setFieldErrors(mapped);
+            } else {
+                setSubmitError(
+                    requestError?.response?.data?.message ||
+                        "Your message could not be sent. Please try again."
+                );
+            }
+
+            setSubmitState("idle");
+        }
     };
 
     const isSubmitting = submitState === "sending";
     const isSent = submitState === "sent";
+    const messageCounterLabel = formatCharCount(
+        formMessageCount,
+        form.message.length,
+        FIELD_LIMITS.message
+    );
 
     return (
         <PageSection pad={false} className="contact-main">
@@ -239,10 +308,27 @@ const ContactMainSection = ({
                                         type="text"
                                         name="name"
                                         autoComplete="name"
+                                        required
+                                        maxLength={FIELD_LIMITS.name}
+                                        aria-invalid={Boolean(fieldErrors.name)}
+                                        aria-describedby={
+                                            fieldErrors.name
+                                                ? "contact-name-error"
+                                                : undefined
+                                        }
                                         className="theme-input contact-form-input"
                                         value={form.name}
                                         onChange={updateField("name")}
                                     />
+                                    {fieldErrors.name ? (
+                                        <p
+                                            id="contact-name-error"
+                                            className="contact-form-error"
+                                            role="alert"
+                                        >
+                                            {fieldErrors.name}
+                                        </p>
+                                    ) : null}
                                 </div>
 
                                 <div className="contact-form-field">
@@ -254,6 +340,9 @@ const ContactMainSection = ({
                                         type="email"
                                         name="email"
                                         autoComplete="email"
+                                        inputMode="email"
+                                        required
+                                        maxLength={FIELD_LIMITS.email}
                                         aria-invalid={Boolean(fieldErrors.email)}
                                         aria-describedby={
                                             fieldErrors.email
@@ -283,10 +372,26 @@ const ContactMainSection = ({
                                         id="contact-subject"
                                         type="text"
                                         name="subject"
+                                        maxLength={FIELD_LIMITS.subject}
+                                        aria-invalid={Boolean(fieldErrors.subject)}
+                                        aria-describedby={
+                                            fieldErrors.subject
+                                                ? "contact-subject-error"
+                                                : undefined
+                                        }
                                         className="theme-input contact-form-input"
                                         value={form.subject}
                                         onChange={updateField("subject")}
                                     />
+                                    {fieldErrors.subject ? (
+                                        <p
+                                            id="contact-subject-error"
+                                            className="contact-form-error"
+                                            role="alert"
+                                        >
+                                            {fieldErrors.subject}
+                                        </p>
+                                    ) : null}
                                 </div>
 
                                 <div className="contact-form-field contact-form-field--full">
@@ -297,16 +402,34 @@ const ContactMainSection = ({
                                         id="contact-message"
                                         name="message"
                                         rows={5}
+                                        required
+                                        maxLength={FIELD_LIMITS.message}
                                         aria-invalid={Boolean(fieldErrors.message)}
-                                        aria-describedby={
+                                        aria-describedby={[
+                                            "contact-message-counter",
                                             fieldErrors.message
                                                 ? "contact-message-error"
-                                                : undefined
-                                        }
+                                                : null,
+                                        ]
+                                            .filter(Boolean)
+                                            .join(" ")}
                                         className="theme-input contact-form-input contact-form-textarea"
                                         value={form.message}
                                         onChange={updateField("message")}
                                     />
+                                    <p
+                                        id="contact-message-counter"
+                                        className={[
+                                            "contact-form-counter",
+                                            form.message.length >=
+                                            FIELD_LIMITS.message
+                                                ? "is-limit"
+                                                : "",
+                                        ].join(" ")}
+                                        aria-live="polite"
+                                    >
+                                        {messageCounterLabel}
+                                    </p>
                                     {fieldErrors.message ? (
                                         <p
                                             id="contact-message-error"
@@ -320,6 +443,12 @@ const ContactMainSection = ({
                             </div>
 
                             <div className="contact-form-actions">
+                                {submitError ? (
+                                    <p className="contact-form-error" role="alert">
+                                        {submitError}
+                                    </p>
+                                ) : null}
+
                                 {isSent ? (
                                     <p
                                         className="contact-form-success"

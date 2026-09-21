@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from "react";
 import api from "../api/axios";
 
 const AuthContext = createContext(null);
@@ -7,14 +14,14 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const normalizeUser = (userData) => {
+    const normalizeUser = useCallback((userData) => {
         if (!userData) return null;
 
         return {
             ...userData,
             role: userData.role || userData.type,
         };
-    };
+    }, []);
 
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
@@ -34,9 +41,9 @@ export const AuthProvider = ({ children }) => {
         }
 
         setLoading(false);
-    }, []);
+    }, [normalizeUser]);
 
-    const login = async (credentials) => {
+    const login = useCallback(async (credentials) => {
         const response = await api.post("/login", credentials);
 
         const token = response.data.token || response.data.access_token;
@@ -54,9 +61,9 @@ export const AuthProvider = ({ children }) => {
         setUser(normalizedUser);
 
         return normalizedUser;
-    };
+    }, [normalizeUser]);
 
-    const logout = async () => {
+    const logout = useCallback(async () => {
         try {
             await api.post("/logout");
         } catch (error) {
@@ -66,20 +73,21 @@ export const AuthProvider = ({ children }) => {
             localStorage.removeItem("user");
             setUser(null);
         }
-    };
+    }, []);
+
+    const value = useMemo(
+        () => ({
+            user,
+            loading,
+            login,
+            logout,
+            isAuthenticated: Boolean(user),
+        }),
+        [user, loading, login, logout]
+    );
 
     return (
-        <AuthContext.Provider
-            value={{
-                user,
-                loading,
-                login,
-                logout,
-                isAuthenticated: Boolean(user),
-            }}
-        >
-            {children}
-        </AuthContext.Provider>
+        <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
     );
 };
 

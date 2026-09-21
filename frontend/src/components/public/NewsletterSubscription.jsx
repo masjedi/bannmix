@@ -50,13 +50,16 @@ const NewsletterSubscription = ({
             return;
         }
 
+        if (typeof onSubscribe !== "function") {
+            setMessage(translate(publicTranslations.newsletter.unavailable));
+            setMessageType("info");
+            return;
+        }
+
         setSubmitting(true);
 
         try {
-            if (typeof onSubscribe === "function") {
-                await onSubscribe(normalizedEmail);
-            }
-
+            await onSubscribe(normalizedEmail);
             setMessage(translate(NEWSLETTER_MESSAGES.success));
             setMessageType("success");
             setEmail("");
@@ -128,7 +131,7 @@ const NewsletterSubscription = ({
                     <label className="relative mb-0 min-w-0 flex-1">
                         <span className="sr-only">
                             {translate(
-                                publicTranslations.newsletter.emailPlaceholder
+                                publicTranslations.newsletter.emailLabel
                             )}
                         </span>
                         {!isEmbedded ? (
@@ -138,13 +141,23 @@ const NewsletterSubscription = ({
                             />
                         ) : null}
                         <input
+                            id="newsletter-email"
                             type="email"
+                            name="email"
+                            autoComplete="email"
+                            inputMode="email"
                             value={email}
                             onChange={(event) => {
                                 setEmail(event.target.value);
                                 setMessage("");
+                                setMessageType("");
                             }}
                             disabled={submitting}
+                            required
+                            aria-invalid={messageType === "error"}
+                            aria-describedby={
+                                message ? "newsletter-status" : undefined
+                            }
                             placeholder={translate(
                                 publicTranslations.newsletter.emailPlaceholder
                             )}
@@ -176,12 +189,16 @@ const NewsletterSubscription = ({
 
                 {message && (
                     <div
+                        id="newsletter-status"
                         role="status"
+                        aria-live="polite"
                         className={[
                             "mt-3 flex items-center gap-2 text-xs font-medium",
                             messageType === "success"
                                 ? "text-theme-success-text"
-                                : "text-theme-danger-text",
+                                : messageType === "info"
+                                  ? "text-content-secondary"
+                                  : "text-theme-danger-text",
                         ].join(" ")}
                     >
                         {messageType === "success" ? (

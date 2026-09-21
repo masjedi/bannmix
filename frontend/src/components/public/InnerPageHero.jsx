@@ -108,7 +108,7 @@ const InnerPageHero = ({
             <Container className="inner-page-hero-container">
                 <div className="inner-page-hero-content">
                     {hasText(eyebrow) ? (
-                        <p className="inner-page-hero-eyebrow inner-page-hero-enter inner-page-hero-enter--1">
+                        <p className="inner-page-hero-eyebrow type-eyebrow inner-page-hero-enter inner-page-hero-enter--1">
                             <span
                                 className="inner-page-hero-eyebrow-mark"
                                 aria-hidden="true"
@@ -124,7 +124,7 @@ const InnerPageHero = ({
                     {hasText(title) ? (
                         <h1
                             className={[
-                                "inner-page-hero-title inner-page-hero-enter inner-page-hero-enter--2",
+                                "inner-page-hero-title type-display-md inner-page-hero-enter inner-page-hero-enter--2",
                                 hasText(eyebrow) ? "mt-3 sm:mt-4" : "",
                             ].join(" ")}
                         >
@@ -135,7 +135,7 @@ const InnerPageHero = ({
                     {hasText(description) ? (
                         <p
                             className={[
-                                "inner-page-hero-description inner-page-hero-enter inner-page-hero-enter--3",
+                                "inner-page-hero-description type-lead inner-page-hero-enter inner-page-hero-enter--3",
                                 "mt-4 sm:mt-5",
                             ].join(" ")}
                         >

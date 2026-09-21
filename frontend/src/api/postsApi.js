@@ -33,9 +33,17 @@ const buildProductFormData = (payload) => {
 };
 
 export const postsApi = {
-    getPosts: async (params = {}) => {
-        const response = await api.get("/posts", { params });
+    getPosts: async (params = {}, config = {}) => {
+        const response = await api.get("/posts", { params, ...config });
         return response.data;
+    },
+
+    getPostStats: async (config = {}) => {
+        const response = await api.get(
+            "/posts",
+            { params: { stats_only: 1 }, ...config }
+        );
+        return response.data?.meta?.stats ?? null;
     },
 
     getPost: async (id) => {

@@ -1,14 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../auth/AuthContext";
 
+import { AdminBreadcrumbProvider } from "./admin/AdminBreadcrumbContext";
 import AdminHeader from "./admin/AdminHeader";
 import AdminSidebar from "./admin/AdminSidebar";
 import AdminUserPanel from "./admin/AdminUserPanel";
 import QuickSearchModal from "./admin/QuickSearchModal";
 
-import { deriveCrumbs } from "./admin/adminLayoutUtils";
 import useAdminLayoutData from "./admin/useAdminLayoutData";
 import useLocalStorage from "./admin/useLocalStorage";
 
@@ -32,8 +32,14 @@ const AdminLayout = () => {
         true
     );
 
-    const { posts, activityLoading, activityError } = useAdminLayoutData({
-        locationPath: location.pathname,
+    const {
+        posts,
+        postStats,
+        activityLoading,
+        activityError,
+        refetchPosts,
+        loadQuickSearchPosts,
+    } = useAdminLayoutData({
         autoRefreshEnabled,
     });
 
@@ -77,6 +83,7 @@ const AdminLayout = () => {
             event.preventDefault();
             setActiveUserPanel(null);
             setQuickSearchOpen(true);
+            loadQuickSearchPosts?.();
         };
 
         window.addEventListener("keydown", handleQuickSearchShortcut);
@@ -89,6 +96,7 @@ const AdminLayout = () => {
     const handleOpenQuickSearch = () => {
         setActiveUserPanel(null);
         setQuickSearchOpen(true);
+        loadQuickSearchPosts?.();
     };
 
     const handleOpenUserPanel = (panel) => {
@@ -111,26 +119,17 @@ const AdminLayout = () => {
         }
     };
 
-    const crumbs = useMemo(
-        () => deriveCrumbs(location.pathname),
-        [location.pathname]
-    );
-
-    const currentPage = crumbs[crumbs.length - 1];
-    const mainLeftPadding = collapsed ? "lg:pl-20" : "lg:pl-80";
-
     return (
-        <div className="min-h-screen bg-theme-page">
+        <AdminBreadcrumbProvider>
+        <div className="admin-shell min-h-screen">
             <div className="fixed inset-y-0 left-0 z-30 hidden lg:block">
                 <AdminSidebar
-                    collapsed={collapsed}
                     onClose={() => setMobileSidebarOpen(false)}
-                    onToggleCollapse={() => setCollapsed((current) => !current)}
                     isMobile={false}
-                    user={user}
                     onLogout={handleLogout}
                     loggingOut={loggingOut}
-                    locationPath={location.pathname}
+                    productCount={postStats?.total ?? posts.length}
+                    onOpenPanel={handleOpenUserPanel}
                 />
             </div>
 
@@ -148,41 +147,32 @@ const AdminLayout = () => {
                     aria-label="Close sidebar"
                     onClick={() => setMobileSidebarOpen(false)}
                     className={[
-                        "absolute inset-0 bg-theme-page/50 backdrop-blur-sm transition-opacity duration-300",
+                        "absolute inset-0 bg-theme-modal-backdrop/35 backdrop-blur-sm transition-opacity duration-300",
                         mobileSidebarOpen ? "opacity-100" : "opacity-0",
                     ].join(" ")}
                 />
 
                 <div
                     className={[
-                        "absolute inset-y-0 left-0 w-72 max-w-[85vw] shadow-2xl transition-transform duration-300 ease-out",
+                        "absolute inset-y-0 left-0 w-[min(280px,88vw)] shadow-2xl transition-transform duration-300 ease-out",
                         mobileSidebarOpen
                             ? "translate-x-0"
                             : "-translate-x-full",
                     ].join(" ")}
                 >
                     <AdminSidebar
-                        collapsed={false}
                         onClose={() => setMobileSidebarOpen(false)}
-                        onToggleCollapse={() => {}}
                         isMobile
-                        user={user}
                         onLogout={handleLogout}
                         loggingOut={loggingOut}
-                        locationPath={location.pathname}
+                        productCount={postStats?.total ?? posts.length}
+                        onOpenPanel={handleOpenUserPanel}
                     />
                 </div>
             </div>
 
-            <div
-                className={[
-                    "min-h-screen transition-[padding] duration-200",
-                    mainLeftPadding,
-                ].join(" ")}
-            >
+            <div className="admin-main min-h-screen lg:pl-[260px]">
                 <AdminHeader
-                    crumbs={crumbs}
-                    currentPage={currentPage}
                     onOpenSidebar={() => setMobileSidebarOpen(true)}
                     onOpenSearch={handleOpenQuickSearch}
                     user={user}
@@ -191,8 +181,16 @@ const AdminLayout = () => {
                     onOpenUserPanel={handleOpenUserPanel}
                 />
 
-                <main className="p-4 sm:p-6 lg:p-8">
-                    <Outlet />
+                <main className="admin-main-content">
+                    <Outlet
+                        context={{
+                            posts,
+                            postStats,
+                            activityLoading,
+                            activityError,
+                            refetchPosts,
+                        }}
+                    />
                 </main>
             </div>
 
@@ -217,6 +215,7 @@ const AdminLayout = () => {
                 onOpenQuickSearch={handleOpenQuickSearch}
             />
         </div>
+        </AdminBreadcrumbProvider>
     );
 };
 

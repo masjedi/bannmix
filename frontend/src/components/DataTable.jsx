@@ -427,7 +427,7 @@ const DataTable = ({
     };
 
     return (
-        <div className="overflow-hidden rounded-xl border border-line bg-theme-surface shadow-sm">
+        <div className="data-table">
             {(title ||
                 subtitle ||
                 searchable ||
@@ -436,57 +436,55 @@ const DataTable = ({
                 onRefresh ||
                 exportable ||
                 printable) && (
-                <div className="border-b border-line bg-theme-surface px-3 py-3">
+                <div className="data-table-toolbar">
                     <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                         <div>
-                            {title && (
-                                <h2 className="text-base font-semibold text-content">
-                                    {title}
-                                </h2>
-                            )}
+                            {title ? (
+                                <h2 className="data-table-title">{title}</h2>
+                            ) : null}
 
-                            {subtitle && (
-                                <p className="mt-1 text-sm text-content-muted">
+                            {subtitle ? (
+                                <p className="data-table-subtitle">
                                     {subtitle}
                                 </p>
-                            )}
+                            ) : null}
                         </div>
 
-                        <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:flex-nowrap lg:justify-end">
-                            {searchable && (
-                                <div className="relative h-10 min-w-0 flex-1 lg:w-72 lg:flex-none">
+                        <div className="data-table-toolbar-actions">
+                            {searchable ? (
+                                <div className="data-table-search-wrap">
                                     <input
                                         type="text"
                                         value={search}
                                         onChange={handleSearchChange}
                                         placeholder={searchPlaceholder}
-                                        className="block h-10 w-full rounded-lg border border-line-strong bg-theme-surface pl-3 pr-10 text-sm text-content-secondary outline-none transition placeholder:text-content-muted focus:border-brand-green focus:ring-2 focus:ring-brand-green/20"
+                                        className="data-table-search"
                                     />
 
                                     <Search
                                         size={16}
-                                        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-content-muted"
+                                        className="data-table-search-icon"
                                     />
                                 </div>
-                            )}
+                            ) : null}
 
-                            {showFilterButton && (
+                            {showFilterButton ? (
                                 <button
                                     type="button"
                                     onClick={onFilterClick}
-                                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line-strong text-content-secondary transition hover:bg-theme-page"
+                                    className="data-table-icon-btn"
                                     title="Filter"
                                 >
                                     <Filter size={16} />
                                 </button>
-                            )}
+                            ) : null}
 
-                            {onRefresh && (
+                            {onRefresh ? (
                                 <button
                                     type="button"
                                     onClick={onRefresh}
                                     disabled={refreshLoading}
-                                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line-strong text-content-secondary transition hover:bg-theme-page disabled:opacity-50"
+                                    className="data-table-icon-btn"
                                     title="Refresh"
                                 >
                                     <RefreshCw
@@ -496,29 +494,29 @@ const DataTable = ({
                                         }
                                     />
                                 </button>
-                            )}
+                            ) : null}
 
-                            {exportable && (
+                            {exportable ? (
                                 <button
                                     type="button"
                                     onClick={exportCsv}
-                                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line-strong text-content-secondary transition hover:bg-theme-page"
+                                    className="data-table-icon-btn"
                                     title="Export CSV"
                                 >
                                     <FileDown size={16} />
                                 </button>
-                            )}
+                            ) : null}
 
-                            {printable && (
+                            {printable ? (
                                 <button
                                     type="button"
                                     onClick={printTable}
-                                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line-strong text-content-secondary transition hover:bg-theme-page"
+                                    className="data-table-icon-btn"
                                     title="Print"
                                 >
                                     <Printer size={16} />
                                 </button>
-                            )}
+                            ) : null}
 
                             <div className="relative">
                                 <button
@@ -526,21 +524,21 @@ const DataTable = ({
                                     onClick={() =>
                                         setIsColumnMenuOpen(!isColumnMenuOpen)
                                     }
-                                    className="inline-flex h-10 shrink-0 items-center gap-2 rounded-lg border border-line-strong px-3 text-sm font-semibold text-content-secondary transition hover:bg-theme-page"
+                                    className="data-table-menu-btn"
                                 >
                                     <Columns size={16} />
                                     Column visibility
                                 </button>
 
-                                {isColumnMenuOpen && (
-                                    <div className="absolute right-0 z-30 mt-2 w-56 rounded-xl border border-line bg-theme-surface p-2 shadow-xl">
+                                {isColumnMenuOpen ? (
+                                    <div className="data-table-column-menu">
                                         {columns.map((column) => {
                                             const key = getColumnKey(column);
 
                                             return (
                                                 <label
                                                     key={key}
-                                                    className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-sm text-content-secondary hover:bg-theme-page"
+                                                    className="data-table-column-option"
                                                 >
                                                     <input
                                                         type="checkbox"
@@ -550,7 +548,7 @@ const DataTable = ({
                                                         onChange={() =>
                                                             toggleColumn(column)
                                                         }
-                                                        className="h-4 w-4 rounded border-line-strong text-green-600 focus:ring-green-500"
+                                                        className="data-table-checkbox"
                                                     />
 
                                                     {column.header}
@@ -558,37 +556,33 @@ const DataTable = ({
                                             );
                                         })}
                                     </div>
-                                )}
+                                ) : null}
                             </div>
 
                             {headerActions}
                         </div>
                     </div>
 
-                    {filters && <div className="mt-3">{filters}</div>}
+                    {filters ? <div className="mt-3">{filters}</div> : null}
                 </div>
             )}
 
-            <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-slate-200 text-sm">
-                    <thead className="bg-theme-page">
+            <div className="data-table-scroll">
+                <table className="data-table-table theme-table">
+                    <thead>
                         <tr>
-                            {selectable && (
-                                <th className="w-10 px-2 py-2.5 text-left">
+                            {selectable ? (
+                                <th className="w-10 text-left">
                                     <input
                                         type="checkbox"
                                         checked={allPageRowsSelected}
                                         onChange={togglePageSelection}
-                                        className="h-4 w-4 rounded border-line-strong text-green-600 focus:ring-green-500"
+                                        className="data-table-checkbox"
                                     />
                                 </th>
-                            )}
+                            ) : null}
 
-                            {showIndex && (
-                                <th className="w-12 px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-content-muted">
-                                    No
-                                </th>
-                            )}
+                            {showIndex ? <th className="w-12 text-left">No</th> : null}
 
                             {visibleColumns.map((column) => {
                                 const isSorted =
@@ -597,13 +591,16 @@ const DataTable = ({
                                 return (
                                     <th
                                         key={getColumnKey(column)}
-                                        className={`px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-content-muted ${
+                                        className={[
                                             column.align === "right"
                                                 ? "text-right"
                                                 : column.align === "center"
-                                                ? "text-center"
-                                                : "text-left"
-                                        } ${column.className || ""}`}
+                                                  ? "text-center"
+                                                  : "text-left",
+                                            column.className || "",
+                                        ]
+                                            .filter(Boolean)
+                                            .join(" ")}
                                     >
                                         <button
                                             type="button"
@@ -612,45 +609,40 @@ const DataTable = ({
                                                 !column.accessor
                                             }
                                             onClick={() => handleSort(column)}
-                                            className="inline-flex items-center gap-1 disabled:cursor-default"
                                         >
                                             {column.header}
 
                                             {column.sortable !== false &&
-                                                column.accessor &&
-                                                (isSorted ? (
+                                            column.accessor ? (
+                                                isSorted ? (
                                                     sortConfig.direction ===
                                                     "asc" ? (
                                                         <ArrowUp
                                                             size={12}
-                                                            className="text-green-600"
+                                                            className="data-table-sort-active"
                                                         />
                                                     ) : (
                                                         <ArrowDown
                                                             size={12}
-                                                            className="text-green-600"
+                                                            className="data-table-sort-active"
                                                         />
                                                     )
                                                 ) : (
-                                                    <ArrowUpDown
-                                                        size={12}
-                                                        className="text-content-muted"
-                                                    />
-                                                ))}
+                                                    <ArrowUpDown size={12} />
+                                                )
+                                            ) : null}
                                         </button>
                                     </th>
                                 );
                             })}
 
-                            {actions && (
-                                <th className="w-28 px-3 py-2.5 text-right text-xs font-semibold uppercase tracking-wide text-content-muted">
-                                    Actions
-                                </th>
-                            )}
+                            {actions ? (
+                                <th className="w-28 text-right">Actions</th>
+                            ) : null}
                         </tr>
                     </thead>
 
-                    <tbody className="divide-y divide-line bg-theme-surface">
+                    <tbody>
                         {loading ? (
                             <tr>
                                 <td
@@ -660,10 +652,10 @@ const DataTable = ({
                                         (showIndex ? 1 : 0) +
                                         (actions ? 1 : 0)
                                     }
-                                    className="px-3 py-10 text-center"
+                                    className="data-table-loading"
                                 >
                                     <div className="flex flex-col items-center justify-center gap-3">
-                                        <div className="h-8 w-8 animate-spin rounded-full border-4 border-line border-t-green-600" />
+                                        <div className="data-table-loading-spinner" />
 
                                         <p className="text-sm text-content-muted">
                                             Loading records...
@@ -680,18 +672,18 @@ const DataTable = ({
                                         (showIndex ? 1 : 0) +
                                         (actions ? 1 : 0)
                                     }
-                                    className="px-3 py-10 text-center"
+                                    className="data-table-empty"
                                 >
                                     <div className="mx-auto flex max-w-sm flex-col items-center">
-                                        <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-theme-surface-soft text-xl">
+                                        <div className="data-table-empty-icon">
                                             📄
                                         </div>
 
-                                        <p className="font-medium text-content-secondary">
+                                        <p className="data-table-empty-title">
                                             {emptyText}
                                         </p>
 
-                                        <p className="mt-1 text-sm text-content-muted">
+                                        <p className="data-table-empty-copy">
                                             Try changing your search or filters.
                                         </p>
                                     </div>
@@ -710,13 +702,16 @@ const DataTable = ({
                                     <tr
                                         key={row[rowKey] || absoluteIndex}
                                         onClick={() => onRowClick?.(row)}
-                                        className={`transition hover:bg-green-50/40 ${
-                                            onRowClick ? "cursor-pointer" : ""
-                                        }`}
+                                        className={[
+                                            "data-table-row",
+                                            onRowClick ? "is-clickable" : "",
+                                        ]
+                                            .filter(Boolean)
+                                            .join(" ")}
                                     >
-                                        {selectable && (
+                                        {selectable ? (
                                             <td
-                                                className="w-10 px-2 py-3"
+                                                className="w-10"
                                                 onClick={(event) =>
                                                     event.stopPropagation()
                                                 }
@@ -727,30 +722,31 @@ const DataTable = ({
                                                     onChange={() =>
                                                         toggleRowSelection(row)
                                                     }
-                                                    className="h-4 w-4 rounded border-line-strong text-green-600 focus:ring-green-500"
+                                                    className="data-table-checkbox"
                                                 />
                                             </td>
-                                        )}
+                                        ) : null}
 
-                                        {showIndex && (
-                                            <td className="w-12 px-3 py-3 text-sm font-semibold text-content-muted">
+                                        {showIndex ? (
+                                            <td className="w-12 data-table-index">
                                                 {absoluteIndex}
                                             </td>
-                                        )}
+                                        ) : null}
 
                                         {visibleColumns.map((column) => (
                                             <td
                                                 key={getColumnKey(column)}
-                                                className={`px-3 py-3 text-content-secondary ${
+                                                className={[
                                                     column.align === "right"
                                                         ? "text-right"
                                                         : column.align ===
-                                                          "center"
-                                                        ? "text-center"
-                                                        : "text-left"
-                                                } ${
-                                                    column.cellClassName || ""
-                                                }`}
+                                                            "center"
+                                                          ? "text-center"
+                                                          : "text-left",
+                                                    column.cellClassName || "",
+                                                ]
+                                                    .filter(Boolean)
+                                                    .join(" ")}
                                             >
                                                 {renderCell(
                                                     row,
@@ -760,9 +756,9 @@ const DataTable = ({
                                             </td>
                                         ))}
 
-                                        {actions && (
+                                        {actions ? (
                                             <td
-                                                className="px-3 py-3 text-right"
+                                                className="text-right"
                                                 onClick={(event) =>
                                                     event.stopPropagation()
                                                 }
@@ -771,7 +767,7 @@ const DataTable = ({
                                                     {actions(row)}
                                                 </div>
                                             </td>
-                                        )}
+                                        ) : null}
                                     </tr>
                                 );
                             })
@@ -780,84 +776,84 @@ const DataTable = ({
                 </table>
             </div>
 
-            {pagination && (
-                <div className="flex flex-col gap-3 border-t border-line px-3 py-3 md:flex-row md:items-center md:justify-between">
-                <div className="text-sm text-content-muted">
-                    {from}-{to} / {totalRecords}
-                </div>
+            {pagination ? (
+                <div className="data-table-footer">
+                    <div className="data-table-footer-meta">
+                        {from}-{to} / {totalRecords}
+                    </div>
 
-                <div className="flex flex-wrap items-center justify-end gap-3">
-                    {(!isServerPaginated || onPageSizeChange) && (
-                        <div className="flex h-10 shrink-0 items-center gap-2">
-                        <span className="whitespace-nowrap text-sm leading-none text-content-secondary">
-                            Rows per page
-                        </span>
+                    <div className="data-table-footer-controls">
+                        {!isServerPaginated || onPageSizeChange ? (
+                            <div className="data-table-page-size">
+                                <span className="data-table-page-size-label">
+                                    Rows per page
+                                </span>
 
-                        <div className="relative h-10">
-                            <select
-                                value={activePageSize}
-                                onChange={handlePageSizeChange}
-                                className="h-10 min-w-[76px] appearance-none rounded-lg border border-line-strong bg-theme-surface py-0 pl-3 pr-9 text-sm leading-none text-content-secondary outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20"
+                                <div className="data-table-select-wrap">
+                                    <select
+                                        value={activePageSize}
+                                        onChange={handlePageSizeChange}
+                                        className="data-table-select"
+                                    >
+                                        {pageSizeOptions.map((size) => (
+                                            <option key={size} value={size}>
+                                                {size}
+                                            </option>
+                                        ))}
+                                    </select>
+
+                                    <ChevronDown
+                                        size={15}
+                                        className="data-table-select-icon"
+                                    />
+                                </div>
+                            </div>
+                        ) : null}
+
+                        <div className="data-table-pagination">
+                            <button
+                                type="button"
+                                disabled={activePage === 1}
+                                onClick={() => goToPage(1)}
+                                className="data-table-page-btn"
                             >
-                                {pageSizeOptions.map((size) => (
-                                    <option key={size} value={size}>
-                                        {size}
-                                    </option>
-                                ))}
-                            </select>
+                                <ChevronsLeft size={16} />
+                            </button>
 
-                            <ChevronDown
-                                size={15}
-                                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-content-muted"
-                            />
+                            <button
+                                type="button"
+                                disabled={activePage === 1}
+                                onClick={() => goToPage(activePage - 1)}
+                                className="data-table-page-btn"
+                            >
+                                <ChevronLeft size={16} />
+                            </button>
+
+                            <span className="data-table-page-btn is-active">
+                                {activePage}
+                            </span>
+
+                            <button
+                                type="button"
+                                disabled={activePage === totalPages}
+                                onClick={() => goToPage(activePage + 1)}
+                                className="data-table-page-btn"
+                            >
+                                <ChevronRight size={16} />
+                            </button>
+
+                            <button
+                                type="button"
+                                disabled={activePage === totalPages}
+                                onClick={() => goToPage(totalPages)}
+                                className="data-table-page-btn"
+                            >
+                                <ChevronsRight size={16} />
+                            </button>
                         </div>
-                        </div>
-                    )}
-
-                    <div className="flex h-10 items-center gap-1">
-                        <button
-                            type="button"
-                            disabled={activePage === 1}
-                            onClick={() => goToPage(1)}
-                            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line-strong text-content-secondary transition hover:bg-theme-page disabled:cursor-not-allowed disabled:opacity-40"
-                        >
-                            <ChevronsLeft size={16} />
-                        </button>
-
-                        <button
-                            type="button"
-                            disabled={activePage === 1}
-                            onClick={() => goToPage(activePage - 1)}
-                            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line-strong text-content-secondary transition hover:bg-theme-page disabled:cursor-not-allowed disabled:opacity-40"
-                        >
-                            <ChevronLeft size={16} />
-                        </button>
-
-                        <span className="flex h-10 min-w-10 shrink-0 items-center justify-center rounded-full bg-green-600 px-3 text-sm font-semibold text-white">
-                            {activePage}
-                        </span>
-
-                        <button
-                            type="button"
-                            disabled={activePage === totalPages}
-                            onClick={() => goToPage(activePage + 1)}
-                            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line-strong text-content-secondary transition hover:bg-theme-page disabled:cursor-not-allowed disabled:opacity-40"
-                        >
-                            <ChevronRight size={16} />
-                        </button>
-
-                        <button
-                            type="button"
-                            disabled={activePage === totalPages}
-                            onClick={() => goToPage(totalPages)}
-                            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line-strong text-content-secondary transition hover:bg-theme-page disabled:cursor-not-allowed disabled:opacity-40"
-                        >
-                            <ChevronsRight size={16} />
-                        </button>
                     </div>
                 </div>
-                </div>
-            )}
+            ) : null}
         </div>
     );
 };

@@ -76,7 +76,7 @@ const ValuesSection = ({ label, title, description, values = [] }) => {
                                         </h3>
                                     ) : null}
                                     {hasText(item.description) ? (
-                                        <p className="mt-2 break-words text-sm leading-6 text-content-secondary text-content-secondary">
+                                        <p className="mt-2 break-words text-sm leading-6 text-content-secondary">
                                             {item.description}
                                         </p>
                                     ) : null}

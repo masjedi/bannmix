@@ -105,9 +105,10 @@ export const siteContentApi = {
      *     section: "banners",
      * })
      */
-    getPublicPage(page, params = {}) {
+    getPublicPage(page, params = {}, config = {}) {
         return api.get(`/public/content/${page}`, {
             params,
+            ...config,
         });
     },
 };

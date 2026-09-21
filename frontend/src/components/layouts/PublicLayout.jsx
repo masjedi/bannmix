@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 
+import FeedbackWidget from "../public/FeedbackWidget";
 import PublicFooter from "../public/PublicFooter";
 import PublicNavbar from "../public/PublicNavbar";
 
@@ -13,6 +14,7 @@ const PublicLayout = () => {
             </main>
 
             <PublicFooter />
+            <FeedbackWidget />
         </div>
     );
 };

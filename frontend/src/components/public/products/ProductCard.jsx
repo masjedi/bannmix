@@ -1,410 +1,314 @@
 import { useEffect, useMemo, useState } from "react";
 
-
-
 import { Link } from "react-router-dom";
-
-
 
 import { Heart } from "lucide-react";
 
-
-
 import ProductImage from "./ProductImage";
-
 import {
-
     formatPrice,
-
     getProductImages,
-
     hasValue,
-
     whatsappOrder,
-
 } from "./productUtils";
-
-
+import { htmlToPlainText } from "../../../utils/htmlText";
 
 const FAVORITES_KEY = "banmix-product-favorites";
 
-
-
 const readFavoriteIds = () => {
-
     try {
-
         const raw = window.localStorage.getItem(FAVORITES_KEY);
-
         if (!raw) return new Set();
-
         const parsed = JSON.parse(raw);
-
         return new Set(Array.isArray(parsed) ? parsed : []);
-
     } catch {
-
         return new Set();
-
     }
-
 };
-
-
 
 const writeFavoriteIds = (ids) => {
-
     try {
-
         window.localStorage.setItem(
-
             FAVORITES_KEY,
-
             JSON.stringify(Array.from(ids))
-
         );
-
     } catch {
-
         // Ignore unavailable storage.
-
     }
-
 };
 
-
-
-const ProductCard = ({ product, translate, copy, eager = false }) => {
+const ProductCard = ({
+    product,
+    translate,
+    copy,
+    eager = false,
+    showDescription = false,
+    showViewProduct = false,
+    showFavorite = true,
+    showThumbs = true,
+    headingLevel = "h2",
+    compact = false,
+    className = "",
+}) => {
+    const TitleTag = headingLevel === "h3" ? "h3" : "h2";
 
     const images = useMemo(() => getProductImages(product), [product]);
 
     const [activeIndex, setActiveIndex] = useState(0);
-
     const [favorite, setFavorite] = useState(() => {
-
         if (typeof product?.is_favorite === "boolean") {
-
             return product.is_favorite;
-
         }
-
         if (typeof window === "undefined") return false;
-
         return readFavoriteIds().has(product.id);
-
     });
 
-
-
     useEffect(() => {
-
         setActiveIndex(0);
-
     }, [product.id]);
 
-
-
     useEffect(() => {
-
         if (typeof product?.is_favorite === "boolean") {
-
             setFavorite(product.is_favorite);
-
         }
-
     }, [product?.is_favorite, product.id]);
 
-
-
     const activeImage = images[Math.min(activeIndex, images.length - 1)] || "";
-
     const priceLabel = formatPrice(product, copy.priceOnRequest);
-
     const detailsHref = `/products/${product.id}`;
-
     const orderHref = whatsappOrder(product.title, translate);
-
     const visibleThumbs = images.slice(0, 5);
-
     const extraImages = Math.max(0, images.length - visibleThumbs.length);
 
-
-
     const toggleFavorite = () => {
-
         setFavorite((current) => {
-
             const next = !current;
-
             const ids = readFavoriteIds();
-
             if (next) ids.add(product.id);
-
             else ids.delete(product.id);
-
             writeFavoriteIds(ids);
-
             return next;
-
         });
-
     };
 
-
-
-    return (
-
-        <article className="product-card group mx-auto w-full max-w-[320px] overflow-hidden transition duration-[220ms] ease-premium motion-reduce:transition-none">
-
-            <div className="p-4">
-
-                <Link
-
-                    to={detailsHref}
-
-                    className="block w-full focus-visible:outline-theme-focus-ring"
-
-                    aria-label={product.title || copy.viewDetails}
-
-                >
-
-                    <ProductImage
-
-                        src={activeImage}
-
-                        alt={product.title || ""}
-
-                        loading={eager ? "eager" : "lazy"}
-
-                        sizes="(min-width: 1280px) 300px, (min-width: 768px) 45vw, 90vw"
-
-                        className="product-card-image-well aspect-[5/4] w-full rounded-[14px]"
-
-                    />
-
-                </Link>
-
-
-
-                {visibleThumbs.length > 0 && (
-
-                    <div
-
-                        className="mt-2.5 flex items-center gap-1.5 overflow-x-auto"
-
-                        role="group"
-
-                        aria-label={copy.imagesLabel || copy.viewDetails}
-
-                    >
-
-                        {visibleThumbs.map((src, index) => (
-
-                            <button
-
-                                key={`${src}-${index}`}
-
-                                type="button"
-
-                                onClick={() => setActiveIndex(index)}
-
-                                aria-label={`${copy.viewDetails} ${index + 1}`}
-
-                                aria-pressed={index === activeIndex}
-
-                                className={[
-
-                                    "product-card-thumb h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-theme-surface-soft focus-visible:outline-theme-focus-ring",
-
-                                    index === activeIndex
-
-                                        ? "ring-2 ring-brand-orange ring-offset-1 ring-offset-theme-surface"
-
-                                        : "",
-
-                                ].join(" ")}
-
-                            >
-
-                                <img
-
-                                    src={src}
-
-                                    alt=""
-
-                                    className="h-full w-full object-contain p-0.5"
-
-                                />
-
-                            </button>
-
-                        ))}
-
-                        {extraImages > 0 && (
-
-                            <span
-
-                                className="shrink-0 pl-0.5 text-sm font-medium text-brand-orange"
-
-                                aria-hidden="true"
-
-                            >
-
-                                + {extraImages}
-
-                            </span>
-
-                        )}
-
-                    </div>
-
-                )}
-
-
-
-                <div className="mt-3">
-
-                    {hasValue(product.category) && (
-
-                        <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-brand-orange">
-
-                            {product.category}
-
-                        </p>
-
-                    )}
-
-
-
-                    {hasValue(product.title) && (
-
-                        <h2
-
-                            className={[
-
-                                "text-[15px] font-semibold leading-snug text-content",
-
-                                hasValue(product.category) ? "mt-1.5" : "",
-
-                            ].join(" ")}
-
-                        >
-
-                            <Link
-
-                                to={detailsHref}
-
-                                className="line-clamp-1 transition hover:text-brand-orange focus-visible:outline-theme-focus-ring"
-
-                            >
-
-                                {product.title}
-
-                            </Link>
-
-                        </h2>
-
-                    )}
-
-
-
-                    <p
-
-                        className={[
-
-                            "text-[15px] font-bold text-content",
-
-                            hasValue(product.title) ||
-
-                            hasValue(product.category)
-
-                                ? "mt-1"
-
-                                : "",
-
-                        ].join(" ")}
-
-                    >
-
-                        {priceLabel}
-
-                    </p>
-
-                </div>
-
-
-
-                <div className="mt-3.5 flex items-center gap-2">
-
-                    <a
-
-                        href={orderHref}
-
-                        target="_blank"
-
-                        rel="noreferrer noopener"
-
-                        className="product-card-order-btn inline-flex h-12 min-w-0 flex-1 items-center justify-center rounded-[10px] px-3 text-[11px] font-semibold uppercase tracking-[0.08em] transition duration-[220ms] focus-visible:outline-theme-focus-ring"
-
-                    >
-
-                        {copy.orderNow}
-
-                    </a>
-
+    const favoriteButton = showFavorite ? (
+        <button
+            type="button"
+            onClick={toggleFavorite}
+            aria-label={
+                favorite
+                    ? copy.removeFavorite || "Remove from favorites"
+                    : copy.addFavorite || "Add to favorites"
+            }
+            aria-pressed={favorite}
+            className={[
+                "product-card-favorite",
+                favorite ? "is-active" : "",
+            ].join(" ")}
+        >
+            <Heart
+                size={16}
+                strokeWidth={2}
+                className={favorite ? "fill-brand-orange" : ""}
+                aria-hidden="true"
+            />
+        </button>
+    ) : null;
+
+    const imageSizes = compact
+        ? "(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
+        : "(min-width: 1280px) 280px, (min-width: 768px) 33vw, 90vw";
+
+    const imageAspect = "aspect-square";
+    const imageFit = "cover";
+
+    const thumbStrip =
+        showThumbs && visibleThumbs.length > 0 ? (
+            <div
+                className="mt-2 flex items-center gap-1.5 overflow-x-auto"
+                role="group"
+                aria-label={copy.imagesLabel || copy.viewDetails}
+            >
+                {visibleThumbs.map((src, index) => (
                     <button
-
+                        key={`${src}-${index}`}
                         type="button"
-
-                        onClick={toggleFavorite}
-
-                        aria-label={
-
-                            favorite
-
-                                ? copy.removeFavorite || "Remove from favorites"
-
-                                : copy.addFavorite || "Add to favorites"
-
-                        }
-
-                        aria-pressed={favorite}
-
+                        onClick={() => setActiveIndex(index)}
+                        aria-label={`${copy.viewDetails} ${index + 1}`}
+                        aria-pressed={index === activeIndex}
                         className={[
-
-                            "grid h-12 w-12 shrink-0 place-items-center rounded-[10px] bg-theme-surface-soft text-brand-orange transition duration-200 hover:bg-theme-surface-elevated focus-visible:outline-theme-focus-ring",
-
-                            favorite ? "motion-safe:scale-105" : "",
-
+                            "product-card-thumb h-8 w-8 shrink-0 overflow-hidden rounded-lg bg-theme-surface-soft focus-visible:outline-theme-focus-ring",
+                            index === activeIndex
+                                ? "ring-2 ring-brand-orange ring-offset-1 ring-offset-theme-surface"
+                                : "",
                         ].join(" ")}
-
                     >
-
-                        <Heart
-
-                            size={18}
-
-                            strokeWidth={2}
-
-                            className={favorite ? "fill-brand-orange" : ""}
-
-                            aria-hidden="true"
-
+                        <img
+                            src={src}
+                            alt=""
+                            className="h-full w-full object-contain p-0.5"
                         />
-
                     </button>
-
-                </div>
-
+                ))}
+                {extraImages > 0 ? (
+                    <span
+                        className="shrink-0 pl-0.5 text-xs font-medium text-brand-orange"
+                        aria-hidden="true"
+                    >
+                        + {extraImages}
+                    </span>
+                ) : null}
             </div>
+        ) : null;
 
-        </article>
-
+    const categoryBlock = (
+        <p
+            className="product-card-category"
+            aria-hidden={!hasValue(product.category)}
+        >
+            {hasValue(product.category) ? product.category : "\u00A0"}
+        </p>
     );
 
+    const titleBlock = (
+        <TitleTag className="product-card-title mt-1">
+            <Link to={detailsHref} className="product-card-title-link">
+                {hasValue(product.title) ? product.title : "\u00A0"}
+            </Link>
+        </TitleTag>
+    );
+
+    const descriptionBlock = showDescription ? (
+        <p className="product-card-description">
+            {hasValue(product.content)
+                ? htmlToPlainText(product.content)
+                : "\u00A0"}
+        </p>
+    ) : null;
+
+    const orderButton = (
+        <a
+            href={orderHref}
+            target="_blank"
+            rel="noreferrer noopener"
+            className={[
+                "product-card-order-btn",
+                compact ? "product-card-order-btn-compact" : "",
+            ]
+                .filter(Boolean)
+                .join(" ")}
+        >
+            {copy.orderNow}
+        </a>
+    );
+
+    if (compact) {
+        return (
+            <article
+                className={[
+                    "product-card product-card-compact group flex h-full w-full flex-col overflow-hidden transition duration-[220ms] ease-premium motion-reduce:transition-none",
+                    className,
+                ]
+                    .filter(Boolean)
+                    .join(" ")}
+            >
+                <div className="flex h-full flex-col p-5">
+                    <div className="product-card-media relative">
+                        <Link
+                            to={detailsHref}
+                            className="product-card-image-link block w-full overflow-hidden rounded-[14px] focus-visible:outline-theme-focus-ring"
+                            aria-label={product.title || copy.viewDetails}
+                        >
+                            <ProductImage
+                                src={activeImage}
+                                alt={product.title || ""}
+                                loading={eager ? "eager" : "lazy"}
+                                sizes={imageSizes}
+                                fit={imageFit}
+                                className={`product-card-image-well w-full rounded-[14px] ${imageAspect}`}
+                            />
+                        </Link>
+                        {favoriteButton}
+                    </div>
+
+                    {thumbStrip}
+
+                    <div className="mt-2.5 flex flex-1 flex-col">
+                        {categoryBlock}
+                        {titleBlock}
+                        {descriptionBlock}
+                        <p className="product-card-price mt-1.5">{priceLabel}</p>
+                    </div>
+
+                    <div className="mt-auto flex items-center gap-2 pt-3">
+                        {showViewProduct ? (
+                            <Link
+                                to={detailsHref}
+                                className="product-card-view-btn"
+                            >
+                                {copy.viewProduct || copy.viewDetails}
+                            </Link>
+                        ) : null}
+                        {orderButton}
+                    </div>
+                </div>
+            </article>
+        );
+    }
+
+    return (
+        <article
+            className={[
+                "product-card group flex h-full w-full flex-col overflow-hidden transition duration-[220ms] ease-premium motion-reduce:transition-none",
+                className,
+            ]
+                .filter(Boolean)
+                .join(" ")}
+        >
+            <div className="flex h-full flex-col px-[18px] py-5">
+                <div className="product-card-media relative">
+                    <Link
+                        to={detailsHref}
+                        className="product-card-image-link block w-full overflow-hidden rounded-[14px] focus-visible:outline-theme-focus-ring"
+                        aria-label={product.title || copy.viewDetails}
+                    >
+                        <ProductImage
+                            src={activeImage}
+                            alt={product.title || ""}
+                            loading={eager ? "eager" : "lazy"}
+                            sizes={imageSizes}
+                            fit={imageFit}
+                            className={`product-card-image-well w-full rounded-[14px] ${imageAspect}`}
+                        />
+                    </Link>
+                    {favoriteButton}
+                </div>
+
+                {thumbStrip}
+
+                <div className="mt-3 flex flex-1 flex-col">
+                    {categoryBlock}
+                    {titleBlock}
+                    {descriptionBlock}
+                </div>
+
+                <div className="product-card-footer mt-auto flex items-center justify-between gap-3 pt-3">
+                    <p className="product-card-price min-w-0">{priceLabel}</p>
+                    <div className="flex shrink-0 items-center gap-2">
+                        {showViewProduct ? (
+                            <Link
+                                to={detailsHref}
+                                className="product-card-view-btn product-card-view-btn-inline"
+                            >
+                                {copy.viewProduct || copy.viewDetails}
+                            </Link>
+                        ) : null}
+                        {orderButton}
+                    </div>
+                </div>
+            </div>
+        </article>
+    );
 };
 
-
-
 export default ProductCard;
-

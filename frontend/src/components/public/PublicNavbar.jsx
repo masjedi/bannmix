@@ -182,7 +182,7 @@ const PublicNavbar = () => {
 
         [
 
-            "public-nav-link relative inline-flex h-10 items-center px-1 text-[14px] font-semibold transition duration-200 ease-premium",
+            "public-nav-link type-nav relative inline-flex h-10 items-center px-1 transition duration-200 ease-premium",
 
             "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:rounded-full after:bg-brand-blue after:transition-transform after:duration-200 after:ease-premium",
 

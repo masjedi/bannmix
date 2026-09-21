@@ -35,7 +35,7 @@ const InfoSideCard = ({ label, title, description, icon: Icon, className = "" })
                 </div>
             </div>
             {hasText(description) ? (
-                <p className="mt-4 break-words text-sm leading-7 text-content-secondary text-content-secondary sm:text-base">
+                <p className="mt-4 break-words text-sm leading-7 text-content-secondary sm:text-base">
                     {description}
                 </p>
             ) : null}
@@ -97,7 +97,7 @@ const StoryMissionVision = ({
                                     </h2>
                                 ) : null}
                                 {hasText(story?.description) ? (
-                                    <p className="mt-5 max-w-2xl break-words text-base leading-8 text-content-secondary text-content-secondary">
+                                    <p className="mt-5 max-w-2xl break-words text-base leading-8 text-content-secondary">
                                         {story.description}
                                     </p>
                                 ) : null}

@@ -9,9 +9,10 @@ const cleanParams = (params = {}) => {
 };
 
 export const publicProductsApi = {
-    getProducts: async (params = {}) => {
+    getProducts: async (params = {}, config = {}) => {
         const response = await api.get("/public/products", {
             params: cleanParams(params),
+            ...config,
         });
 
         return response.data;

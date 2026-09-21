@@ -124,7 +124,7 @@ export const SectionLabel = ({ children, className = "" }) => (
 
     <p
 
-        className={`text-[12px] font-bold uppercase tracking-[0.16em] text-brand-orange ${className}`}
+        className={`type-eyebrow text-brand-orange ${className}`}
 
     >
 
@@ -196,7 +196,7 @@ export const SectionHeading = ({
 
             className={[
 
-                "text-[clamp(1.75rem,3vw,2.75rem)] font-extrabold leading-tight tracking-tight text-content",
+                "type-h2 text-content",
 
                 label ? "mt-3" : "",
 
@@ -210,7 +210,7 @@ export const SectionHeading = ({
 
         {description && (
 
-            <p className="mt-4 text-base leading-7 text-content-secondary sm:text-lg sm:leading-8">
+            <p className="type-lead mt-4 text-content-secondary">
 
                 {description}
 
@@ -274,7 +274,7 @@ export const PageHero = ({
 
                 className={[
 
-                    "max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl",
+                    "type-display-md max-w-2xl",
 
                     image ? "text-white" : "text-content",
 

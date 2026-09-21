@@ -259,14 +259,19 @@ export const publicTranslations = {
             "توزیع در کابل"
         ),
         testimonialsLabel: text(
-            "Testimonials",
-            "نظرونه",
-            "نظرات"
+            "Retailer feedback",
+            "د پرچون نظرونه",
+            "بازخورد خرده‌فروشی"
         ),
         testimonialsTitle: text(
-            "Trusted by shopkeepers and markets",
-            "د دوکاندارانو او مارکېټونو له خوا باوري",
-            "مورد اعتماد دکانداران و بازارها"
+            "What retailers say",
+            "پرچون پلورونکي څه وايي",
+            "خرده‌فروشان چه می‌گویند"
+        ),
+        testimonialsBody: text(
+            "Feedback from shopkeepers, vendors, and retail buyers who work with BanMix.",
+            "د دوکاندارانو، عرضه کوونکو او پرچون پیرودونکو نظرونه چې له BanMix سره کار کوي.",
+            "بازخورد دکانداران، فروشندگان و خریداران خرده‌فروشی که با BanMix کار می‌کنند."
         ),
         newsLabel: text("Latest news", "وروستي خبرونه", "آخرین اخبار"),
         newsTitle: text(
@@ -275,22 +280,146 @@ export const publicTranslations = {
             "تازه‌های BanMix"
         ),
         readMore: text("Read more", "نور ولولئ", "بیشتر بخوانید"),
+        majoonLabel: text("Our Majoon", "زموږ معجون", "معجون ما"),
+        majoonTitle: text(
+            "Traditional taste. Made for today.",
+            "دودیز خوند. د نن ورځې لپاره جوړ شوی.",
+            "طعم سنتی. ساخته‌شده برای امروز."
+        ),
+        majoonBody: text(
+            "BanMix Majoon is locally produced in Kabul and prepared for modern retail and wholesale distribution — familiar taste, retail-ready packaging, and a clear path to restock.",
+            "د BanMix معجون په کابل کې په محلي توګه تولیدېږي او د ننني پرچون او عمده ویش لپاره چمتو کېږي — پېژندل شوی خوند، د المارۍ لپاره چمتو بسته بندي، او د بیا ذخیرې روښانه لار.",
+            "معجون BanMix در کابل به‌صورت محلی تولید می‌شود و برای خرده‌فروشی و توزیع عمده امروزی آماده است — طعم آشنا، بسته‌بندی مناسب قفسه، و مسیر روشن برای موجود کردن دوباره."
+        ),
+        introVideoEyebrow: text(
+            "Discover BanMix",
+            "BanMix وپېژنئ",
+            "BanMix را بشناسید"
+        ),
+        introVideoTitle: text(
+            "Made in Kabul. Made to be shared.",
+            "په کابل کې جوړ شوی. د شریکولو لپاره جوړ شوی.",
+            "ساخت کابل. ساخته‌شده برای به اشتراک گذاشتن."
+        ),
+        introVideoBody: text(
+            "Discover the story behind BanMix, from local production and packaging to retail and wholesale supply.",
+            "د BanMix کیسه وپېژنئ، له محلي تولید او بسته بندۍ څخه تر پرچون او عمده رسولو پورې.",
+            "داستان BanMix را بشناسید، از تولید و بسته‌بندی محلی تا عرضه خرده‌فروشی و عمده."
+        ),
+        introVideoPlay: text(
+            "Play BanMix introduction video",
+            "د BanMix پېژندنیز ویډیو پلی کړئ",
+            "پخش ویدیوی معرفی BanMix"
+        ),
+        introVideoCaption: text(
+            "Watch the BanMix story",
+            "د BanMix کیسه وګورئ",
+            "داستان BanMix را ببینید"
+        ),
+        qualityLabel: text(
+            "Ingredients & quality",
+            "اجزا او کیفیت",
+            "مواد و کیفیت"
+        ),
+        qualityTitle: text(
+            "Ingredients selected with care.",
+            "اجزا په پاملرنې غوره شوي.",
+            "مواد با دقت انتخاب می‌شوند."
+        ),
+        qualityBody: text(
+            "BanMix starts with careful ingredient selection and a consistent preparation process, then packs Majoon for shop shelves.",
+            "BanMix له محتاط اجزاو غوره کولو او یوه ثابتې چمتووالي پروسې پیل کوي، بیا معجون د دوکان الماریو لپاره بسته کوي.",
+            "BanMix با انتخاب دقیق مواد و فرآیند آماده‌سازی یکنواخت آغاز می‌کند، سپس معجون را برای قفسه فروشگاه بسته‌بندی می‌کند."
+        ),
+        qualityIngredientsLead: text(
+            "Typically prepared with selected nuts, dry fruits, natural sweeteners, and traditional Majoon spices.",
+            "معمولاً د غوره شویو مغز لرونکو، وچو مېوو، طبیعي خوږونکو او دودیزو د معجون مصالحو سره چمتو کېږي.",
+            "معمولاً با مغزهای منتخب، میوه‌های خشک، شیرین‌کننده‌های طبیعی و ادویه‌های سنتی معجون آماده می‌شود."
+        ),
+        audienceLabel: text("Who we serve", "چاته خدمت کوو", "مخاطبان ما"),
+        audienceTitle: text(
+            "Made for local retail.",
+            "د محلي پرچون لپاره جوړ شوی.",
+            "ساخته‌شده برای خرده‌فروشی محلی."
+        ),
+        audienceBody: text(
+            "BanMix supplies shops, larger retail environments, and wholesale partners — with product information for individual customers too.",
+            "BanMix دوکانونو، لویو پرچون چاپېریالونو او عمده شریکانو ته عرضه کوي — د انفرادي پیرودونکو لپاره د محصول معلومات هم شته.",
+            "BanMix به فروشگاه‌ها، محیط‌های خرده‌فروشی بزرگ‌تر و شرکای عمده عرضه می‌کند — و اطلاعات محصول را برای مشتریان فردی نیز فراهم می‌کند."
+        ),
+        processLabel: text(
+            "Wholesale orders",
+            "عمده فرمایشونه",
+            "سفارش‌های عمده"
+        ),
+        processTitle: text(
+            "Wholesale ordering made simple.",
+            "عمده فرمایش ساده شوی.",
+            "سفارش عمده ساده شده است."
+        ),
+        processBody: text(
+            "Start a conversation with the BanMix team. Availability, pricing, and distribution are confirmed before an order is arranged.",
+            "له د BanMix ټیم سره خبرې پیل کړئ. شتون، قیمت او ویش مخکې له دې چې فرمایش تنظیم شي تاییدېږي.",
+            "گفت‌وگو را با تیم BanMix آغاز کنید. موجودی، قیمت و توزیع پیش از تنظیم سفارش تأیید می‌شود."
+        ),
+        processNote: text(
+            "Messaging BanMix on WhatsApp starts a conversation — it does not confirm an order.",
+            "په واتساپ BanMix ته پیغام استول خبرې پیلوي — فرمایش نه تاییدوي.",
+            "پیام دادن به BanMix در واتساپ گفت‌وگو را شروع می‌کند — سفارش را تأیید نمی‌کند."
+        ),
+        distributionLabel: text("Distribution", "ویش", "توزیع"),
+        distributionTitle: text(
+            "Local supply. Reliable coordination.",
+            "محلي عرضه. باوري همغږي.",
+            "عرضه محلی. هماهنگی قابل اعتماد."
+        ),
+        distributionBody: text(
+            "BanMix is produced in Kabul and supplied through coordinated wholesale and retail distribution. Ask the team about availability for your area.",
+            "BanMix په کابل کې تولیدېږي او له همغږي شوي عمده او پرچون ویش څخه عرضه کېږي. د خپلې سیمې د شتون په اړه له ټیم څخه وپوښتئ.",
+            "BanMix در کابل تولید می‌شود و از طریق توزیع هماهنگ عمده و خرده‌فروشی عرضه می‌گردد. درباره موجودی منطقه خود از تیم بپرسید."
+        ),
+        faqLabel: text("FAQ", "پوښتنې", "پرسش‌ها"),
+        faqTitle: text(
+            "Questions before you order?",
+            "مخکې له فرمایش پوښتنې؟",
+            "پرسش‌ها پیش از سفارش؟"
+        ),
+        faqBody: text(
+            "Practical answers about production, wholesale supply, and how to work with BanMix.",
+            "د تولید، عمده عرضې، او له BanMix سره د کار کولو په اړه عملي ځوابونه.",
+            "پاسخ‌های کاربردی درباره تولید، عرضه عمده، و نحوه همکاری با BanMix."
+        ),
+        faqHelp: text(
+            "Still need help?",
+            "لا هم مرستې ته اړتیا لرئ؟",
+            "هنوز به کمک نیاز دارید؟"
+        ),
+        faqWhatsApp: text(
+            "Ask on WhatsApp",
+            "په واتساپ وپوښتئ",
+            "در واتساپ بپرسید"
+        ),
         orderLabel: text(
             "Ready to stock?",
             "د ذخیره کولو لپاره چمتو یاست؟",
             "آماده موجود کردن هستید؟"
         ),
         orderTitle: text(
-            "Stock BanMix Majoon in your shop.",
-            "په خپل دوکان کې د BanMix معجون ذخیره کړئ.",
-            "معجون BanMix را در فروشگاه خود موجود کنید."
+            "Stock BanMix in your shop.",
+            "په خپل دوکان کې BanMix ذخیره کړئ.",
+            "BanMix را در فروشگاه خود موجود کنید."
         ),
         orderBody: text(
-            "Order directly from our Kabul team. Wholesale quantities are available for shops, vendors, and supermarkets.",
-            "مستقیماً زموږ د کابل ټیم څخه فرمایش ورکړئ. د دوکانونو، عرضه کوونکو او سوپرمارکېټونو لپاره عمده مقدارونه شته.",
-            "مستقیماً از تیم کابل ما سفارش دهید. مقادیر عمده برای فروشگاه‌ها، فروشندگان و سوپرمارکت‌ها موجود است."
+            "Looking for locally produced Majoon for your shop, supermarket, or wholesale business? Talk directly with the BanMix team about availability, quantities, and distribution.",
+            "د خپل دوکان، سوپرمارکېټ، یا عمده سوداګرۍ لپاره محلي تولید شوی معجون لټوئ؟ د شتون، مقدارونو او ویش په اړه مستقیماً له د BanMix ټیم سره خبرې وکړئ.",
+            "به دنبال معجون تولید محلی برای فروشگاه، سوپرمارکت یا کسب‌وکار عمده خود هستید؟ مستقیماً با تیم BanMix درباره موجودی، مقادیر و توزیع گفت‌وگو کنید."
         ),
         callSales: text("Call Sales", "پلور ته زنګ ووهئ", "تماس با فروش"),
+        contactSales: text(
+            "Contact Sales",
+            "له پلور سره اړیکه",
+            "تماس با فروش"
+        ),
         ctaFast: text("Fast response", "چټک ځواب", "پاسخ سریع"),
         ctaKabul: text(
             "Kabul distribution",
@@ -301,6 +430,96 @@ export const publicTranslations = {
             "Wholesale supply",
             "عمده عرضه",
             "عرضه عمده"
+        ),
+        heroImageAlt: text(
+            "BanMix Majoon product photography",
+            "د BanMix معجون د محصول انځور",
+            "عکس محصول معجون BanMix"
+        ),
+        heroSlideProductCaption: text(
+            "BanMix Majoon · Made in Kabul",
+            "BanMix معجون · په کابل کې جوړ شوی",
+            "معجون BanMix · تولید کابل"
+        ),
+        heroSlideRetailCaption: text(
+            "Ready for retail",
+            "د پرچون لپاره چمتو",
+            "آماده خرده‌فروشی"
+        ),
+        heroSlideWholesaleCaption: text(
+            "Prepared for wholesale supply",
+            "د عمده عرضې لپاره چمتو",
+            "آماده عرضه عمده"
+        ),
+        heroSlideProductAlt: text(
+            "BanMix Majoon jar and retail packaging",
+            "د BanMix معجون جار او پرچون بسته بندي",
+            "شیشه و بسته‌بندی خرده‌فروشی معجون BanMix"
+        ),
+        heroSlideRetailAlt: text(
+            "BanMix Majoon displayed for retail shelves",
+            "د BanMix معجون د پرچون الماریو لپاره نندارې",
+            "نمایش معجون BanMix برای قفسه فروشگاه"
+        ),
+        heroSlideWholesaleAlt: text(
+            "BanMix Majoon prepared for wholesale supply",
+            "د BanMix معجون د عمده عرضې لپاره چمتو",
+            "معجون BanMix آماده عرضه عمده"
+        ),
+        heroSlideProductFallback: text(
+            "Product photography",
+            "د محصول انځور",
+            "عکس محصول"
+        ),
+        heroSlideRetailFallback: text(
+            "Retail shelf display",
+            "د پرچون المارۍ نندارې",
+            "نمایش قفسه فروشگاه"
+        ),
+        heroSlideWholesaleFallback: text(
+            "Wholesale preparation",
+            "د عمده چمتووالي",
+            "آماده‌سازی عمده"
+        ),
+        heroCarouselLabel: text(
+            "BanMix product story",
+            "د BanMix محصول کیسه",
+            "داستان محصول BanMix"
+        ),
+        heroCarouselPrev: text(
+            "Previous slide",
+            "پخوانۍ سلایډ",
+            "اسلاید قبلی"
+        ),
+        heroCarouselNext: text(
+            "Next slide",
+            "راتلونکې سلایډ",
+            "اسلاید بعدی"
+        ),
+        heroCarouselGoTo: text(
+            "Go to slide {current} of {total}",
+            "سلایډ {current} له {total} څخه وښایاست",
+            "رفتن به اسلاید {current} از {total}"
+        ),
+        aboutImageAlt: text(
+            "BanMix local production in Kabul",
+            "په کابل کې د BanMix محلي تولید",
+            "تولید محلی BanMix در کابل"
+        ),
+        mediaFallbackLabel: text(
+            "BanMix Majoon",
+            "BanMix معجون",
+            "معجون BanMix"
+        ),
+        mediaFallbackHint: text(
+            "Product photography coming soon",
+            "د محصول انځورونه به ژر راشي",
+            "عکس محصول به‌زودی"
+        ),
+        productsLoading: text(
+            "Loading products…",
+            "محصولات بارېږي…",
+            "در حال بارگذاری محصولات…"
         ),
     },
 
@@ -485,6 +704,27 @@ export const publicTranslations = {
             "د پیښو جزئیات به دلته ښکاره شي کله چې اعلان شي. تر هغه وخته، دا دی چې موږ معمولاً له خپلې ټولنې سره څنګه اړیکه نیسو.",
             "جزئیات رویدادها پس از اعلام اینجا نمایش داده می‌شود. تا آن زمان، این‌ها روش‌های معمول ارتباط ما با جامعه است."
         ),
+        viewEvent: text("View event", "پیښه وګورئ", "مشاهده رویداد"),
+        backToEvents: text(
+            "Back to events",
+            "بېرته پیښو ته",
+            "بازگشت به رویدادها"
+        ),
+        relatedTitle: text(
+            "More events",
+            "نورې پیښې",
+            "رویدادهای بیشتر"
+        ),
+        notFoundTitle: text(
+            "Event not found",
+            "پیښه ونه موندل شوه",
+            "رویداد یافت نشد"
+        ),
+        notFoundBody: text(
+            "This event may have moved or is no longer available.",
+            "دا پیښه ممکن لیږدول شوې وي یا نور شتون ونلري.",
+            "این رویداد ممکن است جابه‌جا شده یا دیگر در دسترس نباشد."
+        ),
     },
 
     gallery: {
@@ -617,6 +857,16 @@ export const publicTranslations = {
             "له خوښو محصولاتو څخه لرې کړئ",
             "حذف از علاقه‌مندی‌ها"
         ),
+        notFoundTitle: text(
+            "Product not found",
+            "محصول ونه موندل شو",
+            "محصول یافت نشد"
+        ),
+        notFoundBody: text(
+            "This product may have been removed or is no longer available.",
+            "دا محصول ممکن لرې شوی وي یا نور شتون ونلري.",
+            "این محصول ممکن است حذف شده یا دیگر در دسترس نباشد."
+        ),
         priceOnRequest: text(
             "Price on request",
             "قیمت په غوښتنه",
@@ -633,6 +883,45 @@ export const publicTranslations = {
             "د استعمال طریقه",
             "روش مصرف"
         ),
+        usageDirections: text(
+            "Usage directions",
+            "د استعمال لارښوونې",
+            "دستورالعمل مصرف"
+        ),
+        color: text("Color", "رنګ", "رنگ"),
+        quantity: text("Quantity", "مقدار", "تعداد"),
+        subtotal: text("Subtotal", "ټولټال", "جمع جزء"),
+        addToCart: text("Add to Cart", "په کارټ کې اضافه کړئ", "افزودن به سبد"),
+        buyNow: text("Buy Now", "اوس واخلئ", "خرید فوری"),
+        productDescription: text(
+            "Product Description",
+            "د محصول توضیحات",
+            "توضیحات محصول"
+        ),
+        keyFeatures: text("Key Features", "مهم ځانګړتیاوې", "ویژگی‌های کلیدی"),
+        availability: text("Availability", "شتون", "موجودی"),
+        inStock: text(
+            "In Stock — Ships in 1–2 business days",
+            "په موجودیت کې — په ۱–۲ کاري ورځو کې لیږد",
+            "موجود — ارسال در ۱–۲ روز کاری"
+        ),
+        priceOnRequestNote: text(
+            "Contact us for wholesale pricing and delivery to your area.",
+            "د عمده قیمت او ستاسو سیمې ته د رسولو لپاره موږ سره اړیکه ونیسئ.",
+            "برای قیمت عمده و ارسال به منطقه خود با ما تماس بگیرید."
+        ),
+        priceDropAlert: text(
+            "Get Price Drop Alert",
+            "د قیمت کمېدو خبر ترلاسه کړئ",
+            "هشدار کاهش قیمت"
+        ),
+        shareProduct: text("Share product", "محصول شریک کړئ", "اشتراک محصول"),
+        linkCopied: text(
+            "Link copied to clipboard",
+            "لینک کاپي شو",
+            "لینک کپی شد"
+        ),
+        madeInKabul: text("Made in Kabul", "په کابل کې جوړ شوی", "ساخت کابل"),
         images: text("Product images", "انځورونه", "تصاویر محصول"),
         pricing: text("Pricing", "قیمت", "قیمت‌گذاری"),
         onlineOrdering: text(
@@ -660,6 +949,137 @@ export const publicTranslations = {
             "د دودیز ټانیک په توګه یوه کوچنۍ برخه وخورئ. په یخ او وچه ځای کې مهر شوی وساتئ. د خدمت اندازې لپاره د خپل جار لیبل تعقیب کړئ.",
             "به‌عنوان یک تقویت‌کننده سنتی، مقدار کمی میل کنید. در جای خنک و خشک و دربسته نگهداری کنید. اندازه وعده را از برچسب شیشه دنبال کنید."
         ),
+        reviews: {
+            title: text("Customer Reviews", "د پیرودونکو نظرونه", "نظرات مشتریان"),
+            subtitle: text(
+                "Share your experience with this Majoon product.",
+                "د دې معجون محصول سره خپله تجربه شریکه کړئ.",
+                "تجربه خود با این محصول معجون را به اشتراک بگذارید."
+            ),
+            writeReview: text("Write a review", "نظر ولیکئ", "نوشتن نظر"),
+            customerReviews: text("Recent reviews", "وروستي نظرونه", "نظرات اخیر"),
+            ratingLabel: text("Your rating", "ستاسو درجه", "امتیاز شما"),
+            nameLabel: text("Your name", "ستاسو نوم", "نام شما"),
+            emailLabel: text("Email (optional)", "برېښنالیک (اختیاري)", "ایمیل (اختیاری)"),
+            commentLabel: text("Your review (optional)", "ستاسو نظر (اختیاري)", "نظر شما (اختیاری)"),
+            submitLabel: text("Submit review", "نظر وسپارئ", "ارسال نظر"),
+            submitSuccess: text(
+                "Thank you. Your review has been submitted and is awaiting approval.",
+                "مننه. ستاسو نظر وسپارل شو او د تایید په انتظار دی.",
+                "متشکرم. نظر شما ارسال شد و در انتظار تأیید است."
+            ),
+            submitError: text(
+                "Could not submit your review. Please try again.",
+                "ستاسو نظر ونه سپارل شو. بیا هڅه وکړئ.",
+                "ارسال نظر ممکن نشد. دوباره تلاش کنید."
+            ),
+            loadError: text(
+                "Reviews could not be loaded.",
+                "نظرونه ونه لوستل شول.",
+                "بارگذاری نظرات ممکن نشد."
+            ),
+            loadingReviews: text("Loading reviews…", "نظرونه بارېږي…", "در حال بارگذاری نظرات…"),
+            emptyReviews: text(
+                "No reviews yet. Be the first to share your experience.",
+                "تر اوسه نظر نشته. لومړی وګورئ او خپله تجربه شریکه کړئ.",
+                "هنوز نظری ثبت نشده. اولین نفر باشید."
+            ),
+            errorName: text("Please enter your name.", "مهرباني وکړئ خپل نوم ولیکئ.", "لطفاً نام خود را وارد کنید."),
+            errorRating: text("Please select a star rating.", "مهرباني وکړئ ستوري درجه وټاکئ.", "لطفاً امتیاز ستاره را انتخاب کنید."),
+            errorEmail: text("Please enter a valid email.", "مهرباني وکړئ سم برېښنالیک ولیکئ.", "لطفاً ایمیل معتبر وارد کنید."),
+            reviewsCountLabel: text("reviews", "نظرونه", "نظر"),
+            previousPage: text("Previous", "پخوانی", "قبلی"),
+            nextPage: text("Next", "راتلونکی", "بعدی"),
+        },
+    },
+
+    feedback: {
+        buttonLabel: text(
+            "Share your feedback",
+            "خپل نظر شریک کړئ",
+            "نظر خود را شریک نماید"
+        ),
+        title: text(
+            "We value your opinion.",
+            "موږ ستاسو نظر ته ارزښت ورکوو.",
+            "نظر شما برای ما ارزشمند است."
+        ),
+        ratingPrompt: text(
+            "How would you rate your overall experience?",
+            "ستاسو عمومي تجربه څومره ارزښت لري؟",
+            "تجربه کلی خود را چگونه ارزیابی می‌کنید؟"
+        ),
+        nameLabel: text("Your name", "ستاسو نوم", "نام شما"),
+        namePlaceholder: text(
+            "Enter your name",
+            "خپل نوم ولیکئ",
+            "نام خود را وارد کنید"
+        ),
+        messagePrompt: text(
+            "Kindly take a moment to tell us what you think.",
+            "مهرباني وکړئ یو څه وخت راکړئ او ووایاست څه فکر کوئ.",
+            "لطفاً لحظه‌ای وقت بگذارید و نظر خود را بگویید."
+        ),
+        messagePlaceholder: text(
+            "Share your thoughts…",
+            "خپل نظرونه شریک کړئ…",
+            "نظر خود را بنویسید…"
+        ),
+        submit: text(
+            "Share my feedback",
+            "زما نظر شریک کړئ",
+            "بازخورد من را ارسال کنید"
+        ),
+        close: text(
+            "Close feedback form",
+            "د نظر فورمه بند کړئ",
+            "بستن فرم بازخورد"
+        ),
+        ratingGroupLabel: text(
+            "Overall experience rating",
+            "د عمومي تجربې درجه",
+            "امتیاز تجربه کلی"
+        ),
+        rateStar: text(
+            "Rate {value} out of 5",
+            "{value} له ۵ څخه درجه ورکړئ",
+            "امتیاز {value} از ۵"
+        ),
+        errorName: text(
+            "Please enter your name.",
+            "مهرباني وکړئ خپل نوم ولیکئ.",
+            "لطفاً نام خود را وارد کنید."
+        ),
+        errorNameMax: text(
+            "Name must be 50 characters or fewer.",
+            "نوم باید ۵۰ توري یا لږ وي.",
+            "نام باید حداکثر ۵۰ کاراکتر باشد."
+        ),
+        errorRating: text(
+            "Please select a rating.",
+            "مهرباني وکړئ یوه درجه وټاکئ.",
+            "لطفاً یک امتیاز انتخاب کنید."
+        ),
+        errorMessage: text(
+            "Please share your feedback.",
+            "مهرباني وکړئ خپل نظر شریک کړئ.",
+            "لطفاً بازخورد خود را بنویسید."
+        ),
+        errorMessageMax: text(
+            "Feedback must be 200 characters or fewer.",
+            "نظر باید ۲۰۰ توري یا لږ وي.",
+            "بازخورد باید حداکثر ۲۰۰ کاراکتر باشد."
+        ),
+        charCount: text(
+            "{current} / {max}",
+            "{current} / {max}",
+            "{current} / {max}"
+        ),
+        success: text(
+            "Thank you. Your feedback was submitted as a draft and will appear after approval.",
+            "مننه. ستاسو نظر د مسودې په توګه وسپارل شو او د تایید وروسته به ښکاره شي.",
+            "متشکرم. بازخورد شما به‌صورت پیش‌نویس ارسال شد و پس از تأیید نمایش داده می‌شود."
+        ),
     },
 
     newsletter: {
@@ -679,6 +1099,12 @@ export const publicTranslations = {
             "you@shop.com"
         ),
         subscribe: text("Subscribe", "ګډون وکړئ", "عضویت"),
+        emailLabel: text("Email address", "برېښنالیک", "آدرس ایمیل"),
+        unavailable: text(
+            "Newsletter signup is not available yet. Contact BanMix for product and stock updates.",
+            "د خبرپاڼې ګډون لا شتون نلري. د محصول او ذخیرې تازه معلوماتو لپاره له BanMix سره اړیکه ونیسئ.",
+            "عضویت خبرنامه هنوز در دسترس نیست. برای به‌روزرسانی محصول و موجودی با BanMix تماس بگیرید."
+        ),
     },
 
     contact: {
@@ -762,6 +1188,36 @@ export const publicTranslations = {
             "Enter a message before sending.",
             "مخکې له لیږد څخه پیغام ولیکئ.",
             "قبل از ارسال پیام را وارد کنید."
+        ),
+        formErrorName: text(
+            "Enter your name.",
+            "خپل نوم ولیکئ.",
+            "نام خود را وارد کنید."
+        ),
+        formErrorNameMax: text(
+            "Name must be 50 characters or fewer.",
+            "نوم باید ۵۰ توري یا لږ وي.",
+            "نام باید حداکثر ۵۰ کاراکتر باشد."
+        ),
+        formErrorEmailMax: text(
+            "Email must be 50 characters or fewer.",
+            "برېښنالیک باید ۵۰ توري یا لږ وي.",
+            "ایمیل باید حداکثر ۵۰ کاراکتر باشد."
+        ),
+        formErrorSubjectMax: text(
+            "Subject must be 100 characters or fewer.",
+            "موضوع باید ۱۰۰ توري یا لږ وي.",
+            "موضوع باید حداکثر ۱۰۰ کاراکتر باشد."
+        ),
+        formErrorMessageMax: text(
+            "Message must be 200 characters or fewer.",
+            "پیغام باید ۲۰۰ توري یا لږ وي.",
+            "پیام باید حداکثر ۲۰۰ کاراکتر باشد."
+        ),
+        formMessageCount: text(
+            "{current} / {max}",
+            "{current} / {max}",
+            "{current} / {max}"
         ),
         city: text("Kabul, Afghanistan", "کابل، افغانستان", "کابل، افغانستان"),
         locationLabel: text("Location", "موقعیت", "موقعیت"),
@@ -867,6 +1323,389 @@ export const HOME_HIGHLIGHTS = [
             "Order by WhatsApp or phone — built for busy local traders.",
             "په واتساپ یا تلیفون فرمایش ورکړئ — د بوختو محلي سوداګرو لپاره جوړ شوی.",
             "با واتساپ یا تلفن سفارش دهید — مناسب معامله‌گران پرمشغله محلی."
+        ),
+    },
+];
+
+export const HOME_MAJOON_ATTRIBUTES = [
+    {
+        icon: "leaf",
+        title: text(
+            "Carefully selected ingredients",
+            "په پاملرنې غوره شوي اجزا",
+            "مواد انتخاب‌شده با دقت"
+        ),
+        body: text(
+            "Each batch starts with selected nuts, dry fruits, and traditional Majoon spices.",
+            "هره برخه د غوره شویو مغز لرونکو، وچو مېوو او دودیزو د معجون مصالحو سره پیلېږي.",
+            "هر محموله با مغزها، میوه‌های خشک و ادویه‌های سنتی معجون آغاز می‌شود."
+        ),
+    },
+    {
+        icon: "check",
+        title: text(
+            "Consistent preparation",
+            "ثابت چمتووالی",
+            "آماده‌سازی یکنواخت"
+        ),
+        body: text(
+            "Prepared with a repeatable process so shops receive a familiar product.",
+            "په تکرارېدونکې پروسه چمتو کېږي ترڅو دوکانونه یو پېژندل شوی محصول ترلاسه کړي.",
+            "با فرآیندی تکرارپذیر آماده می‌شود تا فروشگاه‌ها محصولی آشنا دریافت کنند."
+        ),
+    },
+    {
+        icon: "package",
+        title: text(
+            "Retail-ready packaging",
+            "د پرچون لپاره چمتو بسته بندي",
+            "بسته‌بندی آماده خرده‌فروشی"
+        ),
+        body: text(
+            "Packed for display on shop and supermarket shelves.",
+            "د دوکان او سوپرمارکېټ الماریو کې د نندارې لپاره بسته شوی.",
+            "برای نمایش در قفسه فروشگاه و سوپرمارکت بسته‌بندی شده است."
+        ),
+    },
+    {
+        icon: "factory",
+        title: text(
+            "Produced locally in Kabul",
+            "په کابل کې په محلي توګه تولید شوی",
+            "تولید محلی در کابل"
+        ),
+        body: text(
+            "Made in Kabul for local retail and wholesale supply.",
+            "په کابل کې د محلي پرچون او عمده عرضې لپاره جوړ شوی.",
+            "در کابل برای عرضه خرده‌فروشی و عمده محلی ساخته می‌شود."
+        ),
+    },
+];
+
+export const HOME_QUALITY_INGREDIENTS = [
+    {
+        title: text("Nuts", "مغز لرونکي", "مغزها"),
+        body: text(
+            "Selected nuts used in traditional Majoon preparation.",
+            "غوره شوي مغز لرونکي چې په دودیز معجون چمتووالي کې کارېږي.",
+            "مغزهای منتخب که در آماده‌سازی سنتی معجون استفاده می‌شوند."
+        ),
+    },
+    {
+        title: text("Dry fruits", "وچې مېوې", "میوه‌های خشک"),
+        body: text(
+            "Dried fruits chosen for familiar taste and texture.",
+            "وچې مېوې چې د پېژندل شوي خوند او جوړښت لپاره غوره شوي.",
+            "میوه‌های خشک انتخاب‌شده برای طعم و بافت آشنا."
+        ),
+    },
+    {
+        title: text("Natural sweeteners", "طبیعي خوږونکي", "شیرین‌کننده‌های طبیعی"),
+        body: text(
+            "Sweeteners selected as part of the BanMix Majoon recipe.",
+            "خوږونکي چې د BanMix معجون ترکیب برخه دي.",
+            "شیرین‌کننده‌هایی که بخشی از ترکیب معجون BanMix هستند."
+        ),
+    },
+    {
+        title: text(
+            "Traditional spices",
+            "دودیزې مصالحې",
+            "ادویه‌های سنتی"
+        ),
+        body: text(
+            "Traditional Majoon spices used in local Kabul production.",
+            "دودیزې د معجون مصالحې چې په محلي کابل تولید کې کارېږي.",
+            "ادویه‌های سنتی معجون که در تولید محلی کابل استفاده می‌شوند."
+        ),
+    },
+];
+
+export const HOME_QUALITY_POINTS = [
+    {
+        icon: "leaf",
+        title: text(
+            "Ingredient selection",
+            "د اجزاو غوره کول",
+            "انتخاب مواد"
+        ),
+        body: text(
+            "Ingredients are chosen with care before preparation begins.",
+            "اجزا مخکې له چمتووالي په پاملرنې غوره کېږي.",
+            "مواد پیش از آغاز آماده‌سازی با دقت انتخاب می‌شوند."
+        ),
+    },
+    {
+        icon: "check",
+        title: text(
+            "Careful preparation",
+            "محتاط چمتووالی",
+            "آماده‌سازی دقیق"
+        ),
+        body: text(
+            "Majoon is prepared through a consistent production process in Kabul.",
+            "معجون په کابل کې د یوې ثابتې تولیدي پروسې له لارې چمتو کېږي.",
+            "معجون از طریق فرآیند تولید یکنواخت در کابل آماده می‌شود."
+        ),
+    },
+    {
+        icon: "package",
+        title: text("Retail packaging", "د پرچون بسته بندي", "بسته‌بندی خرده‌فروشی"),
+        body: text(
+            "Finished product is packed for shop and supermarket display.",
+            "بشپړ شوی محصول د دوکان او سوپرمارکېټ نندارې لپاره بسته کېږي.",
+            "محصول نهایی برای نمایش فروشگاه و سوپرمارکت بسته‌بندی می‌شود."
+        ),
+    },
+    {
+        icon: "factory",
+        title: text(
+            "Consistent production",
+            "ثابت تولید",
+            "تولید یکنواخت"
+        ),
+        body: text(
+            "The same preparation approach is used so shops can restock a familiar product.",
+            "همغه چمتووالي تګلاره کارېږي ترڅو دوکانونه یو پېژندل شوی محصول بیا ذخیره کړي.",
+            "همان روش آماده‌سازی به کار می‌رود تا فروشگاه‌ها محصولی آشنا را دوباره موجود کنند."
+        ),
+    },
+];
+
+export const HOME_AUDIENCES = [
+    {
+        icon: "store",
+        title: text("Shopkeepers", "دوکانداران", "دکانداران"),
+        body: text(
+            "Retail-ready stock and straightforward reordering.",
+            "د پرچون لپاره چمتو ذخیره او ساده بیا فرمایش.",
+            "موجودی آماده خرده‌فروشی و سفارش مجدد ساده."
+        ),
+    },
+    {
+        icon: "bag",
+        title: text("Supermarkets", "سوپرمارکېټونه", "سوپرمارکت‌ها"),
+        body: text(
+            "Consistent presentation and suitable quantities for larger retail environments.",
+            "ثابت وړاندې کول او د لویو پرچون چاپېریالونو لپاره مناسب مقدارونه.",
+            "ارائه یکنواخت و مقادیر مناسب برای محیط‌های خرده‌فروشی بزرگ‌تر."
+        ),
+    },
+    {
+        icon: "truck",
+        title: text(
+            "Wholesalers & distributors",
+            "عمده پلورونکي او ویشونکي",
+            "عمده‌فروشان و توزیع‌کنندگان"
+        ),
+        body: text(
+            "Bulk supply and distribution coordination.",
+            "د ډېر مقدار عرضه او د ویش همغږي.",
+            "عرضه عمده و هماهنگی توزیع."
+        ),
+    },
+    {
+        icon: "users",
+        title: text(
+            "Individual customers",
+            "انفرادي پیرودونکي",
+            "مشتریان فردی"
+        ),
+        body: text(
+            "Product inquiries and information.",
+            "د محصول پوښتنې او معلومات.",
+            "پرسش و اطلاعات محصول."
+        ),
+    },
+];
+
+export const HOME_ORDERING_STEPS = [
+    {
+        step: "01",
+        title: text("Contact BanMix", "له BanMix سره اړیکه", "تماس با BanMix"),
+        body: text(
+            "Contact the team through WhatsApp or phone.",
+            "له ټیم سره په واتساپ یا تلیفون اړیکه ونیسئ.",
+            "از طریق واتساپ یا تلفن با تیم تماس بگیرید."
+        ),
+    },
+    {
+        step: "02",
+        title: text(
+            "Share your requirements",
+            "خپلې اړتیاوې شریکې کړئ",
+            "نیازهای خود را بگویید"
+        ),
+        body: text(
+            "Tell us the products and quantities you need.",
+            "هغه محصولات او مقدارونه مو ووایاست چې ورته اړتیا لرئ.",
+            "محصولات و مقادیری را که نیاز دارید بگویید."
+        ),
+    },
+    {
+        step: "03",
+        title: text(
+            "Availability & pricing",
+            "شتون او قیمت",
+            "موجودی و قیمت"
+        ),
+        body: text(
+            "The team confirms current stock, pricing, and order details.",
+            "ټیم اوسنی ذخیره، قیمت او د فرمایش تفصیل تاییدوي.",
+            "تیم موجودی فعلی، قیمت و جزئیات سفارش را تأیید می‌کند."
+        ),
+    },
+    {
+        step: "04",
+        title: text("Distribution", "ویش", "توزیع"),
+        body: text(
+            "Delivery or collection arrangements are coordinated.",
+            "د رسولو یا اخیستلو ترتیبات همغږي کېږي.",
+            "ترتیبات تحویل یا دریافت هماهنگ می‌شود."
+        ),
+    },
+];
+
+export const HOME_DISTRIBUTION_POINTS = [
+    {
+        icon: "factory",
+        title: text("Kabul production", "د کابل تولید", "تولید کابل"),
+        body: text(
+            "BanMix Majoon is made locally in Kabul.",
+            "د BanMix معجون په کابل کې په محلي توګه جوړېږي.",
+            "معجون BanMix به‌صورت محلی در کابل ساخته می‌شود."
+        ),
+    },
+    {
+        icon: "store",
+        title: text("Local retailers", "محلي پرچون پلورونکي", "خرده‌فروشان محلی"),
+        body: text(
+            "Prepared for shops and supermarket shelves.",
+            "د دوکانونو او سوپرمارکېټ الماریو لپاره چمتو.",
+            "آماده قفسه فروشگاه‌ها و سوپرمارکت‌ها."
+        ),
+    },
+    {
+        icon: "package",
+        title: text("Wholesale supply", "عمده عرضه", "عرضه عمده"),
+        body: text(
+            "Quantities and packaging can be discussed with the team.",
+            "مقدارونه او بسته بندي له ټیم سره بحث کېدای شي.",
+            "مقادیر و بسته‌بندی را می‌توان با تیم بررسی کرد."
+        ),
+    },
+    {
+        icon: "truck",
+        title: text(
+            "Distribution coordination",
+            "د ویش همغږي",
+            "هماهنگی توزیع"
+        ),
+        body: text(
+            "Delivery or collection is arranged after details are confirmed.",
+            "رسول یا اخیستل وروسته له دې چې تفصیل تایید شي تنظیمېږي.",
+            "تحویل یا دریافت پس از تأیید جزئیات تنظیم می‌شود."
+        ),
+    },
+    {
+        icon: "map",
+        title: text(
+            "Coverage beyond Kabul",
+            "له کابل هاخوا پوښښ",
+            "پوشش فراتر از کابل"
+        ),
+        body: text(
+            "Contact the team to discuss supply for your location.",
+            "د خپل ځای د عرضې په اړه له ټیم سره اړیکه ونیسئ.",
+            "برای بررسی عرضه محل خود با تیم تماس بگیرید."
+        ),
+    },
+];
+
+/** Extra FAQ copy is retained below for other surfaces; Home shows the first five. */
+export const HOME_FAQ = [
+    {
+        question: text(
+            "Where is BanMix produced?",
+            "BanMix چیرته تولیدېږي؟",
+            "BanMix کجا تولید می‌شود؟"
+        ),
+        answer: text(
+            "BanMix Majoon is produced locally in Kabul, Afghanistan.",
+            "د BanMix معجون په کابل، افغانستان کې په محلي توګه تولیدېږي.",
+            "معجون BanMix به‌صورت محلی در کابل، افغانستان تولید می‌شود."
+        ),
+    },
+    {
+        question: text(
+            "Does BanMix supply wholesale customers?",
+            "ایا BanMix عمده پیرودونکو ته عرضه کوي؟",
+            "آیا BanMix به مشتریان عمده عرضه می‌کند؟"
+        ),
+        answer: text(
+            "Yes. BanMix supplies shops, vendors, supermarkets, and wholesale customers.",
+            "هو. BanMix دوکانونو، عرضه کوونکو، سوپرمارکېټونو او عمده پیرودونکو ته عرضه کوي.",
+            "بله. BanMix به فروشگاه‌ها، فروشندگان، سوپرمارکت‌ها و مشتریان عمده عرضه می‌کند."
+        ),
+    },
+    {
+        question: text(
+            "How can I place a wholesale order?",
+            "څنګه کولی شم عمده فرمایش ورکړم؟",
+            "چگونه می‌توانم سفارش عمده ثبت کنم؟"
+        ),
+        answer: text(
+            "Contact the BanMix team by WhatsApp or phone with the products and quantities you need. The team confirms availability, pricing, and order details before distribution is arranged. Messaging WhatsApp starts a conversation — it does not confirm an order on its own.",
+            "له د BanMix ټیم سره په واتساپ یا تلیفون اړیکه ونیسئ او هغه محصولات او مقدارونه ووایاست چې ورته اړتیا لرئ. ټیم شتون، قیمت او د فرمایش تفصیل تاییدوي مخکې له دې چې ویش تنظیم شي. په واتساپ پیغام استول خبرې پیلوي — پخپله فرمایش نه تاییدوي.",
+            "از طریق واتساپ یا تلفن با تیم BanMix تماس بگیرید و محصولات و مقادیر مورد نیاز را بگویید. تیم موجودی، قیمت و جزئیات سفارش را پیش از تنظیم توزیع تأیید می‌کند. پیام واتساپ گفت‌وگو را شروع می‌کند — به‌تنهایی سفارش را تأیید نمی‌کند."
+        ),
+    },
+    {
+        question: text(
+            "Where can I find BanMix products?",
+            "BanMix محصولات چیرته موندلی شم؟",
+            "محصولات BanMix را کجا پیدا کنم؟"
+        ),
+        answer: text(
+            "BanMix is supplied through local retail and wholesale channels. Contact the team for current availability in your area.",
+            "BanMix د محلي پرچون او عمده چینلونو له لارې عرضه کېږي. د خپلې سیمې د اوسني شتون لپاره له ټیم سره اړیکه ونیسئ.",
+            "BanMix از طریق کانال‌های خرده‌فروشی و عمده محلی عرضه می‌شود. برای موجودی فعلی منطقه خود با تیم تماس بگیرید."
+        ),
+    },
+    {
+        question: text(
+            "Does BanMix supply outside Kabul?",
+            "ایا BanMix له کابل هاخوا عرضه کوي؟",
+            "آیا BanMix خارج از کابل عرضه می‌کند؟"
+        ),
+        answer: text(
+            "Distribution is coordinated from Kabul. Contact the team to discuss supply for your location.",
+            "ویش له کابل څخه همغږي کېږي. د خپل ځای د عرضې په اړه له ټیم سره اړیکه ونیسئ.",
+            "توزیع از کابل هماهنگ می‌شود. برای بررسی عرضه محل خود با تیم تماس بگیرید."
+        ),
+    },
+    {
+        question: text(
+            "How should BanMix products be stored?",
+            "د BanMix محصولات باید څنګه وساتل شي؟",
+            "محصولات BanMix چگونه باید نگهداری شوند؟"
+        ),
+        answer: text(
+            "Follow the storage guidance on each product label. The BanMix team can confirm handling details when you order.",
+            "د هر محصول په لیبل کې د ساتنې لارښوونه تعقیب کړئ. د BanMix ټیم کولی شي د فرمایش پر مهال د ساتنې تفصیل تایید کړي.",
+            "راهنمای نگهداری روی برچسب هر محصول را دنبال کنید. تیم BanMix می‌تواند هنگام سفارش جزئیات نگهداری را تأیید کند."
+        ),
+    },
+    {
+        question: text(
+            "How can a shop or supermarket become a BanMix customer?",
+            "یو دوکان یا سوپرمارکېټ څنګه د BanMix پیرودونکی کېدای شي؟",
+            "چگونه یک فروشگاه یا سوپرمارکت می‌تواند مشتری BanMix شود؟"
+        ),
+        answer: text(
+            "Get in touch by WhatsApp, phone, or the contact page. Share your business type, products of interest, and quantities so the team can follow up.",
+            "په واتساپ، تلیفون، یا د اړیکې پاڼې له لارې اړیکه ونیسئ. د خپلې سوداګرۍ ډول، په زړه پورې محصولات او مقدارونه شریک کړئ ترڅو ټیم تعقیب وکړي.",
+            "از طریق واتساپ، تلفن یا صفحه تماس ارتباط بگیرید. نوع کسب‌وکار، محصولات مورد علاقه و مقادیر را بگویید تا تیم پیگیری کند."
         ),
     },
 ];
@@ -1097,9 +1936,9 @@ export const ABOUT_GALLERY = [
 
 /** WhatsApp / phone used for online ordering CTAs (frontend-only). */
 export const ORDER_CONTACTS = {
-    whatsapp: "93700000000",
-    phoneDisplay: "+93 (0) 700 000 000",
-    phoneHref: "tel:+93700000000",
+    whatsapp: "93766687135",
+    phoneDisplay: "+93 (0) 766 687 135",
+    phoneHref: "tel:+93766687135",
     email: "orders@banmix.com",
     /** Optional location fields — rows/map hide when empty. */
     location: {

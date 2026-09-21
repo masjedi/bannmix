@@ -1,0 +1,367 @@
+/**
+ * BanMix Typography System
+ * @see .cursor/skills/banmix-frontend-brand/typography-system.md
+ */
+
+:root {
+    --font-ui-en: "Manrope", system-ui, sans-serif;
+    --font-ui-rtl: "Vazirmatn", "Manrope", system-ui, sans-serif;
+    --font-display-en: "Roboto Slab", Georgia, "Times New Roman", serif;
+
+    --type-body-size: 1rem;
+    --type-body-leading: 1.625;
+    --type-body-sm-size: 0.875rem;
+    --type-body-sm-leading: 1.571;
+    --type-lead-size: 1.125rem;
+    --type-lead-leading: 1.667;
+    --type-label-size: 0.8125rem;
+    --type-label-leading: 1.385;
+    --type-caption-size: 0.75rem;
+    --type-caption-leading: 1.5;
+    --type-button-size: 0.9375rem;
+    --type-button-leading: 1.333;
+    --type-nav-size: 0.9375rem;
+    --type-nav-leading: 1.333;
+
+    --type-eyebrow-size: 0.8125rem;
+    --type-eyebrow-leading: 1.385;
+
+    --type-h4-size: 1.375rem;
+    --type-h4-leading: 1.364;
+    --type-h3-size: 1.75rem;
+    --type-h3-leading: 1.286;
+    --type-h2-size: 1.875rem;
+    --type-h2-leading: 1.2;
+
+    --type-display-md-size: 2.25rem;
+    --type-display-md-leading: 1.125;
+    --type-display-lg-size: 2.5rem;
+    --type-display-lg-leading: 1.1;
+
+    --type-product-title-size: 2.5rem;
+    --type-product-title-leading: 1.2;
+    --type-product-price-size: 1.5rem;
+    --type-product-price-leading: 1.333;
+    --type-product-section-size: 1.5rem;
+    --type-product-section-leading: 1.333;
+
+    --type-admin-page-title-size: 2rem;
+    --type-admin-page-title-leading: 1.25;
+    --type-admin-section-size: 1.5rem;
+    --type-admin-section-leading: 1.333;
+    --type-admin-panel-size: 1.125rem;
+    --type-admin-panel-leading: 1.444;
+    --type-admin-stat-size: 1.75rem;
+    --type-admin-stat-leading: 1.286;
+    --type-admin-table-header-size: 0.75rem;
+    --type-admin-table-header-leading: 1.333;
+    --type-admin-table-body-size: 0.875rem;
+    --type-admin-table-body-leading: 1.571;
+    --type-admin-input-size: 0.9375rem;
+    --type-admin-input-leading: 1.467;
+    --type-admin-form-label-size: 0.8125rem;
+    --type-admin-form-label-leading: 1.385;
+}
+
+@media (min-width: 768px) {
+    :root {
+        --type-h3-size: 1.625rem;
+        --type-h2-size: 2.125rem;
+        --type-h2-leading: 1.25;
+        --type-display-md-size: 2.625rem;
+        --type-display-lg-size: 3rem;
+        --type-display-lg-leading: 1.125;
+        --type-product-title-size: 2.625rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    :root {
+        --type-h3-size: 1.75rem;
+        --type-h3-leading: 1.286;
+        --type-h2-size: 2.5rem;
+        --type-h2-leading: 1.2;
+        --type-display-md-size: 3rem;
+        --type-display-md-leading: 1.125;
+        --type-display-lg-size: 3.5rem;
+        --type-display-lg-leading: 1.071;
+        --type-product-title-size: 2.5rem;
+        --type-product-title-leading: 1.2;
+    }
+}
+
+html[data-language="ps"],
+html[data-language="fa"] {
+    --type-body-leading: 1.875;
+    --type-body-sm-leading: 1.857;
+    --type-lead-leading: 1.778;
+    --type-label-size: 0.875rem;
+    --type-label-leading: 1.714;
+    --type-caption-size: 0.8125rem;
+    --type-caption-leading: 1.692;
+    --type-button-leading: 1.6;
+    --type-nav-leading: 1.6;
+    --type-eyebrow-size: 0.875rem;
+    --type-eyebrow-leading: 1.714;
+    --type-h4-leading: 1.545;
+    --type-h3-leading: 1.5;
+    --type-h2-leading: 1.421;
+    --type-display-md-leading: 1.409;
+    --type-display-lg-leading: 1.346;
+    --type-product-title-leading: 1.421;
+    --type-product-section-leading: 1.583;
+    --type-admin-page-title-leading: 1.467;
+    --type-admin-section-leading: 1.583;
+    --type-admin-panel-leading: 1.667;
+    --type-admin-stat-leading: 1.429;
+    --type-admin-table-header-size: 0.8125rem;
+    --type-admin-table-header-leading: 1.692;
+    --type-admin-table-body-leading: 1.857;
+    --type-admin-input-leading: 1.733;
+    --type-admin-form-label-size: 0.875rem;
+    --type-admin-form-label-leading: 1.714;
+}
+
+@media (min-width: 768px) {
+    html[data-language="ps"],
+    html[data-language="fa"] {
+        --type-h2-size: 2.125rem;
+        --type-display-md-size: 2.5rem;
+        --type-display-lg-size: 2.75rem;
+        --type-product-title-size: 2.5rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    html[data-language="ps"],
+    html[data-language="fa"] {
+        --type-h2-size: 2.375rem;
+        --type-display-md-size: 2.75rem;
+        --type-display-lg-size: 3.25rem;
+        --type-display-lg-leading: 1.346;
+        --type-product-title-size: 2.375rem;
+    }
+}
+
+html {
+    font-family: var(--font-ui-en);
+}
+
+html[data-language="ps"],
+html[data-language="fa"] {
+    font-family: var(--font-ui-rtl);
+}
+
+body {
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-leading);
+    font-weight: 400;
+}
+
+.public-page {
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-leading);
+}
+
+.admin-shell {
+    font-size: var(--type-admin-table-body-size);
+    line-height: var(--type-admin-table-body-leading);
+    font-weight: 400;
+}
+
+    .type-body {
+        font-size: var(--type-body-size);
+        line-height: var(--type-body-leading);
+        font-weight: 400;
+    }
+
+    .type-body-sm {
+        font-size: var(--type-body-sm-size);
+        line-height: var(--type-body-sm-leading);
+        font-weight: 400;
+    }
+
+    .type-lead {
+        font-size: var(--type-lead-size);
+        line-height: var(--type-lead-leading);
+        font-weight: 400;
+    }
+
+    .type-label {
+        font-size: var(--type-label-size);
+        line-height: var(--type-label-leading);
+        font-weight: 600;
+    }
+
+    .type-caption {
+        font-size: var(--type-caption-size);
+        line-height: var(--type-caption-leading);
+        font-weight: 500;
+    }
+
+    .type-button {
+        font-size: var(--type-button-size);
+        line-height: var(--type-button-leading);
+        font-weight: 600;
+    }
+
+    .type-nav {
+        font-size: var(--type-nav-size);
+        line-height: var(--type-nav-leading);
+        font-weight: 600;
+    }
+
+    .type-eyebrow {
+        font-size: var(--type-eyebrow-size);
+        line-height: var(--type-eyebrow-leading);
+        font-weight: 700;
+        letter-spacing: normal;
+        text-transform: none;
+    }
+
+    html[data-language="en"] .type-eyebrow {
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .type-h2 {
+        font-size: var(--type-h2-size);
+        line-height: var(--type-h2-leading);
+        font-weight: 700;
+        text-wrap: balance;
+    }
+
+    .type-h3 {
+        font-size: var(--type-h3-size);
+        line-height: var(--type-h3-leading);
+        font-weight: 700;
+        text-wrap: balance;
+    }
+
+    .type-h4 {
+        font-size: var(--type-h4-size);
+        line-height: var(--type-h4-leading);
+        font-weight: 700;
+    }
+
+    .type-display-md {
+        font-size: var(--type-display-md-size);
+        line-height: var(--type-display-md-leading);
+        font-weight: 800;
+        text-wrap: balance;
+    }
+
+    .type-display-lg {
+        font-size: var(--type-display-lg-size);
+        line-height: var(--type-display-lg-leading);
+        font-weight: 800;
+        text-wrap: balance;
+    }
+
+    html[data-language="en"] .type-display-accent {
+        font-family: var(--font-display-en);
+    }
+
+    .type-product-title {
+        font-size: var(--type-product-title-size);
+        line-height: var(--type-product-title-leading);
+        font-weight: 800;
+        text-wrap: balance;
+    }
+
+    .type-product-price {
+        font-size: var(--type-product-price-size);
+        line-height: var(--type-product-price-leading);
+        font-weight: 700;
+    }
+
+    .type-product-section-title {
+        font-size: var(--type-product-section-size);
+        line-height: var(--type-product-section-leading);
+        font-weight: 700;
+    }
+
+    .type-product-card-title {
+        font-size: 1.125rem;
+        line-height: 1.444;
+        font-weight: 700;
+    }
+
+    html[data-language="ps"] .type-product-card-title,
+    html[data-language="fa"] .type-product-card-title {
+        line-height: 1.667;
+    }
+
+    .type-product-card-price {
+        font-size: 1.0625rem;
+        line-height: 1.412;
+        font-weight: 700;
+    }
+
+    .type-product-category {
+        font-size: var(--type-caption-size);
+        line-height: var(--type-caption-leading);
+        font-weight: 700;
+        letter-spacing: normal;
+        text-transform: none;
+    }
+
+    html[data-language="en"] .type-product-category {
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    .type-admin-page-title {
+        font-size: var(--type-admin-page-title-size);
+        line-height: var(--type-admin-page-title-leading);
+        font-weight: 700;
+    }
+
+    .type-admin-section-title {
+        font-size: var(--type-admin-section-size);
+        line-height: var(--type-admin-section-leading);
+        font-weight: 700;
+    }
+
+    .type-admin-panel-title {
+        font-size: var(--type-admin-panel-size);
+        line-height: var(--type-admin-panel-leading);
+        font-weight: 700;
+    }
+
+    .type-admin-stat-value {
+        font-size: var(--type-admin-stat-size);
+        line-height: var(--type-admin-stat-leading);
+        font-weight: 700;
+    }
+
+    .type-admin-stat-label {
+        font-size: var(--type-admin-form-label-size);
+        line-height: var(--type-admin-form-label-leading);
+        font-weight: 600;
+    }
+
+    .type-admin-table-header {
+        font-size: var(--type-admin-table-header-size);
+        line-height: var(--type-admin-table-header-leading);
+        font-weight: 700;
+        letter-spacing: normal;
+        text-transform: none;
+    }
+
+    html[data-language="en"] .type-admin-table-header {
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    .type-admin-form-label {
+        font-size: var(--type-admin-form-label-size);
+        line-height: var(--type-admin-form-label-leading);
+        font-weight: 600;
+    }
+
+.type-admin-input {
+    font-size: var(--type-admin-input-size);
+    line-height: var(--type-admin-input-leading);
+    font-weight: 400;
+}

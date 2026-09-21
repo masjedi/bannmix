@@ -1,50 +1,91 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { postsApi } from "../../../api/postsApi";
 
 import { getErrorMessage, normalizeList } from "./adminLayoutUtils";
 
-const useAdminLayoutData = ({ locationPath, autoRefreshEnabled }) => {
+const useAdminLayoutData = ({ autoRefreshEnabled }) => {
     const [posts, setPosts] = useState([]);
+    const [postStats, setPostStats] = useState(null);
     const [activityLoading, setActivityLoading] = useState(true);
     const [activityError, setActivityError] = useState("");
+    const [quickSearchPostsLoaded, setQuickSearchPostsLoaded] = useState(false);
+
+    const fetchPostStats = useCallback(async (options = {}) => {
+        const { signal } = options;
+
+        try {
+            const stats = await postsApi.getPostStats(
+                signal ? { signal } : undefined
+            );
+            setPostStats(stats);
+        } catch (error) {
+            if (error?.code === "ERR_CANCELED") {
+                return;
+            }
+
+            throw error;
+        }
+    }, []);
+
+    const fetchQuickSearchPosts = useCallback(async (options = {}) => {
+        const { signal } = options;
+
+        if (quickSearchPostsLoaded) {
+            return;
+        }
+
+        try {
+            const postsResult = await postsApi.getPosts(
+                {
+                    per_page: 100,
+                    compact: 1,
+                },
+                signal ? { signal } : undefined
+            );
+
+            setPosts(normalizeList(postsResult));
+            setQuickSearchPostsLoaded(true);
+        } catch (error) {
+            if (error?.code === "ERR_CANCELED") {
+                return;
+            }
+
+            throw error;
+        }
+    }, [quickSearchPostsLoaded]);
+
+    const fetchAdminData = useCallback(async (options = {}) => {
+        const { signal } = options;
+
+        try {
+            setActivityLoading(true);
+            setActivityError("");
+
+            await fetchPostStats({ signal });
+        } catch (error) {
+            if (error?.code === "ERR_CANCELED") {
+                return;
+            }
+
+            setActivityError(
+                getErrorMessage(error, "Failed to load products.")
+            );
+        } finally {
+            setActivityLoading(false);
+        }
+    }, [fetchPostStats]);
 
     useEffect(() => {
-        let active = true;
-        let delayedRefreshTimer = null;
+        const controller = new AbortController();
         let refreshInterval = null;
 
-        const fetchAdminData = async () => {
-            try {
-                setActivityLoading(true);
-                setActivityError("");
-
-                const postsResult = await postsApi.getPosts();
-
-                if (!active) {
-                    return;
-                }
-
-                setPosts(normalizeList(postsResult));
-            } catch (error) {
-                if (active) {
-                    setActivityError(
-                        getErrorMessage(error, "Failed to load products.")
-                    );
-                }
-            } finally {
-                if (active) {
-                    setActivityLoading(false);
-                }
-            }
-        };
-
-        fetchAdminData();
-
-        delayedRefreshTimer = window.setTimeout(fetchAdminData, 1500);
+        fetchAdminData({ signal: controller.signal });
 
         if (autoRefreshEnabled) {
-            refreshInterval = window.setInterval(fetchAdminData, 30000);
+            refreshInterval = window.setInterval(() => {
+                fetchAdminData();
+            }, 30000);
         }
 
         const handleWindowFocus = () => {
@@ -54,11 +95,7 @@ const useAdminLayoutData = ({ locationPath, autoRefreshEnabled }) => {
         window.addEventListener("focus", handleWindowFocus);
 
         return () => {
-            active = false;
-
-            if (delayedRefreshTimer) {
-                window.clearTimeout(delayedRefreshTimer);
-            }
+            controller.abort();
 
             if (refreshInterval) {
                 window.clearInterval(refreshInterval);
@@ -66,12 +103,15 @@ const useAdminLayoutData = ({ locationPath, autoRefreshEnabled }) => {
 
             window.removeEventListener("focus", handleWindowFocus);
         };
-    }, [locationPath, autoRefreshEnabled]);
+    }, [autoRefreshEnabled, fetchAdminData]);
 
     return {
         posts,
+        postStats,
         activityLoading,
         activityError,
+        refetchPosts: fetchAdminData,
+        loadQuickSearchPosts: fetchQuickSearchPosts,
     };
 };
 

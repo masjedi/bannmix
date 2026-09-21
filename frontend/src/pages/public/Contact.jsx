@@ -34,7 +34,7 @@ const Contact = () => {
     return (
         <PublicPage>
             <InnerPageHero
-                eyebrow={translate(t.heroLabel)}
+                eyebrow={hero?.subtitle || translate(t.heroLabel)}
                 title={hero?.title || translate(t.heroTitle)}
                 description={hero?.content || translate(t.heroBody)}
             />
@@ -63,7 +63,13 @@ const Contact = () => {
                 formSendingLabel={translate(t.formSending)}
                 formSentLabel={translate(t.formSent)}
                 formErrorEmail={translate(t.formErrorEmail)}
+                formErrorName={translate(t.formErrorName)}
+                formErrorNameMax={translate(t.formErrorNameMax)}
+                formErrorEmailMax={translate(t.formErrorEmailMax)}
+                formErrorSubjectMax={translate(t.formErrorSubjectMax)}
                 formErrorMessage={translate(t.formErrorMessage)}
+                formErrorMessageMax={translate(t.formErrorMessageMax)}
+                formMessageCount={translate(t.formMessageCount)}
                 formErrorInvalidEmail={translate(t.formErrorInvalidEmail)}
                 formSubjectDefault={translate(t.formSubjectDefault)}
             />

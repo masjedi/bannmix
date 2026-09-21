@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import siteContentApi from "../api/siteContentApi";
 import { useLanguage } from "../context/LanguageContext";
+import { fetchPublicPageWithCache } from "../utils/publicContentCache";
 
 const EMPTY_PAGE_DATA = {
     page: "",
@@ -9,6 +10,7 @@ const EMPTY_PAGE_DATA = {
     direction: "ltr",
     sections: {},
     items: [],
+    includes: {},
 };
 
 /**
@@ -31,10 +33,15 @@ const extractPageData = (response) => {
         direction: payload?.direction ?? "ltr",
         sections: payload?.sections ?? {},
         items: Array.isArray(payload?.items) ? payload.items : [],
+        includes: payload?.includes ?? {},
     };
 };
 
 const getErrorMessage = (error) => {
+    if (error?.code === "ERR_CANCELED") {
+        return "";
+    }
+
     return (
         error?.response?.data?.message ||
         error?.message ||
@@ -48,49 +55,69 @@ const usePublicPageContent = (page, options = {}) => {
     const { section = "", enabled = true } = options;
 
     const [pageData, setPageData] = useState(EMPTY_PAGE_DATA);
-
     const [loading, setLoading] = useState(Boolean(enabled));
-
     const [error, setError] = useState("");
 
-    const fetchContent = useCallback(async () => {
-        if (!enabled || !page) {
-            setPageData(EMPTY_PAGE_DATA);
-            setLoading(false);
+    const fetchContent = useCallback(
+        async ({ bypassCache = false, signal } = {}) => {
+            if (!enabled || !page) {
+                setPageData(EMPTY_PAGE_DATA);
+                setLoading(false);
+                setError("");
+
+                return null;
+            }
+
+            setLoading(true);
             setError("");
 
-            return null;
-        }
-
-        setLoading(true);
-        setError("");
-
-        try {
-            const params = {
-                lang: language,
-            };
+            const params = { lang: language };
 
             if (section) {
                 params.section = section;
             }
 
-            const response = await siteContentApi.getPublicPage(page, params);
+            try {
+                const fetcher = async ({ signal: requestSignal }) => {
+                    const response = await siteContentApi.getPublicPage(
+                        page,
+                        params,
+                        { signal: requestSignal }
+                    );
 
-            const normalizedData = extractPageData(response);
+                    return extractPageData(response);
+                };
 
-            setPageData(normalizedData);
+                const normalizedData = bypassCache
+                    ? await fetcher({ signal })
+                    : await fetchPublicPageWithCache({
+                          page,
+                          language,
+                          section,
+                          signal,
+                          fetcher,
+                      });
 
-            return normalizedData;
-        } catch (requestError) {
-            setError(getErrorMessage(requestError));
+                setPageData(normalizedData);
 
-            return null;
-        } finally {
-            setLoading(false);
-        }
-    }, [enabled, language, page, section]);
+                return normalizedData;
+            } catch (requestError) {
+                const message = getErrorMessage(requestError);
+
+                if (message) {
+                    setError(message);
+                }
+
+                return null;
+            } finally {
+                setLoading(false);
+            }
+        },
+        [enabled, language, page, section]
+    );
 
     useEffect(() => {
+        const controller = new AbortController();
         let active = true;
 
         const loadContent = async () => {
@@ -109,27 +136,36 @@ const usePublicPageContent = (page, options = {}) => {
                 setError("");
             }
 
+            const params = { lang: language };
+
+            if (section) {
+                params.section = section;
+            }
+
             try {
-                const params = {
-                    lang: language,
-                };
-
-                if (section) {
-                    params.section = section;
-                }
-
-                const response = await siteContentApi.getPublicPage(
+                const normalizedData = await fetchPublicPageWithCache({
                     page,
-                    params
-                );
+                    language,
+                    section,
+                    signal: controller.signal,
+                    fetcher: async ({ signal }) => {
+                        const response = await siteContentApi.getPublicPage(
+                            page,
+                            params,
+                            { signal }
+                        );
+
+                        return extractPageData(response);
+                    },
+                });
 
                 if (!active) {
                     return;
                 }
 
-                setPageData(extractPageData(response));
+                setPageData(normalizedData);
             } catch (requestError) {
-                if (!active) {
+                if (!active || requestError?.code === "ERR_CANCELED") {
                     return;
                 }
 
@@ -145,6 +181,7 @@ const usePublicPageContent = (page, options = {}) => {
 
         return () => {
             active = false;
+            controller.abort();
         };
     }, [enabled, language, page, section]);
 
@@ -179,6 +216,16 @@ const usePublicPageContent = (page, options = {}) => {
         [pageData.items]
     );
 
+    const getIncludedSection = useCallback(
+        (includePage, sectionName) => {
+            const content =
+                pageData.includes?.[includePage]?.sections?.[sectionName];
+
+            return Array.isArray(content) ? content : [];
+        },
+        [pageData.includes]
+    );
+
     return useMemo(
         () => ({
             page: pageData.page,
@@ -186,14 +233,16 @@ const usePublicPageContent = (page, options = {}) => {
             direction: pageData.direction,
             sections: pageData.sections,
             items: pageData.items,
+            includes: pageData.includes,
 
             loading,
             error,
 
-            refetch: fetchContent,
+            refetch: () => fetchContent({ bypassCache: true }),
             getSection,
             getFirstSectionItem,
             getItemByKey,
+            getIncludedSection,
         }),
         [
             pageData,
@@ -203,6 +252,7 @@ const usePublicPageContent = (page, options = {}) => {
             getSection,
             getFirstSectionItem,
             getItemByKey,
+            getIncludedSection,
         ]
     );
 };

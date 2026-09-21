@@ -6,6 +6,7 @@ import { LanguageProvider } from "./context/LanguageContext";
 import { ThemeProvider } from "./context/ThemeContext";
 
 import "./index.css";
+import "./styles/typography.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>

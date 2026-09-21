@@ -8,7 +8,6 @@ import { useLanguage } from "../../context/LanguageContext";
 import usePublicPageContent from "../../hooks/usePublicPageContent";
 import publicTranslations, {
     ORDER_CONTACTS,
-    SERVICES_ITEMS,
 } from "../../i18n/publicTranslations";
 
 const Services = () => {
@@ -21,51 +20,34 @@ const Services = () => {
     const intro = getFirstSectionItem("intro");
     const cmsItems = getSection("items");
 
-    const items = useMemo(() => {
-        const fallback = SERVICES_ITEMS.map((item, index) => ({
-            id: item.icon ?? index,
-            icon: item.icon,
-            title: translate(item.title),
-            content: translate(item.content),
-        }));
-
-        if (cmsItems.length === 0) return fallback;
-
-        return cmsItems.map((item, index) => ({
-            id: item.id ?? index,
-            icon: item.icon ?? SERVICES_ITEMS[index]?.icon,
-            title:
-                item.title ||
-                fallback[index % fallback.length]?.title ||
-                "",
-            content:
-                item.content ||
-                item.description ||
-                fallback[index % fallback.length]?.content ||
-                "",
-        }));
-    }, [cmsItems, translate]);
+    const items = useMemo(
+        () =>
+            cmsItems.map((item, index) => ({
+                id: item.id ?? index,
+                icon: item.icon,
+                title: item.title || "",
+                content: item.content || item.description || "",
+            })),
+        [cmsItems]
+    );
 
     return (
         <PublicPage>
-            <InnerPageHero
-                eyebrow={translate(t.heroLabel)}
-                title={hero?.title || translate(t.heroTitle)}
-                description={hero?.content || translate(t.heroBody)}
-                primaryAction={{
-                    label: translate(t.browseProducts),
-                    to: "/products",
-                }}
-                secondaryAction={{
-                    label: translate(t.backToHome),
-                    to: "/",
-                }}
-            />
+            {hero ? (
+                <InnerPageHero
+                    eyebrow={hero.subtitle || ""}
+                    title={hero.title || ""}
+                    description={hero.content || ""}
+                    primaryAction={{
+                        label: hero.button_text || "",
+                        href: hero.button_url || "",
+                    }}
+                />
+            ) : null}
 
             <ServicesGrid
                 label={translate(t.offerLabel)}
-                title={intro?.title || translate(t.offerTitle)}
-                description={intro?.content || translate(t.offerBody)}
+                title={intro?.title || ""}
                 items={items}
             />
 

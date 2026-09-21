@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import {
-    ChevronDown,
     HelpCircle,
     LogOut,
     Settings,
@@ -15,7 +14,11 @@ const UserMenu = ({ user, onLogout, loggingOut, onOpenPanel }) => {
 
     useClickOutside(ref, () => setOpen(false), open);
 
-    const initials = user?.name?.charAt(0) || user?.email?.charAt(0) || "A";
+    const initials = (
+        user?.name?.charAt(0) ||
+        user?.email?.charAt(0) ||
+        "A"
+    ).toUpperCase();
 
     const openPanel = (panel) => {
         setOpen(false);
@@ -30,75 +33,58 @@ const UserMenu = ({ user, onLogout, loggingOut, onOpenPanel }) => {
                 aria-label="User menu"
                 aria-expanded={open}
                 className={[
-                    "flex items-center gap-2 rounded-lg p-1 pr-2 transition",
-                    open ? "bg-theme-surface-soft" : "hover:bg-theme-surface-soft",
+                    "admin-header-profile",
+                    open ? "is-open" : "",
                 ].join(" ")}
             >
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-brand-green to-brand-green text-sm font-bold text-white">
-                    {initials.toUpperCase()}
-                </span>
+                <span className="admin-header-avatar">{initials}</span>
 
-                <span className="hidden text-right md:block">
-                    <p className="text-sm font-semibold leading-tight text-content">
+                <span className="admin-header-profile-text hidden md:block">
+                    <span className="admin-header-profile-name">
                         {user?.name || "Administrator"}
-                    </p>
-
-                    <p className="text-[10px] uppercase tracking-wider text-content-muted">
-                        {user?.role || "admin"}
-                    </p>
+                    </span>
+                    <span className="admin-header-profile-email">
+                        {user?.email || "admin@banmix.com"}
+                    </span>
                 </span>
-
-                <ChevronDown
-                    size={14}
-                    className={[
-                        "hidden text-content-muted transition md:block",
-                        open ? "rotate-180" : "",
-                    ].join(" ")}
-                />
             </button>
 
-            {open && (
-                <div className="absolute right-0 top-full z-50 mt-2 w-64 overflow-hidden rounded-xl border border-line bg-theme-surface shadow-xl">
-                    <div className="border-b border-line bg-theme-page px-4 py-3">
+            {open ? (
+                <div className="admin-header-profile-menu">
+                    <div className="admin-header-profile-menu-head">
                         <p className="truncate text-sm font-bold text-content">
                             {user?.name || "Administrator"}
                         </p>
-
                         <p className="truncate text-xs text-content-muted">
                             {user?.email || "admin@banmix.com"}
                         </p>
-
-                        <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-theme-success-bg px-2 py-0.5 text-[10px] font-bold text-theme-success-text">
-                            <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
-                            Online
-                        </span>
                     </div>
 
                     <div className="p-1.5">
                         <button
                             type="button"
                             onClick={() => openPanel("profile")}
-                            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-content-secondary transition hover:bg-theme-surface-soft"
+                            className="admin-header-profile-menu-item"
                         >
-                            <UserIcon size={15} className="text-content-muted" />
+                            <UserIcon size={15} />
                             My profile
                         </button>
 
                         <button
                             type="button"
                             onClick={() => openPanel("settings")}
-                            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-content-secondary transition hover:bg-theme-surface-soft"
+                            className="admin-header-profile-menu-item"
                         >
-                            <Settings size={15} className="text-content-muted" />
+                            <Settings size={15} />
                             Settings
                         </button>
 
                         <button
                             type="button"
                             onClick={() => openPanel("help")}
-                            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-content-secondary transition hover:bg-theme-surface-soft"
+                            className="admin-header-profile-menu-item"
                         >
-                            <HelpCircle size={15} className="text-content-muted" />
+                            <HelpCircle size={15} />
                             Help & support
                         </button>
                     </div>
@@ -111,14 +97,14 @@ const UserMenu = ({ user, onLogout, loggingOut, onOpenPanel }) => {
                                 onLogout();
                             }}
                             disabled={loggingOut}
-                            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+                            className="admin-header-profile-menu-item admin-header-profile-menu-item-danger"
                         >
                             <LogOut size={15} />
                             {loggingOut ? "Logging out…" : "Log out"}
                         </button>
                     </div>
                 </div>
-            )}
+            ) : null}
         </div>
     );
 };

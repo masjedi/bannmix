@@ -2,6 +2,7 @@ import { ORDER_CONTACTS } from "../../../i18n/publicTranslations";
 
 export const CATALOG_ID = "product-catalog";
 export const WHOLESALE_ID = "wholesale-orders";
+export const SEARCH_MAX_LENGTH = 50;
 
 export const SORT_OPTIONS = [
     { value: "latest" },
@@ -43,15 +44,76 @@ export const formatPrice = (product, priceOnRequest) => {
     return `${currency} ${formatted}`;
 };
 
-export const whatsappOrder = (title, translate) => {
+export const getProductRating = (product) => {
+    const parsed = Number(
+        product?.average_rating ?? product?.approved_reviews_avg_rating ?? 0
+    );
+
+    if (Number.isNaN(parsed) || parsed <= 0) {
+        return 0;
+    }
+
+    return Math.min(Math.max(parsed, 0), 5);
+};
+
+export const getProductReviewCount = (product) => {
+    const parsed = Number(product?.review_count ?? 0);
+
+    return Number.isNaN(parsed) ? 0 : parsed;
+};
+
+export const formatProductRating = (rating) => {
+    if (!rating) return "0.0";
+    return Number(rating).toFixed(1);
+};
+
+export const formatDetailPrice = (product, priceOnRequest) => {
+    if (!hasValue(product?.price)) {
+        return { display: priceOnRequest, numeric: null };
+    }
+
+    const amount = Number(product.price);
+
+    if (Number.isNaN(amount)) {
+        return { display: priceOnRequest, numeric: null };
+    }
+
+    const currency = String(product.currency || "USD").trim().toUpperCase();
+    const formatted = amount.toLocaleString(undefined, {
+        minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+        maximumFractionDigits: 2,
+    });
+
+    if (currency === "USD") {
+        return { display: `$${formatted}`, numeric: amount };
+    }
+
+    if (currency === "AFN") {
+        return { display: `${formatted} AFN`, numeric: amount };
+    }
+
+    return { display: `${currency} ${formatted}`, numeric: amount };
+};
+
+export const whatsappOrder = (title, translate, options = {}) => {
+    const { quantity = 1 } = options;
+    const qtyPart = translate({
+        en: `, Quantity: ${quantity}`,
+        ps: `، مقدار: ${quantity}`,
+        fa: `، تعداد: ${quantity}`,
+    });
+
     const message = translate({
-        en: `Hello BanMix, I want to order: ${title || "Majoon"}`,
-        ps: `سلام BanMix، زه غواړم دا فرمایش ورکړم: ${title || "معجون"}`,
-        fa: `سلام BanMix، می‌خواهم این را سفارش دهم: ${title || "معجون"}`,
+        en: `Hello BanMix, I want to order: ${title || "Majoon"}${qtyPart}`,
+        ps: `سلام BanMix، زه غواړم دا فرمایش ورکړم: ${title || "معجون"}${qtyPart}`,
+        fa: `سلام BanMix، می‌خواهم این را سفارش دهم: ${title || "معجون"}${qtyPart}`,
     });
 
     return `https://wa.me/${ORDER_CONTACTS.whatsapp}?text=${encodeURIComponent(message)}`;
 };
+
+export const buildOrderHref = (product, translate, options = {}) =>
+    whatsappOrder(product?.title, translate, options);
 
 export const wholesaleWhatsApp = (translate) => {
     const message = translate({
@@ -77,6 +139,8 @@ export const getProductImages = (product) => {
 
     return [...new Set(images)];
 };
+
+export const hasProductImage = (product) => getProductImages(product).length > 0;
 
 export const getMetadataChips = (product, translate) => {
     const chips = [];
