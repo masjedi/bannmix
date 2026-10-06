@@ -3,7 +3,8 @@ import { useState } from "react";
 import { ArrowRight, Mail, MessageCircle, Phone } from "lucide-react";
 
 import contactApi from "../../../api/contactApi";
-import { Container, FadeUp, PageSection } from "../ui";
+import { Container, FadeUp, LtrIsolate, PageSection } from "../ui";
+import { needsPlainTextDirection } from "../../../utils/bidi";
 import { hasText } from "./contactUtils";
 
 const EMAIL_PATTERN =
@@ -26,6 +27,16 @@ const formatCharCount = (template, current, max) =>
 const ContactInfoItem = ({ icon: Icon, label, value, href }) => {
     if (!hasText(value)) return null;
 
+    const valueNode = (
+        <span className="contact-info-value">
+            {needsPlainTextDirection(href) ? (
+                <LtrIsolate>{value}</LtrIsolate>
+            ) : (
+                value
+            )}
+        </span>
+    );
+
     const inner = (
         <>
             <span className="contact-info-icon" aria-hidden="true">
@@ -33,7 +44,7 @@ const ContactInfoItem = ({ icon: Icon, label, value, href }) => {
             </span>
             <span className="contact-info-copy">
                 <span className="contact-info-label">{label}</span>
-                <span className="contact-info-value">{value}</span>
+                {valueNode}
             </span>
             {hasText(href) ? (
                 <ArrowRight
@@ -88,12 +99,11 @@ const ContactMainSection = ({
     formErrorMessageMax,
     formMessageCount,
     formErrorInvalidEmail,
-    formSubjectDefault,
 }) => {
     const [form, setForm] = useState({
         name: "",
         email: "",
-        subject: clampText(formSubjectDefault || "", FIELD_LIMITS.subject),
+        subject: "",
         message: "",
     });
     const [fieldErrors, setFieldErrors] = useState({});

@@ -105,7 +105,7 @@ export const PAGE_SECTION_SCHEMAS = {
         {
             section: "hero",
             label: "Hero",
-            description: "Main headline and call to action at the top of the home page.",
+            description: "Home shows the latest 3 active Hero records, newest first. Each record's images rotate with its headline and button; manual order does not affect this section.",
             mode: "list",
             itemLabel: "Hero",
             fields: heroWithCtaFields,
@@ -120,8 +120,8 @@ export const PAGE_SECTION_SCHEMAS = {
         },
         {
             section: "majoon",
-            label: "Our Majoon",
-            description: "Product spotlight attributes shown in the Our Majoon grid.",
+            label: "PiawarryBann",
+            description: "Product spotlight attributes shown in the PiawarryBann grid.",
             mode: "list",
             itemLabel: "Attribute",
             fields: cardItemFields,
@@ -130,7 +130,7 @@ export const PAGE_SECTION_SCHEMAS = {
             section: "intro_video",
             label: "Intro Video",
             description:
-                "YouTube introduction shown after Our Majoon. Turn off “Visible on the public website” to hide it. A valid YouTube URL is required while the section is visible.",
+                "YouTube introduction shown after PiawarryBann. Turn off “Visible on the public website” to hide it. A valid YouTube URL is required while the section is visible.",
             mode: "single",
             fields: [
                 {
@@ -185,14 +185,14 @@ export const PAGE_SECTION_SCHEMAS = {
         {
             section: "audience",
             label: "Who We Serve",
-            description: "Audience groups you serve.",
+            description: "Audience groups you serve. Public cards show up to 2 lines for the title and 4 lines for the description; keep the copy concise for this layout.",
             mode: "list",
             itemLabel: "Audience",
             fields: cardItemFields,
         },
         {
             section: "highlights",
-            label: "Why BanMix",
+            label: "Why BannMix",
             description: "Key strengths or selling points.",
             mode: "list",
             itemLabel: "Highlight",
@@ -393,6 +393,17 @@ export const PAGE_SECTION_SCHEMAS = {
                 { key: "title", label: "Location name", type: "text" },
                 { key: "subtitle", label: "City", type: "text" },
                 { key: "content", label: "Address", type: "textarea", rows: 3 },
+            ],
+        },
+        {
+            section: "social_links",
+            label: "Social Links",
+            description: "Shared by the Contact page and footer across the website. Edit, reorder, or hide links here.",
+            mode: "list",
+            itemLabel: "Social link",
+            fields: [
+                { key: "title", label: "Platform name", type: "text", required: true },
+                { key: "button_url", label: "Profile URL", type: "url", required: true, hint: "Use the full https:// profile URL." },
             ],
         },
     ],

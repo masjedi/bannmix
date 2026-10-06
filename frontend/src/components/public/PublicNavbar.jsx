@@ -15,6 +15,7 @@ import BrandLogo from "../BrandLogo";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 import ThemeToggle from "./ThemeToggle";
+import { PUBLIC_NAV_ITEMS } from "./publicNavigation";
 
 import { Container } from "./ui";
 
@@ -102,11 +103,11 @@ const PublicNavbar = () => {
 
         translate({
 
-            en: "Hello BanMix, I would like to order Majoon for my shop.",
+            en: "Hello BannMix, I would like to order Majoon for my shop.",
 
-            ps: "سلام BanMix، زه غواړم د خپل دوکان لپاره معجون فرمایش ورکړم.",
+            ps: "سلام BannMix، زه غواړم د خپل دوکان لپاره معجون فرمایش ورکړم.",
 
-            fa: "سلام BanMix، می‌خواهم برای فروشگاهم معجون سفارش دهم.",
+            fa: "سلام BannMix، می‌خواهم برای فروشگاهم معجون سفارش دهم.",
 
         })
 
@@ -114,67 +115,10 @@ const PublicNavbar = () => {
 
 
 
-    const navItems = [
-
-        {
-
-            to: "/",
-
-            label: translate(publicTranslations.navigation.home),
-
-            end: true,
-
-        },
-
-        {
-
-            to: "/about",
-
-            label: translate(publicTranslations.navigation.about),
-
-        },
-
-        {
-
-            to: "/products",
-
-            label: translate(publicTranslations.navigation.products),
-
-        },
-
-        {
-
-            to: "/services",
-
-            label: translate(publicTranslations.navigation.services),
-
-        },
-
-        {
-
-            to: "/events",
-
-            label: translate(publicTranslations.navigation.events),
-
-        },
-
-        {
-
-            to: "/gallery",
-
-            label: translate(publicTranslations.navigation.gallery),
-
-        },
-
-        {
-
-            to: "/contact",
-
-            label: translate(publicTranslations.navigation.contact),
-
-        },
-
-    ];
+    const navItems = PUBLIC_NAV_ITEMS.map((item) => ({
+        ...item,
+        label: translate(publicTranslations.navigation[item.labelKey]),
+    }));
 
 
 

@@ -11,12 +11,20 @@ const padSlideNumber = (value) => String(value).padStart(2, "0");
 
 const HomeHeroCarousel = ({
     slides = [],
+    activeIndex: controlledIndex,
+    onActiveIndexChange,
     carouselLabel = "Product story carousel",
     prevLabel = "Previous slide",
     nextLabel = "Next slide",
     goToTemplate = "Go to slide {current} of {total}",
 }) => {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [internalIndex, setInternalIndex] = useState(0);
+    const isControlled = controlledIndex !== undefined;
+    const activeIndex = controlledIndex ?? internalIndex;
+    const setActiveIndex = useCallback((index) => {
+        if (!isControlled) setInternalIndex(index);
+        onActiveIndexChange?.(index);
+    }, [isControlled, onActiveIndexChange]);
     const [reduceMotion, setReduceMotion] = useState(false);
     const [paused, setPaused] = useState(false);
     const touchStartXRef = useRef(null);
@@ -29,7 +37,7 @@ const HomeHeroCarousel = ({
             setActiveIndex((index + slideCount) % slideCount);
             setPaused(true);
         },
-        [slideCount]
+        [slideCount, setActiveIndex]
     );
 
     const goPrev = useCallback(() => {
@@ -51,7 +59,7 @@ const HomeHeroCarousel = ({
     useEffect(() => {
         setActiveIndex(0);
         setPaused(false);
-    }, [slideCount]);
+    }, [slideCount, setActiveIndex]);
 
     useEffect(() => {
         if (slideCount <= 1 || reduceMotion || paused) {
@@ -59,11 +67,11 @@ const HomeHeroCarousel = ({
         }
 
         const timer = window.setInterval(() => {
-            setActiveIndex((current) => (current + 1) % slideCount);
+            setActiveIndex((activeIndex + 1) % slideCount);
         }, SLIDE_INTERVAL_MS);
 
         return () => window.clearInterval(timer);
-    }, [paused, reduceMotion, slideCount]);
+    }, [activeIndex, paused, reduceMotion, slideCount, setActiveIndex]);
 
     const handleCarouselKeyDown = (event) => {
         if (slideCount <= 1) return;

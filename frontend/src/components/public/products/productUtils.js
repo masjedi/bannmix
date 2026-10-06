@@ -104,9 +104,9 @@ export const whatsappOrder = (title, translate, options = {}) => {
     });
 
     const message = translate({
-        en: `Hello BanMix, I want to order: ${title || "Majoon"}${qtyPart}`,
-        ps: `سلام BanMix، زه غواړم دا فرمایش ورکړم: ${title || "معجون"}${qtyPart}`,
-        fa: `سلام BanMix، می‌خواهم این را سفارش دهم: ${title || "معجون"}${qtyPart}`,
+        en: `Hello BannMix, I want to order: ${title || "Majoon"}${qtyPart}`,
+        ps: `سلام BannMix، زه غواړم دا فرمایش ورکړم: ${title || "معجون"}${qtyPart}`,
+        fa: `سلام BannMix، می‌خواهم این را سفارش دهم: ${title || "معجون"}${qtyPart}`,
     });
 
     return `https://wa.me/${ORDER_CONTACTS.whatsapp}?text=${encodeURIComponent(message)}`;
@@ -117,9 +117,9 @@ export const buildOrderHref = (product, translate, options = {}) =>
 
 export const wholesaleWhatsApp = (translate) => {
     const message = translate({
-        en: "Hello BanMix, I would like wholesale pricing and distribution for my shop.",
-        ps: "سلام BanMix، زه د خپل دوکان لپاره د عمده قیمت او ویش په اړه معلومات غواړم.",
-        fa: "سلام BanMix، می‌خواهم قیمت عمده و توزیع برای فروشگاهم را دریافت کنم.",
+        en: "Hello BannMix, I would like wholesale pricing and distribution for my shop.",
+        ps: "سلام BannMix، زه د خپل دوکان لپاره د عمده قیمت او ویش په اړه معلومات غواړم.",
+        fa: "سلام BannMix، می‌خواهم قیمت عمده و توزیع برای فروشگاهم را دریافت کنم.",
     });
 
     return `https://wa.me/${ORDER_CONTACTS.whatsapp}?text=${encodeURIComponent(message)}`;

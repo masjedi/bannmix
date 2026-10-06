@@ -41,6 +41,10 @@ export const invalidateCachedPublicPage = (page) => {
             pageCache.delete(key);
         }
     }
+    for (const key of inflightRequests.keys()) {
+        if (key.startsWith(`${page}:`)) inflightRequests.delete(key);
+    }
+    if (page === "events" || page === "faq") invalidateCachedPublicPage("home");
 };
 
 export const fetchPublicPageWithCache = async ({
@@ -48,7 +52,6 @@ export const fetchPublicPageWithCache = async ({
     language,
     section = "",
     fetcher,
-    signal,
 }) => {
     const cacheKey = buildCacheKey(page, language, section);
     const cached = readCachedPublicPage(page, language, section);
@@ -61,15 +64,20 @@ export const fetchPublicPageWithCache = async ({
         return inflightRequests.get(cacheKey);
     }
 
-    const requestPromise = fetcher({ signal })
+    // A cached request belongs to all consumers, not the first component.
+    // Hook cleanup guards its own state; it must not abort other subscribers
+    // or the request reused by React StrictMode's immediate remount.
+    const requestPromise = fetcher({})
         .then((data) => {
-            writeCachedPublicPage(page, language, section, data);
-            inflightRequests.delete(cacheKey);
+            if (inflightRequests.get(cacheKey) === requestPromise) {
+                writeCachedPublicPage(page, language, section, data);
+                inflightRequests.delete(cacheKey);
+            }
 
             return data;
         })
         .catch((error) => {
-            inflightRequests.delete(cacheKey);
+            if (inflightRequests.get(cacheKey) === requestPromise) inflightRequests.delete(cacheKey);
             throw error;
         });
 

@@ -542,6 +542,35 @@ export const FadeUp = ({
 
 
 
+/** Keeps phone/email character order in RTL without changing layout direction. */
+export const LtrIsolate = ({
+
+    children,
+
+    className = "",
+
+    as: Tag = "span",
+
+    ...rest
+
+}) => (
+
+    <Tag
+
+        className={["type-bidi-plain", className].filter(Boolean).join(" ")}
+
+        {...rest}
+
+    >
+
+        {children}
+
+    </Tag>
+
+);
+
+
+
 export default {
 
     Container,
@@ -565,6 +594,8 @@ export default {
     ButtonLink,
 
     FadeUp,
+
+    LtrIsolate,
 
 };
 

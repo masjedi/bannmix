@@ -1,4 +1,4 @@
-# BanMix React + Tailwind Guidelines
+# BannMix React + Tailwind Guidelines
 
 ## Project Inspection
 

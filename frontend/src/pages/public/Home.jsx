@@ -29,6 +29,7 @@ import HomeOrderingSection from "../../components/public/home/HomeOrderingSectio
 import HomeQualitySection from "../../components/public/home/HomeQualitySection";
 import HomeTestimonialsCarousel from "../../components/public/home/HomeTestimonialsCarousel";
 import {
+    buildCmsHeroSlides,
     buildHomeHeroSlides,
     collectProductImages,
 } from "../../components/public/home/homeUtils";
@@ -65,11 +66,12 @@ const introCapabilityIcons = [Factory, Package, Truck];
 const Home = () => {
     const { translate } = useLanguage();
     const t = publicTranslations.home;
-    const { getFirstSectionItem, getSection, getIncludedSection } =
+    const { error, getFirstSectionItem, getSection, getIncludedSection } =
         usePublicPageContent("home");
     const introVideo = getFirstSectionItem("intro_video");
     const introVideoId = extractYouTubeId(introVideo?.video_url);
-    const hero = getFirstSectionItem("hero");
+    const heroRecords = getSection("hero");
+    const [activeHeroSlide, setActiveHeroSlide] = useState(0);
     const majoonItems = getSection("majoon");
     const trustStripItems = getSection("trust_strip");
     const qualityIngredientItems = getSection("quality");
@@ -78,8 +80,11 @@ const Home = () => {
     const aboutIntroPointItems = getSection("about_intro_points");
     const audienceItems = getSection("audience");
     const orderingItems = getSection("ordering");
+    const distributionItems = getSection("distribution");
     const highlightItems = getSection("highlights");
     const faqSectionItems = getSection("faq");
+    const faqPageItems = getIncludedSection("faq", "items");
+    const faqHero = getIncludedSection("faq", "hero")[0];
     const testimonialCmsItems = getSection("testimonials");
     const [products, setProducts] = useState([]);
     const [productsLoading, setProductsLoading] = useState(true);
@@ -188,21 +193,20 @@ const Home = () => {
         return aboutIntro?.image_url || "";
     }, [aboutIntro]);
     const processWhatsAppHref = wholesaleWhatsApp(translate);
-    const cmsHeroImages = useMemo(() => {
-        const urls = Array.isArray(hero?.image_urls) ? hero.image_urls : [];
-        if (urls.length > 0) return urls.filter(Boolean);
-        return hero?.image_url ? [hero.image_url] : [];
-    }, [hero]);
-
     const heroSlides = useMemo(
-        () =>
-            buildHomeHeroSlides({
-                productImages: cmsHeroImages.length ? cmsHeroImages : heroImages,
+        () => {
+            const cmsSlides = buildCmsHeroSlides(heroRecords);
+            return cmsSlides.length ? cmsSlides : buildHomeHeroSlides({
+                productImages: heroImages,
                 translate,
                 copy: t,
-            }),
-        [cmsHeroImages, heroImages, translate, t]
+            });
+        },
+        [heroRecords, heroImages, translate, t]
     );
+    const heroSlidesKey = heroSlides.map((slide) => slide.id).join(",");
+    useEffect(() => setActiveHeroSlide(0), [heroSlidesKey]);
+    const hero = heroSlides[activeHeroSlide]?.hero ?? heroSlides[0]?.hero;
 
     const heroEyebrow = hero?.subtitle || translate(t.heroEyebrow);
     const heroTitle = hero?.title || "";
@@ -279,10 +283,10 @@ const Home = () => {
         [orderingItems]
     );
 
-    const distributionPoints = HOME_DISTRIBUTION_POINTS.map((item) => ({
-        icon: item.icon,
-        title: translate(item.title),
-        body: translate(item.body),
+    const distributionPoints = distributionItems.map((item, index) => ({
+        icon: HOME_DISTRIBUTION_POINTS[index % HOME_DISTRIBUTION_POINTS.length]?.icon || "truck",
+        title: item.title || "",
+        body: item.content || "",
     }));
 
     const testimonialItems = useMemo(() => {
@@ -305,12 +309,12 @@ const Home = () => {
 
     const faqItems = useMemo(
         () =>
-            faqSectionItems.slice(0, 5).map((item, index) => ({
+            [...faqPageItems, ...faqSectionItems].slice(0, 5).map((item, index) => ({
                 id: `home-faq-${item.id ?? index}`,
                 question: item.title || "",
                 answer: item.content || "",
             })),
-        [faqSectionItems]
+        [faqPageItems, faqSectionItems]
     );
 
     return (
@@ -411,6 +415,8 @@ const Home = () => {
                     >
                         <HomeHeroCarousel
                             slides={heroSlides}
+                            activeIndex={activeHeroSlide}
+                            onActiveIndexChange={setActiveHeroSlide}
                             carouselLabel={translate(t.heroCarouselLabel)}
                             prevLabel={translate(t.heroCarouselPrev)}
                             nextLabel={translate(t.heroCarouselNext)}
@@ -569,8 +575,9 @@ const Home = () => {
                                                                 aria-hidden="true"
                                                             />
                                                         </span>
-                                                        <span className="home-about-point-title">
-                                                            {item.title}
+                                                        <span className="min-w-0">
+                                                            <span className="home-about-point-title">{item.title}</span>
+                                                            {item.description ? <span className="mt-1 block break-words text-sm leading-6 text-content-secondary">{item.description}</span> : null}
                                                         </span>
                                                     </FadeUp>
                                                 );
@@ -693,12 +700,12 @@ const Home = () => {
                 </PageSection>
             ) : null}
 
-            <HomeDistributionSection
+            {distributionPoints.length > 0 ? <HomeDistributionSection
                 label={translate(t.distributionLabel)}
                 title={translate(t.distributionTitle)}
                 description={translate(t.distributionBody)}
                 points={distributionPoints}
-            />
+            /> : null}
 
             {latestNews.length > 0 ? (
                 <PageSection
@@ -754,15 +761,16 @@ const Home = () => {
 
             {faqItems.length > 0 ? (
                 <HomeFaqSection
-                    label={translate(t.faqLabel)}
-                    title={translate(t.faqTitle)}
-                    description={translate(t.faqBody)}
+                    label={faqHero?.subtitle || translate(t.faqLabel)}
+                    title={faqHero?.title || translate(t.faqTitle)}
+                    description={faqHero?.content || translate(t.faqBody)}
                     helpLabel={translate(t.faqHelp)}
                     whatsappLabel={translate(t.faqWhatsApp)}
                     whatsappHref={processWhatsAppHref}
                     items={faqItems}
                 />
             ) : null}
+            {error ? <p className="sr-only" role="status" aria-live="polite">{error}</p> : null}
         </PublicPage>
     );
 };

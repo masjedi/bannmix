@@ -237,7 +237,7 @@ const AdminUserPanel = ({
                 <div className="space-y-4">
                     <div className="rounded-xl border border-theme-success-text/20 bg-theme-success-bg p-4">
                         <p className="text-sm font-bold text-theme-success-text">
-                            BanMix Admin Help
+                            BannMix Admin Help
                         </p>
                         <p className="mt-1 text-xs leading-5 text-theme-success-text">
                             Open the most common administrative tools below.

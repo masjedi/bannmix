@@ -44,7 +44,7 @@ const AdminDashboard = () => {
                 <div className="flex flex-wrap items-start justify-between gap-4">
                     <div>
                         <p className="text-sm font-semibold text-theme-success-text">
-                            BanMix Admin
+                            BannMix Admin
                         </p>
                         <h1 className="type-admin-page-title mt-2 text-content">
                             {getGreeting()}, {firstName}

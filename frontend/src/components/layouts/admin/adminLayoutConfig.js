@@ -6,6 +6,7 @@ import {
     CalendarDays,
     CircleHelp,
     FileText,
+    HardDriveDownload,
     HelpCircle,
     Images,
     Info,
@@ -98,7 +99,7 @@ export const HOME_SECTION_NAV_ITEMS = [
         publicAnchor: "home-trust-strip",
     },
     {
-        label: "Our Majoon",
+        label: "PiawarryBann",
         section: "majoon",
         icon: Package,
         publicAnchor: "our-majoon",
@@ -152,7 +153,7 @@ export const HOME_SECTION_NAV_ITEMS = [
         publicAnchor: "wholesale-process",
     },
     {
-        label: "Why BanMix",
+        label: "Why BannMix",
         section: "highlights",
         icon: Star,
         publicAnchor: "home-highlights",
@@ -269,6 +270,13 @@ export const SIDEBAR_NAV_GROUPS = [
                 icon: LayoutDashboard,
                 end: true,
             },
+            {
+                type: "route",
+                to: "/admin/backup",
+                label: "Backup",
+                icon: HardDriveDownload,
+                end: true,
+            },
         ],
     },
     {
@@ -302,7 +310,7 @@ export const SIDEBAR_NAV_GROUPS = [
                     },
                     {
                         type: "home",
-                        label: "Our Majoon",
+                        label: "PiawarryBann",
                         section: "majoon",
                         icon: Package,
                     },
@@ -356,7 +364,7 @@ export const SIDEBAR_NAV_GROUPS = [
                     },
                     {
                         type: "home",
-                        label: "Why BanMix",
+                        label: "Why BannMix",
                         section: "highlights",
                         icon: Star,
                     },
@@ -527,6 +535,14 @@ export const QUICK_SEARCH_PAGES = [
         keywords: "home analytics activity",
         path: "/admin",
         icon: LayoutDashboard,
+    },
+    {
+        key: "backup",
+        title: "Backup",
+        subtitle: "Download the database and uploaded images",
+        keywords: "backup download zip database images export",
+        path: "/admin/backup",
+        icon: HardDriveDownload,
     },
     {
         key: "posts",

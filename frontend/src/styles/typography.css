@@ -1,5 +1,5 @@
 /**
- * BanMix Typography System
+ * BannMix Typography System
  * @see .cursor/skills/banmix-frontend-brand/typography-system.md
  */
 
@@ -364,4 +364,9 @@ body {
     font-size: var(--type-admin-input-size);
     line-height: var(--type-admin-input-leading);
     font-weight: 400;
+}
+
+/** LTR strings (phone, email) in RTL layout — text order only, not layout direction */
+.type-bidi-plain {
+    unicode-bidi: plaintext;
 }

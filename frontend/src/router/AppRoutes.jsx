@@ -13,6 +13,8 @@ import AdminLayout from "../components/layouts/AdminLayout";
 const Home = lazy(() => import("../pages/public/Home"));
 const About = lazy(() => import("../pages/public/About"));
 const Login = lazy(() => import("../pages/public/Login"));
+const ForgotPassword = lazy(() => import("../pages/public/ForgotPassword"));
+const ResetPassword = lazy(() => import("../pages/public/ResetPassword"));
 const Products = lazy(() => import("../pages/public/Products"));
 const ProductDetails = lazy(() => import("../pages/public/ProductDetails"));
 const Services = lazy(() => import("../pages/public/Services"));
@@ -27,6 +29,7 @@ const PostDetails = lazy(() => import("../pages/admin/PostDetails"));
 const SiteContents = lazy(() => import("../pages/admin/SiteContents"));
 const ContactMessages = lazy(() => import("../pages/admin/ContactMessages"));
 const SiteFeedbackPage = lazy(() => import("../pages/admin/SiteFeedback"));
+const Backup = lazy(() => import("../pages/admin/Backup"));
 
 const withSuspense = (element) => (
     <Suspense fallback={<RouteLoadingFallback />}>{element}</Suspense>
@@ -69,6 +72,14 @@ const AppRoutes = () => {
 
                 <Route path="/admin/login" element={withSuspense(<Login />)} />
                 <Route
+                    path="/admin/forgot-password"
+                    element={withSuspense(<ForgotPassword />)}
+                />
+                <Route
+                    path="/admin/reset-password"
+                    element={withSuspense(<ResetPassword />)}
+                />
+                <Route
                     path="/login"
                     element={<Navigate to="/admin/login" replace />}
                 />
@@ -99,6 +110,10 @@ const AppRoutes = () => {
                             <Route
                                 path="feedback"
                                 element={withSuspense(<SiteFeedbackPage />)}
+                            />
+                            <Route
+                                path="backup"
+                                element={withSuspense(<Backup />)}
                             />
                         </Route>
                     </Route>

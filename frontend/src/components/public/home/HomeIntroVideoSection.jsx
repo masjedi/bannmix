@@ -96,7 +96,7 @@ const HomeIntroVideoSection = ({
 
                                 src={youtubeEmbedUrl(videoId)}
 
-                                title="BanMix introduction video"
+                                title="BannMix introduction video"
 
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 

@@ -37,7 +37,7 @@ const useDebounce = (value, delay = 350) => {
 const Products = () => {
     const { translate } = useLanguage();
     const t = publicTranslations.products;
-    const { getFirstSectionItem } = usePublicPageContent("products");
+    const { error: contentError, getFirstSectionItem } = usePublicPageContent("products");
     const hero = getFirstSectionItem("hero");
 
     const [filters, setFilters] = useState({
@@ -317,6 +317,7 @@ const Products = () => {
                 contactHref={ORDER_CONTACTS.phoneHref}
                 translate={translate}
             />
+            {contentError ? <p className="sr-only" role="status" aria-live="polite">{contentError}</p> : null}
         </PublicPage>
     );
 };

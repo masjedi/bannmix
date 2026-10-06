@@ -9,7 +9,7 @@ const BrandPlaceholder = () => (
             B
         </span>
         <span className="mt-1.5 text-[9px] font-bold uppercase tracking-[0.22em] text-brand-orange">
-            BanMix
+            BannMix
         </span>
     </div>
 );

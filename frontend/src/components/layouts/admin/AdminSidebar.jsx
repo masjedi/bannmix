@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ExternalLink, X } from "lucide-react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
@@ -85,25 +85,60 @@ const AdminSidebar = ({
 }) => {
     const location = useLocation();
     const { pathname, search } = location;
-
-    const defaultOpenGroups = useMemo(() => {
-        const open = {};
-
-        SIDEBAR_NAV_GROUPS.forEach((group) => {
-            open[group.key] = groupContainsActiveItem(group, pathname, search);
-        });
-
-        return open;
-    }, [pathname, search]);
-
-    const [openGroups, setOpenGroups] = useState(defaultOpenGroups);
+    const scrollRef = useRef(null);
+    const groupRefs = useRef({});
+    const [openGroupKey, setOpenGroupKey] = useState(null);
 
     useEffect(() => {
-        setOpenGroups((current) => ({
-            ...current,
-            ...defaultOpenGroups,
-        }));
-    }, [defaultOpenGroups]);
+        if (!openGroupKey) {
+            return undefined;
+        }
+
+        const scroller = scrollRef.current;
+        const group = groupRefs.current[openGroupKey];
+
+        if (!scroller || !group) {
+            return undefined;
+        }
+
+        const reduceMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        const revealGroup = () => {
+            const scrollerRect = scroller.getBoundingClientRect();
+            const groupRect = group.getBoundingClientRect();
+            const fits = groupRect.height <= scrollerRect.height - 8;
+            const hiddenBelow = groupRect.bottom - scrollerRect.bottom;
+            const hiddenAbove = scrollerRect.top - groupRect.top;
+            let nextTop = scroller.scrollTop;
+
+            if (fits) {
+                if (hiddenBelow > 1) {
+                    nextTop += hiddenBelow + 12;
+                } else if (hiddenAbove > 1) {
+                    nextTop -= hiddenAbove + 8;
+                } else {
+                    return;
+                }
+            } else {
+                nextTop += groupRect.top - scrollerRect.top - 8;
+            }
+
+            scroller.scrollTo({
+                top: Math.max(0, nextTop),
+                behavior: reduceMotion ? "auto" : "smooth",
+            });
+        };
+
+        const frame = requestAnimationFrame(revealGroup);
+        const timer = window.setTimeout(revealGroup, 260);
+
+        return () => {
+            cancelAnimationFrame(frame);
+            window.clearTimeout(timer);
+        };
+    }, [openGroupKey]);
 
     const onNavigate = () => {
         if (isMobile) {
@@ -120,10 +155,7 @@ const AdminSidebar = ({
     };
 
     const toggleGroup = (groupKey) => {
-        setOpenGroups((current) => ({
-            ...current,
-            [groupKey]: !current[groupKey],
-        }));
+        setOpenGroupKey((current) => (current === groupKey ? null : groupKey));
     };
 
     const handleGeneralAction = (action) => {
@@ -164,7 +196,7 @@ const AdminSidebar = ({
                             className="admin-sidebar-link-icon"
                             aria-hidden="true"
                         />
-                        <span className="truncate">
+                        <span className="admin-sidebar-link-label">
                             {isLogout && loggingOut
                                 ? "Logging out…"
                                 : item.label}
@@ -199,7 +231,7 @@ const AdminSidebar = ({
                         className="admin-sidebar-link-icon"
                         aria-hidden="true"
                     />
-                    <span className="truncate">{item.label}</span>
+                    <span className="admin-sidebar-link-label">{item.label}</span>
                     {badge ? (
                         <span className="admin-sidebar-badge">{badge}</span>
                     ) : null}
@@ -218,12 +250,16 @@ const AdminSidebar = ({
     );
 
     const renderGroup = (group) => {
-        const isOpen = Boolean(openGroups[group.key]);
+        const isOpen = openGroupKey === group.key;
         const isActiveGroup = groupContainsActiveItem(group, pathname, search);
+        const panelId = `admin-sidebar-panel-${isMobile ? "mobile" : "desktop"}-${group.key}`;
 
         return (
             <nav
                 key={group.key}
+                ref={(node) => {
+                    groupRefs.current[group.key] = node;
+                }}
                 aria-label={group.label}
                 className={[
                     "admin-sidebar-group",
@@ -242,10 +278,14 @@ const AdminSidebar = ({
                         .filter(Boolean)
                         .join(" ")}
                     aria-expanded={isOpen}
+                    aria-controls={panelId}
                     onClick={() => toggleGroup(group.key)}
                 >
                     <span className="admin-sidebar-group-heading">
                         {group.label}
+                        {isActiveGroup && !isOpen ? (
+                            <span className="admin-sidebar-group-dot" />
+                        ) : null}
                     </span>
                     <ChevronDown
                         size={15}
@@ -258,6 +298,10 @@ const AdminSidebar = ({
                 </button>
 
                 <div
+                    id={panelId}
+                    role="region"
+                    aria-label={group.label}
+                    inert={isOpen ? undefined : true}
                     className={[
                         "admin-sidebar-group-panel",
                         isOpen ? "is-open" : "",
@@ -286,12 +330,12 @@ const AdminSidebar = ({
                     to="/admin"
                     onClick={onNavigate}
                     className="admin-sidebar-brand-link"
-                    aria-label="BanMix Admin"
+                    aria-label="BannMix Admin"
                 >
                     <span className="admin-sidebar-brand-mark">
                         <BrandLogo mark className="h-8 w-8" />
                     </span>
-                    <span className="admin-sidebar-brand-name">BanMix</span>
+                    <span className="admin-sidebar-brand-name">BannMix</span>
                 </Link>
 
                 {isMobile ? (
@@ -306,7 +350,7 @@ const AdminSidebar = ({
                 ) : null}
             </div>
 
-            <div className="admin-sidebar-scroll">
+            <div ref={scrollRef} className="admin-sidebar-scroll">
                 {SIDEBAR_NAV_GROUPS.map(renderGroup)}
             </div>
 

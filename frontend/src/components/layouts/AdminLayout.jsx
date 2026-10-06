@@ -154,7 +154,7 @@ const AdminLayout = () => {
 
                 <div
                     className={[
-                        "absolute inset-y-0 left-0 w-[min(280px,88vw)] shadow-2xl transition-transform duration-300 ease-out",
+                        "absolute inset-y-0 left-0 w-[min(18rem,88vw)] shadow-2xl transition-transform duration-300 ease-out",
                         mobileSidebarOpen
                             ? "translate-x-0"
                             : "-translate-x-full",
@@ -171,7 +171,7 @@ const AdminLayout = () => {
                 </div>
             </div>
 
-            <div className="admin-main min-h-screen lg:pl-[260px]">
+            <div className="admin-main min-h-screen lg:pl-[18rem]">
                 <AdminHeader
                     onOpenSidebar={() => setMobileSidebarOpen(true)}
                     onOpenSearch={handleOpenQuickSearch}

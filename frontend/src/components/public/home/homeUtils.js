@@ -43,6 +43,26 @@ export const collectProductImages = (products = []) => {
     return [...new Set(images.filter(Boolean))];
 };
 
+export const buildCmsHeroSlides = (records = []) => {
+    const latest = [...records]
+        .filter((record) => record && record.is_active !== false)
+        .sort((a, b) => Number(b.id) - Number(a.id))
+        .slice(0, 3);
+
+    return latest.flatMap((hero) => {
+        const images = [...new Set((Array.isArray(hero.image_urls) ? hero.image_urls : []).filter(Boolean))];
+        if (!images.length) images.push(hero.image_url || "");
+        return images.map((image, index) => ({
+            id: `hero-${hero.id}-${index}`,
+            image,
+            alt: hero.title || "BannMix",
+            fallbackLabel: hero.title || "BannMix",
+            tone: "product",
+            hero,
+        }));
+    });
+};
+
 export const buildHomeHeroSlides = ({
     productImages = [],
     translate,

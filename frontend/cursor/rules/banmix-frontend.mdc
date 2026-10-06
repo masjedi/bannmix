@@ -1,25 +1,25 @@
 ---
-description: BanMix frontend brand, UI, UX, theme, responsive design, accessibility, and animation standards.
+description: BannMix frontend brand, UI, UX, theme, responsive design, accessibility, and animation standards.
 alwaysApply: true
 ---
 
-# BanMix Frontend Rules
+# BannMix Frontend Rules
 
-Apply the BanMix design system to all frontend work in this project.
+Apply the BannMix design system to all frontend work in this project.
 
 Do not ask which brand colors to use unless the user explicitly requests a brand change.
 
 ## Brand Colors
 
-Use these primary BanMix colors:
+Use these primary BannMix colors:
 
 ```text
-BanMix Blue:   #2590C7
-BanMix Orange: #E86E2B
-BanMix Green:  #0E6843
-BanMix Dark:   #20211A
-BanMix Navy:   #071426
-BanMix Cream:  #FFF8EE
+BannMix Blue:   #2590C7
+BannMix Orange: #E86E2B
+BannMix Green:  #0E6843
+BannMix Dark:   #20211A
+BannMix Navy:   #071426
+BannMix Cream:  #FFF8EE
 ```
 
 ## Brand Hierarchy
@@ -45,10 +45,10 @@ Prefer these utilities over hardcoded hex values.
 
 - Inspect existing components, layouts, theme, and Tailwind config before large UI changes.
 - Do not replace working architecture unnecessarily.
-- Primary CTA buttons use BanMix Orange.
-- Navigation and brand identity accents use BanMix Blue.
-- Trust / quality / production cues use BanMix Green.
-- Light-mode text defaults to BanMix Dark; all dark-theme backgrounds use BanMix Navy only — never brand-dark as a surface color.
+- Primary CTA buttons use BannMix Orange.
+- Navigation and brand identity accents use BannMix Blue.
+- Trust / quality / production cues use BannMix Green.
+- Light-mode text defaults to BannMix Dark; all dark-theme backgrounds use BannMix Navy only — never brand-dark as a surface color.
 - Support light and dark themes via the existing class-based theme system.
 - Keep public pages responsive; respect `prefers-reduced-motion`.
 - For significant UI work, load the `banmix-frontend-brand` skill and its references.

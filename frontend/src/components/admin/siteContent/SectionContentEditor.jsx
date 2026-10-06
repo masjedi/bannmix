@@ -232,6 +232,7 @@ const SectionContentEditor = ({ page, section, embedded = false, onSaved }) => {
 
         try {
             await siteContentApi.deleteContent(record.id);
+            invalidateCachedPublicPage(page);
             setSuccess("Item deleted.");
             await loadRecords();
             onSaved?.();

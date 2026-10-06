@@ -71,16 +71,15 @@ const Contact = () => {
                 formErrorMessageMax={translate(t.formErrorMessageMax)}
                 formMessageCount={translate(t.formMessageCount)}
                 formErrorInvalidEmail={translate(t.formErrorInvalidEmail)}
-                formSubjectDefault={translate(t.formSubjectDefault)}
             />
 
             <ContactLocationSection
                 label={translate(t.locationLabel)}
-                title={translate(t.locationTitle)}
-                description={translate(t.locationBody)}
+                title={locationCms?.title || translate(t.locationTitle)}
+                description={location.address || translate(t.locationBody)}
                 location={location}
-                brandName={translate(publicTranslations.brand.name)}
-                city={translate(t.city)}
+                brandName={location.name}
+                city={location.city}
                 directionsLabel={translate(t.directionsLabel)}
                 mapTitle={translate(t.mapTitle)}
                 mapComingSoon={translate(t.mapComingSoon)}
@@ -88,13 +87,10 @@ const Contact = () => {
 
             <ContactSocialStrip
                 label={translate(t.socialLabel)}
-                email={ORDER_CONTACTS.email}
                 emailHref={`mailto:${ORDER_CONTACTS.email}`}
                 whatsappHref={whatsappHref}
                 whatsappLabel={translate(t.whatsappLabel)}
                 emailLabel={translate(t.emailLabel)}
-                facebookLabel={translate(t.facebookLabel)}
-                instagramLabel={translate(t.instagramLabel)}
             />
 
             {error ? (

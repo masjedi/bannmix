@@ -19,7 +19,7 @@ const BrandLogo = ({ className = "", mark = false }) => {
     return (
         <img
             src={logo}
-            alt="BanMix"
+            alt="BannMix"
             className={`block h-auto object-contain ${className}`}
         />
     );

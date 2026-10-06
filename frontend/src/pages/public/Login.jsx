@@ -58,14 +58,14 @@ const Login = () => {
                 <Link
                     to="/"
                     className="mx-auto m-auto block w-fit"
-                    aria-label="BanMix home"
+                    aria-label="BannMix home"
                 >
                     <BrandLogo className="w-[190px]" />
                 </Link>
 
                 <h1 className="page-title text-content">Admin Login</h1>
                 <p className="page-subtitle dark:text-content-muted">
-                    Sign in to manage BanMix content.
+                    Sign in to manage BannMix content.
                 </p>
 
                 {error && (
@@ -101,6 +101,15 @@ const Login = () => {
                         {loading ? "Logging in..." : "Login"}
                     </button>
                 </form>
+
+                <p className="mt-4 text-center text-sm">
+                    <Link
+                        to="/admin/forgot-password"
+                        className="font-semibold text-theme-link hover:text-theme-link-hover"
+                    >
+                        Forgot password?
+                    </Link>
+                </p>
             </div>
         </PublicPage>
     );

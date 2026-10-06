@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 
 import BrandLogo from "../BrandLogo";
-import { Container } from "./ui";
+import { SocialProfileLinks } from "./contact/ContactSocialStrip";
+import { PUBLIC_NAV_ITEMS } from "./publicNavigation";
+import { Container, LtrIsolate } from "./ui";
 import { useLanguage } from "../../context/LanguageContext";
 import publicTranslations, {
     ORDER_CONTACTS,
@@ -40,6 +42,9 @@ const PublicFooter = () => {
                             <p className="mt-4 max-w-xs text-sm leading-relaxed text-content-secondary">
                                 {translate(f.description)}
                             </p>
+                            <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label={translate(publicTranslations.contact.socialLabel)}>
+                                <SocialProfileLinks compact />
+                            </div>
                         </div>
 
                         <div>
@@ -47,18 +52,11 @@ const PublicFooter = () => {
                                 {translate(f.companyTitle)}
                             </h2>
                             <ul className="mt-4 space-y-2.5">
-                                <FooterLink to="/about">
-                                    {translate(publicTranslations.navigation.about)}
-                                </FooterLink>
-                                <FooterLink to="/about#factory-gallery">
-                                    {translate(f.factory)}
-                                </FooterLink>
-                                <FooterLink to="/about">
-                                    {translate(f.quality)}
-                                </FooterLink>
-                                <FooterLink to="/#home-news">
-                                    {translate(f.news)}
-                                </FooterLink>
+                                {PUBLIC_NAV_ITEMS.slice(0, 3).map((item) => (
+                                    <FooterLink key={item.to} to={item.to}>
+                                        {translate(publicTranslations.navigation[item.labelKey])}
+                                    </FooterLink>
+                                ))}
                             </ul>
                         </div>
 
@@ -67,21 +65,11 @@ const PublicFooter = () => {
                                 {translate(f.exploreTitle)}
                             </h2>
                             <ul className="mt-4 space-y-2.5">
-                                <FooterLink to="/products">
-                                    {translate(publicTranslations.navigation.products)}
-                                </FooterLink>
-                                <FooterLink to="/services">
-                                    {translate(publicTranslations.navigation.services)}
-                                </FooterLink>
-                                <FooterLink to="/events">
-                                    {translate(publicTranslations.navigation.events)}
-                                </FooterLink>
-                                <FooterLink to="/gallery">
-                                    {translate(publicTranslations.navigation.gallery)}
-                                </FooterLink>
-                                <FooterLink to="/contact">
-                                    {translate(publicTranslations.navigation.contact)}
-                                </FooterLink>
+                                {PUBLIC_NAV_ITEMS.slice(3).map((item) => (
+                                    <FooterLink key={item.to} to={item.to}>
+                                        {translate(publicTranslations.navigation[item.labelKey])}
+                                    </FooterLink>
+                                ))}
                             </ul>
                         </div>
 
@@ -106,7 +94,9 @@ const PublicFooter = () => {
                                         href={ORDER_CONTACTS.phoneHref}
                                         className="transition hover:text-theme-link"
                                     >
-                                        {ORDER_CONTACTS.phoneDisplay}
+                                        <LtrIsolate>
+                                            {ORDER_CONTACTS.phoneDisplay}
+                                        </LtrIsolate>
                                     </a>
                                 </li>
                                 <li className="flex items-center gap-2.5">
@@ -118,7 +108,9 @@ const PublicFooter = () => {
                                         href={`mailto:${ORDER_CONTACTS.email}`}
                                         className="transition hover:text-theme-link"
                                     >
-                                        {ORDER_CONTACTS.email}
+                                        <LtrIsolate>
+                                            {ORDER_CONTACTS.email}
+                                        </LtrIsolate>
                                     </a>
                                 </li>
                                 <li className="flex items-center gap-2.5">
@@ -146,13 +138,9 @@ const PublicFooter = () => {
 
                     <div className="public-footer-bottom flex flex-col items-center justify-between gap-3 text-xs text-content-muted sm:flex-row">
                         <p>
-                            © {new Date().getFullYear()} BanMix.{" "}
+                            © {new Date().getFullYear()} BannMix.{" "}
                             {translate(f.rightsReserved)}
                         </p>
-                        <div className="flex items-center gap-5">
-                            <span>{translate(f.privacy)}</span>
-                            <span>{translate(f.terms)}</span>
-                        </div>
                     </div>
                 </div>
             </Container>

@@ -1,7 +1,8 @@
-import { Mail, MessageCircle } from "lucide-react";
+import { Globe, Mail, MessageCircle } from "lucide-react";
 
 import { Container, FadeUp, PageSection } from "../ui";
 import { hasText } from "./contactUtils";
+import usePublicPageContent from "../../../hooks/usePublicPageContent";
 
 const Facebook = (props) => (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
@@ -15,33 +16,81 @@ const Instagram = (props) => (
     </svg>
 );
 
-const SocialLink = ({ href, label, children }) => {
+const SocialLink = ({ href, label, children, compact = false }) => {
     if (!hasText(href)) return null;
 
     return (
         <a
             href={href}
             aria-label={label}
+            title={label}
             target="_blank"
             rel="noreferrer noopener"
-            className="contact-social-link"
+            className={compact ? "footer-social-link" : "contact-social-link"}
         >
             {children}
-            <span>{label}</span>
+            <span className={compact ? "sr-only" : undefined}>{label}</span>
         </a>
     );
 };
 
+const X = (props) => (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+);
+
+const Linkedin = (props) => (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.555V9h3.564v11.452z" />
+    </svg>
+);
+
+const Youtube = (props) => (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z" />
+    </svg>
+);
+
+const TikTok = (props) => (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.89-2.89c.3 0 .59.05.86.13V9.4a6.33 6.33 0 1 0 5.48 6.27V8.68A8.16 8.16 0 0 0 20.6 10V6.55c-.34 0-.68-.05-1.01-.14z" />
+    </svg>
+);
+
+const profileIcon = (href) => {
+    const host = new URL(href).hostname.toLowerCase().replace(/^www\./, "");
+    const icons = { "facebook.com": Facebook, "instagram.com": Instagram, "linkedin.com": Linkedin,
+        "twitter.com": X, "x.com": X, "tiktok.com": TikTok, "youtube.com": Youtube, "youtu.be": Youtube };
+    return icons[host] ?? Globe;
+};
+
+const isProfileUrl = (href) => {
+    try {
+        return ["https:", "http:"].includes(new URL(href).protocol);
+    } catch {
+        return false;
+    }
+};
+
+export const SocialProfileLinks = ({ compact = false }) => {
+    // Reuse the Contact page request/cache so both placements share CMS data.
+    const { getSection } = usePublicPageContent("contact");
+    return getSection("social_links").filter((item) => isProfileUrl(item.button_url)).map((item) => {
+        const Icon = profileIcon(item.button_url);
+        return (
+            <SocialLink key={item.id} href={item.button_url} label={item.title || item.content_key} compact={compact}>
+                <Icon className="h-4 w-4" aria-hidden="true" />
+            </SocialLink>
+        );
+    });
+};
+
 const ContactSocialStrip = ({
     label,
-    email,
     emailHref,
     whatsappHref,
     whatsappLabel,
-    facebookHref = "#",
-    instagramHref = "#",
-    facebookLabel = "Facebook",
-    instagramLabel = "Instagram",
     emailLabel,
 }) => (
     <PageSection pad={false} className="contact-social contact-page-end">
@@ -59,12 +108,7 @@ const ContactSocialStrip = ({
                         <SocialLink href={emailHref} label={emailLabel}>
                             <Mail size={17} aria-hidden="true" />
                         </SocialLink>
-                        <SocialLink href={facebookHref} label={facebookLabel}>
-                            <Facebook className="h-4 w-4" />
-                        </SocialLink>
-                        <SocialLink href={instagramHref} label={instagramLabel}>
-                            <Instagram className="h-4 w-4" />
-                        </SocialLink>
+                        <SocialProfileLinks />
                     </div>
                 </div>
             </FadeUp>

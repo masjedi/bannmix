@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import siteContentApi from "../../api/siteContentApi";
+import { invalidateCachedPublicPage } from "../../utils/publicContentCache";
 import SectionContentEditor from "../../components/admin/siteContent/SectionContentEditor";
 import SiteContentSectionForm from "../../components/admin/siteContent/SiteContentSectionForm";
 import WebsitePageEditor from "../../components/admin/siteContent/WebsitePageEditor";
@@ -316,6 +317,8 @@ const SiteContents = () => {
                 setSuccess("Content created successfully.");
             }
 
+            invalidateCachedPublicPage(form.page);
+            if (selectedContent?.page && selectedContent.page !== form.page) invalidateCachedPublicPage(selectedContent.page);
             setFormModalOpen(false);
             resetForm();
             await loadContents();
@@ -335,6 +338,7 @@ const SiteContents = () => {
         try {
             const nextStatus = !content.is_active;
             await siteContentApi.updateContentStatus(content.id, nextStatus);
+            invalidateCachedPublicPage(content.page);
             setSuccess(nextStatus ? "Content activated." : "Content deactivated.");
             setContents((current) =>
                 current.map((item) =>
@@ -371,6 +375,7 @@ const SiteContents = () => {
 
         try {
             await siteContentApi.deleteContent(selectedContent.id);
+            invalidateCachedPublicPage(selectedContent.page);
             setDeleteModalOpen(false);
             setSelectedContent(null);
             setSuccess("Content deleted successfully.");

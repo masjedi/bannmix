@@ -102,7 +102,7 @@ export const LanguageProvider = ({ children }) => {
      *
      * Supported input:
      * {
-     *     en: "About BanMix",
+     *     en: "About BannMix",
      *     ps: "د بڼمیکس په اړه",
      *     fa: "درباره بڼمیکس"
      * }

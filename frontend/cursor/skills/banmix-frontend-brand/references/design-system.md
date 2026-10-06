@@ -1,15 +1,15 @@
-# BanMix Design System
+# BannMix Design System
 
 ## Brand Colors
 
 | Color | Hex | Purpose |
 |---|---|---|
-| BanMix Blue | #2590C7 | Brand identity, navigation, links |
-| BanMix Orange | #E86E2B | Ordering and conversion actions |
-| BanMix Green | #0E6843 | Trust, production, quality |
-| BanMix Dark | #20211A | Light-mode body text only |
-| BanMix Navy | #071426 | Dark theme backgrounds, footer, premium sections |
-| BanMix Cream | #FFF8EE | Warm food-brand backgrounds |
+| BannMix Blue | #2590C7 | Brand identity, navigation, links |
+| BannMix Orange | #E86E2B | Ordering and conversion actions |
+| BannMix Green | #0E6843 | Trust, production, quality |
+| BannMix Dark | #20211A | Light-mode body text only |
+| BannMix Navy | #071426 | Dark theme backgrounds, footer, premium sections |
+| BannMix Cream | #FFF8EE | Warm food-brand backgrounds |
 
 ## Brand Hierarchy
 

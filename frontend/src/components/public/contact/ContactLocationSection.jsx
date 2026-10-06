@@ -66,6 +66,7 @@ const ContactLocationSection = ({
                                 {title}
                             </h2>
                         ) : null}
+                        {hasText(city) ? <p className="mt-2 text-sm text-content-muted">{city}</p> : null}
                         {hasText(description) ? (
                             <p className="contact-location-desc mt-4">
                                 {description}

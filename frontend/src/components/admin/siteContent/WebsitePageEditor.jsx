@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import siteContentApi from "../../../api/siteContentApi";
+import { invalidateCachedPublicPage } from "../../../utils/publicContentCache";
 import Modal from "../../Modal";
 
 import SectionContentEditor from "./SectionContentEditor";
@@ -198,6 +199,7 @@ const WebsitePageSectionEditor = ({ page, schema, onSaved }) => {
                 setSuccess("Content saved.");
             }
 
+            invalidateCachedPublicPage(page);
             await loadSection();
             onSaved?.();
         } catch (requestError) {
@@ -214,6 +216,7 @@ const WebsitePageSectionEditor = ({ page, schema, onSaved }) => {
         try {
             const nextStatus = !item.is_active;
             await siteContentApi.updateContentStatus(item.id, nextStatus);
+            invalidateCachedPublicPage(page);
             setSuccess(nextStatus ? "Item activated." : "Item deactivated.");
 
             setRecords((current) =>
@@ -238,6 +241,7 @@ const WebsitePageSectionEditor = ({ page, schema, onSaved }) => {
 
         try {
             await siteContentApi.deleteContent(item.id);
+            invalidateCachedPublicPage(page);
             setSuccess("Item deleted.");
             await loadSection();
             onSaved?.();

@@ -25,10 +25,10 @@ export const resolveLocationData = ({
         name: pickFirst(cmsItem?.title, brandName),
         city: pickFirst(cmsItem?.subtitle, city),
         address: pickFirst(
+            cmsItem?.content,
             meta.address,
             meta.full_address,
-            location.address,
-            cmsItem?.content
+            location.address
         ),
         phone: contacts.phoneDisplay,
         phoneHref: contacts.phoneHref,

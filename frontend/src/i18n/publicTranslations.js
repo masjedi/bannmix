@@ -2,11 +2,11 @@ const text = (en, ps, fa) => ({ en, ps, fa });
 
 export const publicTranslations = {
     brand: {
-        name: text("BanMix", "BanMix", "BanMix"),
+        name: text("BannMix", "BannMix", "BannMix"),
         tagline: text(
-            "Majoon from Kabul",
-            "له کابل څخه معجون",
-            "معجون از کابل"
+            "Natural Food Production Company",
+            " د طبیعي خوړو تولیدونکي کمپنۍ",
+            " کمپني تولید غذاهاي طبیعي "
         ),
         product: text("Majoon", "معجون", "معجون"),
     },
@@ -24,7 +24,7 @@ export const publicTranslations = {
     },
 
     header: {
-        homeLabel: text("BanMix home", "د BanMix کورپاڼه", "صفحه اصلی BanMix"),
+        homeLabel: text("BannMix home", "د BannMix کورپاڼه", "صفحه اصلی BannMix"),
         searchLabel: text("Search products", "محصولات ولټوئ", "جستجوی محصولات"),
         searchPlaceholder: text(
             "Search Majoon…",
@@ -105,9 +105,9 @@ export const publicTranslations = {
             "تولید کابل."
         ),
         heroBody: text(
-            "BanMix produces quality Majoon locally and supplies shops, vendors, supermarkets, and wholesale customers across Afghanistan.",
-            "BanMix په محلي توګه کیفیت لرونکی معجون تولیدوي او په افغانستان کې دوکانونو، عرضه کوونکو، سوپرمارکېټونو او عمده پیرودونکو ته یې رسوي.",
-            "BanMix معجون باکیفیت را به‌صورت محلی تولید می‌کند و آن را به فروشگاه‌ها، فروشندگان، سوپرمارکت‌ها و مشتریان عمده در افغانستان می‌رساند."
+            "BannMix produces quality Majoon locally and supplies shops, vendors, supermarkets, and wholesale customers across Afghanistan.",
+            "BannMix په محلي توګه کیفیت لرونکی معجون تولیدوي او په افغانستان کې دوکانونو، عرضه کوونکو، سوپرمارکېټونو او عمده پیرودونکو ته یې رسوي.",
+            "BannMix معجون باکیفیت را به‌صورت محلی تولید می‌کند و آن را به فروشگاه‌ها، فروشندگان، سوپرمارکت‌ها و مشتریان عمده در افغانستان می‌رساند."
         ),
         orderWhatsApp: text(
             "Order on WhatsApp",
@@ -144,16 +144,16 @@ export const publicTranslations = {
             "د عمده لپاره چمتو",
             "آماده عمده"
         ),
-        introLabel: text("About BanMix", "د BanMix په اړه", "درباره BanMix"),
+        introLabel: text("About BannMix", "د BannMix په اړه", "درباره BannMix"),
         introTitle: text(
             "Made locally. Built for everyday retail.",
             "په محلي توګه جوړ شوی. د ورځني پرچون لپاره جوړ شوی.",
             "تولید محلی. ساخته‌شده برای خرده‌فروشی روزمره."
         ),
         introBody: text(
-            "From careful ingredient selection to production, packaging, and distribution, BanMix focuses on Majoon that tastes authentic and arrives ready for shop shelves.",
-            "له محتاط اجزاو غوره کولو څخه تر تولید، بسته بندۍ او ویش پورې، BanMix پر معجون تمرکز کوي چې خوند یې ریښتینی وي او د دوکان الماریو ته چمتو ورسیږي.",
-            "از انتخاب دقیق مواد تا تولید، بسته‌بندی و توزیع، BanMix روی معجونی تمرکز دارد که طعم اصیل دارد و آماده قفسه فروشگاه می‌رسد."
+            "From careful ingredient selection to production, packaging, and distribution, BannMix focuses on Majoon that tastes authentic and arrives ready for shop shelves.",
+            "له محتاط اجزاو غوره کولو څخه تر تولید، بسته بندۍ او ویش پورې، BannMix پر معجون تمرکز کوي چې خوند یې ریښتینی وي او د دوکان الماریو ته چمتو ورسیږي.",
+            "از انتخاب دقیق مواد تا تولید، بسته‌بندی و توزیع، BannMix روی معجونی تمرکز دارد که طعم اصیل دارد و آماده قفسه فروشگاه می‌رسد."
         ),
         featureLocal: text(
             "Local Production",
@@ -213,14 +213,14 @@ export const publicTranslations = {
             "محصولات پس از انتشار اینجا نمایش داده می‌شوند."
         ),
         highlightsLabel: text(
-            "Why BanMix",
-            "ولې BanMix",
-            "چرا BanMix"
+            "Why BannMix",
+            "ولې BannMix",
+            "چرا BannMix"
         ),
         highlightsTitle: text(
-            "Why shops choose BanMix",
-            "ولې دوکانونه BanMix غوره کوي",
-            "چرا فروشگاه‌ها BanMix را انتخاب می‌کنند"
+            "Why shops choose BannMix",
+            "ولې دوکانونه BannMix غوره کوي",
+            "چرا فروشگاه‌ها BannMix را انتخاب می‌کنند"
         ),
         mediaLabel: text(
             "Factory story",
@@ -228,9 +228,9 @@ export const publicTranslations = {
             "داستان کارخانه"
         ),
         mediaTitle: text(
-            "See how BanMix Majoon is made",
-            "وګورئ چې د BanMix معجون څنګه جوړیږي",
-            "ببینید معجون BanMix چگونه ساخته می‌شود"
+            "See how BannMix Majoon is made",
+            "وګورئ چې د BannMix معجون څنګه جوړیږي",
+            "ببینید معجون BannMix چگونه ساخته می‌شود"
         ),
         mediaBody: text(
             "A closer look at preparation, packing, and the care behind every jar.",
@@ -269,32 +269,32 @@ export const publicTranslations = {
             "خرده‌فروشان چه می‌گویند"
         ),
         testimonialsBody: text(
-            "Feedback from shopkeepers, vendors, and retail buyers who work with BanMix.",
-            "د دوکاندارانو، عرضه کوونکو او پرچون پیرودونکو نظرونه چې له BanMix سره کار کوي.",
-            "بازخورد دکانداران، فروشندگان و خریداران خرده‌فروشی که با BanMix کار می‌کنند."
+            "Feedback from shopkeepers, vendors, and retail buyers who work with BannMix.",
+            "د دوکاندارانو، عرضه کوونکو او پرچون پیرودونکو نظرونه چې له BannMix سره کار کوي.",
+            "بازخورد دکانداران، فروشندگان و خریداران خرده‌فروشی که با BannMix کار می‌کنند."
         ),
         newsLabel: text("Latest news", "وروستي خبرونه", "آخرین اخبار"),
         newsTitle: text(
-            "What’s new at BanMix",
-            "په BanMix کې څه نوي دي",
-            "تازه‌های BanMix"
+            "What’s new at BannMix",
+            "په BannMix کې څه نوي دي",
+            "تازه‌های BannMix"
         ),
         readMore: text("Read more", "نور ولولئ", "بیشتر بخوانید"),
-        majoonLabel: text("Our Majoon", "زموږ معجون", "معجون ما"),
+        majoonLabel: text("PiawarryBann", "پیاوړی بڼ", "پیاوړی بڼ"),
         majoonTitle: text(
             "Traditional taste. Made for today.",
             "دودیز خوند. د نن ورځې لپاره جوړ شوی.",
             "طعم سنتی. ساخته‌شده برای امروز."
         ),
         majoonBody: text(
-            "BanMix Majoon is locally produced in Kabul and prepared for modern retail and wholesale distribution — familiar taste, retail-ready packaging, and a clear path to restock.",
-            "د BanMix معجون په کابل کې په محلي توګه تولیدېږي او د ننني پرچون او عمده ویش لپاره چمتو کېږي — پېژندل شوی خوند، د المارۍ لپاره چمتو بسته بندي، او د بیا ذخیرې روښانه لار.",
-            "معجون BanMix در کابل به‌صورت محلی تولید می‌شود و برای خرده‌فروشی و توزیع عمده امروزی آماده است — طعم آشنا، بسته‌بندی مناسب قفسه، و مسیر روشن برای موجود کردن دوباره."
+            "BannMix Majoon is locally produced in Kabul and prepared for modern retail and wholesale distribution — familiar taste, retail-ready packaging, and a clear path to restock.",
+            "د BannMix معجون په کابل کې په محلي توګه تولیدېږي او د ننني پرچون او عمده ویش لپاره چمتو کېږي — پېژندل شوی خوند، د المارۍ لپاره چمتو بسته بندي، او د بیا ذخیرې روښانه لار.",
+            "معجون BannMix در کابل به‌صورت محلی تولید می‌شود و برای خرده‌فروشی و توزیع عمده امروزی آماده است — طعم آشنا، بسته‌بندی مناسب قفسه، و مسیر روشن برای موجود کردن دوباره."
         ),
         introVideoEyebrow: text(
-            "Discover BanMix",
-            "BanMix وپېژنئ",
-            "BanMix را بشناسید"
+            "Discover BannMix",
+            "BannMix وپېژنئ",
+            "BannMix را بشناسید"
         ),
         introVideoTitle: text(
             "Made in Kabul. Made to be shared.",
@@ -302,19 +302,19 @@ export const publicTranslations = {
             "ساخت کابل. ساخته‌شده برای به اشتراک گذاشتن."
         ),
         introVideoBody: text(
-            "Discover the story behind BanMix, from local production and packaging to retail and wholesale supply.",
-            "د BanMix کیسه وپېژنئ، له محلي تولید او بسته بندۍ څخه تر پرچون او عمده رسولو پورې.",
-            "داستان BanMix را بشناسید، از تولید و بسته‌بندی محلی تا عرضه خرده‌فروشی و عمده."
+            "Discover the story behind BannMix, from local production and packaging to retail and wholesale supply.",
+            "د BannMix کیسه وپېژنئ، له محلي تولید او بسته بندۍ څخه تر پرچون او عمده رسولو پورې.",
+            "داستان BannMix را بشناسید، از تولید و بسته‌بندی محلی تا عرضه خرده‌فروشی و عمده."
         ),
         introVideoPlay: text(
-            "Play BanMix introduction video",
-            "د BanMix پېژندنیز ویډیو پلی کړئ",
-            "پخش ویدیوی معرفی BanMix"
+            "Play BannMix introduction video",
+            "د BannMix پېژندنیز ویډیو پلی کړئ",
+            "پخش ویدیوی معرفی BannMix"
         ),
         introVideoCaption: text(
-            "Watch the BanMix story",
-            "د BanMix کیسه وګورئ",
-            "داستان BanMix را ببینید"
+            "Watch the BannMix story",
+            "د BannMix کیسه وګورئ",
+            "داستان BannMix را ببینید"
         ),
         qualityLabel: text(
             "Ingredients & quality",
@@ -327,9 +327,9 @@ export const publicTranslations = {
             "مواد با دقت انتخاب می‌شوند."
         ),
         qualityBody: text(
-            "BanMix starts with careful ingredient selection and a consistent preparation process, then packs Majoon for shop shelves.",
-            "BanMix له محتاط اجزاو غوره کولو او یوه ثابتې چمتووالي پروسې پیل کوي، بیا معجون د دوکان الماریو لپاره بسته کوي.",
-            "BanMix با انتخاب دقیق مواد و فرآیند آماده‌سازی یکنواخت آغاز می‌کند، سپس معجون را برای قفسه فروشگاه بسته‌بندی می‌کند."
+            "BannMix starts with careful ingredient selection and a consistent preparation process, then packs Majoon for shop shelves.",
+            "BannMix له محتاط اجزاو غوره کولو او یوه ثابتې چمتووالي پروسې پیل کوي، بیا معجون د دوکان الماریو لپاره بسته کوي.",
+            "BannMix با انتخاب دقیق مواد و فرآیند آماده‌سازی یکنواخت آغاز می‌کند، سپس معجون را برای قفسه فروشگاه بسته‌بندی می‌کند."
         ),
         qualityIngredientsLead: text(
             "Typically prepared with selected nuts, dry fruits, natural sweeteners, and traditional Majoon spices.",
@@ -343,9 +343,9 @@ export const publicTranslations = {
             "ساخته‌شده برای خرده‌فروشی محلی."
         ),
         audienceBody: text(
-            "BanMix supplies shops, larger retail environments, and wholesale partners — with product information for individual customers too.",
-            "BanMix دوکانونو، لویو پرچون چاپېریالونو او عمده شریکانو ته عرضه کوي — د انفرادي پیرودونکو لپاره د محصول معلومات هم شته.",
-            "BanMix به فروشگاه‌ها، محیط‌های خرده‌فروشی بزرگ‌تر و شرکای عمده عرضه می‌کند — و اطلاعات محصول را برای مشتریان فردی نیز فراهم می‌کند."
+            "BannMix supplies shops, larger retail environments, and wholesale partners — with product information for individual customers too.",
+            "BannMix دوکانونو، لویو پرچون چاپېریالونو او عمده شریکانو ته عرضه کوي — د انفرادي پیرودونکو لپاره د محصول معلومات هم شته.",
+            "BannMix به فروشگاه‌ها، محیط‌های خرده‌فروشی بزرگ‌تر و شرکای عمده عرضه می‌کند — و اطلاعات محصول را برای مشتریان فردی نیز فراهم می‌کند."
         ),
         processLabel: text(
             "Wholesale orders",
@@ -358,14 +358,14 @@ export const publicTranslations = {
             "سفارش عمده ساده شده است."
         ),
         processBody: text(
-            "Start a conversation with the BanMix team. Availability, pricing, and distribution are confirmed before an order is arranged.",
-            "له د BanMix ټیم سره خبرې پیل کړئ. شتون، قیمت او ویش مخکې له دې چې فرمایش تنظیم شي تاییدېږي.",
-            "گفت‌وگو را با تیم BanMix آغاز کنید. موجودی، قیمت و توزیع پیش از تنظیم سفارش تأیید می‌شود."
+            "Start a conversation with the BannMix team. Availability, pricing, and distribution are confirmed before an order is arranged.",
+            "له د BannMix ټیم سره خبرې پیل کړئ. شتون، قیمت او ویش مخکې له دې چې فرمایش تنظیم شي تاییدېږي.",
+            "گفت‌وگو را با تیم BannMix آغاز کنید. موجودی، قیمت و توزیع پیش از تنظیم سفارش تأیید می‌شود."
         ),
         processNote: text(
-            "Messaging BanMix on WhatsApp starts a conversation — it does not confirm an order.",
-            "په واتساپ BanMix ته پیغام استول خبرې پیلوي — فرمایش نه تاییدوي.",
-            "پیام دادن به BanMix در واتساپ گفت‌وگو را شروع می‌کند — سفارش را تأیید نمی‌کند."
+            "Messaging BannMix on WhatsApp starts a conversation — it does not confirm an order.",
+            "په واتساپ BannMix ته پیغام استول خبرې پیلوي — فرمایش نه تاییدوي.",
+            "پیام دادن به BannMix در واتساپ گفت‌وگو را شروع می‌کند — سفارش را تأیید نمی‌کند."
         ),
         distributionLabel: text("Distribution", "ویش", "توزیع"),
         distributionTitle: text(
@@ -374,9 +374,9 @@ export const publicTranslations = {
             "عرضه محلی. هماهنگی قابل اعتماد."
         ),
         distributionBody: text(
-            "BanMix is produced in Kabul and supplied through coordinated wholesale and retail distribution. Ask the team about availability for your area.",
-            "BanMix په کابل کې تولیدېږي او له همغږي شوي عمده او پرچون ویش څخه عرضه کېږي. د خپلې سیمې د شتون په اړه له ټیم څخه وپوښتئ.",
-            "BanMix در کابل تولید می‌شود و از طریق توزیع هماهنگ عمده و خرده‌فروشی عرضه می‌گردد. درباره موجودی منطقه خود از تیم بپرسید."
+            "BannMix is produced in Kabul and supplied through coordinated wholesale and retail distribution. Ask the team about availability for your area.",
+            "BannMix په کابل کې تولیدېږي او له همغږي شوي عمده او پرچون ویش څخه عرضه کېږي. د خپلې سیمې د شتون په اړه له ټیم څخه وپوښتئ.",
+            "BannMix در کابل تولید می‌شود و از طریق توزیع هماهنگ عمده و خرده‌فروشی عرضه می‌گردد. درباره موجودی منطقه خود از تیم بپرسید."
         ),
         faqLabel: text("FAQ", "پوښتنې", "پرسش‌ها"),
         faqTitle: text(
@@ -385,9 +385,9 @@ export const publicTranslations = {
             "پرسش‌ها پیش از سفارش؟"
         ),
         faqBody: text(
-            "Practical answers about production, wholesale supply, and how to work with BanMix.",
-            "د تولید، عمده عرضې، او له BanMix سره د کار کولو په اړه عملي ځوابونه.",
-            "پاسخ‌های کاربردی درباره تولید، عرضه عمده، و نحوه همکاری با BanMix."
+            "Practical answers about production, wholesale supply, and how to work with BannMix.",
+            "د تولید، عمده عرضې، او له BannMix سره د کار کولو په اړه عملي ځوابونه.",
+            "پاسخ‌های کاربردی درباره تولید، عرضه عمده، و نحوه همکاری با BannMix."
         ),
         faqHelp: text(
             "Still need help?",
@@ -405,14 +405,14 @@ export const publicTranslations = {
             "آماده موجود کردن هستید؟"
         ),
         orderTitle: text(
-            "Stock BanMix in your shop.",
-            "په خپل دوکان کې BanMix ذخیره کړئ.",
-            "BanMix را در فروشگاه خود موجود کنید."
+            "Stock BannMix in your shop.",
+            "په خپل دوکان کې BannMix ذخیره کړئ.",
+            "BannMix را در فروشگاه خود موجود کنید."
         ),
         orderBody: text(
-            "Looking for locally produced Majoon for your shop, supermarket, or wholesale business? Talk directly with the BanMix team about availability, quantities, and distribution.",
-            "د خپل دوکان، سوپرمارکېټ، یا عمده سوداګرۍ لپاره محلي تولید شوی معجون لټوئ؟ د شتون، مقدارونو او ویش په اړه مستقیماً له د BanMix ټیم سره خبرې وکړئ.",
-            "به دنبال معجون تولید محلی برای فروشگاه، سوپرمارکت یا کسب‌وکار عمده خود هستید؟ مستقیماً با تیم BanMix درباره موجودی، مقادیر و توزیع گفت‌وگو کنید."
+            "Looking for locally produced Majoon for your shop, supermarket, or wholesale business? Talk directly with the BannMix team about availability, quantities, and distribution.",
+            "د خپل دوکان، سوپرمارکېټ، یا عمده سوداګرۍ لپاره محلي تولید شوی معجون لټوئ؟ د شتون، مقدارونو او ویش په اړه مستقیماً له د BannMix ټیم سره خبرې وکړئ.",
+            "به دنبال معجون تولید محلی برای فروشگاه، سوپرمارکت یا کسب‌وکار عمده خود هستید؟ مستقیماً با تیم BannMix درباره موجودی، مقادیر و توزیع گفت‌وگو کنید."
         ),
         callSales: text("Call Sales", "پلور ته زنګ ووهئ", "تماس با فروش"),
         contactSales: text(
@@ -432,14 +432,14 @@ export const publicTranslations = {
             "عرضه عمده"
         ),
         heroImageAlt: text(
-            "BanMix Majoon product photography",
-            "د BanMix معجون د محصول انځور",
-            "عکس محصول معجون BanMix"
+            "BannMix Majoon product photography",
+            "د BannMix معجون د محصول انځور",
+            "عکس محصول معجون BannMix"
         ),
         heroSlideProductCaption: text(
-            "BanMix Majoon · Made in Kabul",
-            "BanMix معجون · په کابل کې جوړ شوی",
-            "معجون BanMix · تولید کابل"
+            "BannMix Majoon · Made in Kabul",
+            "BannMix معجون · په کابل کې جوړ شوی",
+            "معجون BannMix · تولید کابل"
         ),
         heroSlideRetailCaption: text(
             "Ready for retail",
@@ -452,19 +452,19 @@ export const publicTranslations = {
             "آماده عرضه عمده"
         ),
         heroSlideProductAlt: text(
-            "BanMix Majoon jar and retail packaging",
-            "د BanMix معجون جار او پرچون بسته بندي",
-            "شیشه و بسته‌بندی خرده‌فروشی معجون BanMix"
+            "BannMix Majoon jar and retail packaging",
+            "د BannMix معجون جار او پرچون بسته بندي",
+            "شیشه و بسته‌بندی خرده‌فروشی معجون BannMix"
         ),
         heroSlideRetailAlt: text(
-            "BanMix Majoon displayed for retail shelves",
-            "د BanMix معجون د پرچون الماریو لپاره نندارې",
-            "نمایش معجون BanMix برای قفسه فروشگاه"
+            "BannMix Majoon displayed for retail shelves",
+            "د BannMix معجون د پرچون الماریو لپاره نندارې",
+            "نمایش معجون BannMix برای قفسه فروشگاه"
         ),
         heroSlideWholesaleAlt: text(
-            "BanMix Majoon prepared for wholesale supply",
-            "د BanMix معجون د عمده عرضې لپاره چمتو",
-            "معجون BanMix آماده عرضه عمده"
+            "BannMix Majoon prepared for wholesale supply",
+            "د BannMix معجون د عمده عرضې لپاره چمتو",
+            "معجون BannMix آماده عرضه عمده"
         ),
         heroSlideProductFallback: text(
             "Product photography",
@@ -482,9 +482,9 @@ export const publicTranslations = {
             "آماده‌سازی عمده"
         ),
         heroCarouselLabel: text(
-            "BanMix product story",
-            "د BanMix محصول کیسه",
-            "داستان محصول BanMix"
+            "BannMix product story",
+            "د BannMix محصول کیسه",
+            "داستان محصول BannMix"
         ),
         heroCarouselPrev: text(
             "Previous slide",
@@ -502,14 +502,14 @@ export const publicTranslations = {
             "رفتن به اسلاید {current} از {total}"
         ),
         aboutImageAlt: text(
-            "BanMix local production in Kabul",
-            "په کابل کې د BanMix محلي تولید",
-            "تولید محلی BanMix در کابل"
+            "BannMix local production in Kabul",
+            "په کابل کې د BannMix محلي تولید",
+            "تولید محلی BannMix در کابل"
         ),
         mediaFallbackLabel: text(
-            "BanMix Majoon",
-            "BanMix معجون",
-            "معجون BanMix"
+            "BannMix Majoon",
+            "BannMix معجون",
+            "معجون BannMix"
         ),
         mediaFallbackHint: text(
             "Product photography coming soon",
@@ -524,7 +524,7 @@ export const publicTranslations = {
     },
 
     about: {
-        heroLabel: text("About BanMix", "د BanMix په اړه", "درباره BanMix"),
+        heroLabel: text("About BannMix", "د BannMix په اړه", "درباره BannMix"),
         heroTitle: text(
             "Made in Kabul. Built for everyday shelves.",
             "په کابل کې جوړ شوی. د ورځنیو الماریو لپاره.",
@@ -545,9 +545,9 @@ export const publicTranslations = {
             "از مهارت کابل تا قفسه‌های روزمره"
         ),
         historyBody: text(
-            "BanMix began with a clear goal: make Majoon the way families recognize it, then package and deliver it reliably for shopkeepers and markets. Today we supply vendors across the city and beyond.",
-            "BanMix د یوې روښانه موخې سره پیل شو: معجون هغسې جوړ کړو چې کورنۍ یې پېژني، بیا یې په باوري توګه د دوکاندارانو او مارکېټونو لپاره بسته او ورسوو. نن موږ په ښار او هاخوا کې عرضه کوونکو ته رسولو.",
-            "BanMix با هدفی روشن آغاز شد: معجون را همان‌طور بسازیم که خانواده‌ها می‌شناسند، سپس برای دکانداران و بازارها به‌صورت قابل اعتماد بسته‌بندی و ارسال کنیم. امروز به فروشندگان در شهر و فراتر از آن می‌رسانیم."
+            "BannMix began with a clear goal: make Majoon the way families recognize it, then package and deliver it reliably for shopkeepers and markets. Today we supply vendors across the city and beyond.",
+            "BannMix د یوې روښانه موخې سره پیل شو: معجون هغسې جوړ کړو چې کورنۍ یې پېژني، بیا یې په باوري توګه د دوکاندارانو او مارکېټونو لپاره بسته او ورسوو. نن موږ په ښار او هاخوا کې عرضه کوونکو ته رسولو.",
+            "BannMix با هدفی روشن آغاز شد: معجون را همان‌طور بسازیم که خانواده‌ها می‌شناسند، سپس برای دکانداران و بازارها به‌صورت قابل اعتماد بسته‌بندی و ارسال کنیم. امروز به فروشندگان در شهر و فراتر از آن می‌رسانیم."
         ),
         visionLabel: text("Vision", "لیدلوری", "چشم‌انداز"),
         visionTitle: text(
@@ -556,9 +556,9 @@ export const publicTranslations = {
             "معجون روی هر قفسه محلی قابل اعتماد"
         ),
         visionBody: text(
-            "We want BanMix Majoon to be the familiar choice for shoppers — and the dependable stock item for vendors across Afghanistan.",
-            "موږ غواړو د BanMix معجون د پیرودونکو لپاره پیژندل شوې انتخاب وي — او د افغانستان په کچه د عرضه کوونکو لپاره باوري ذخیره.",
-            "می‌خواهیم معجون BanMix انتخاب آشنای خریداران باشد — و موجودی قابل اتکای فروشندگان در سراسر افغانستان."
+            "We want BannMix Majoon to be the familiar choice for shoppers — and the dependable stock item for vendors across Afghanistan.",
+            "موږ غواړو د BannMix معجون د پیرودونکو لپاره پیژندل شوې انتخاب وي — او د افغانستان په کچه د عرضه کوونکو لپاره باوري ذخیره.",
+            "می‌خواهیم معجون BannMix انتخاب آشنای خریداران باشد — و موجودی قابل اتکای فروشندگان در سراسر افغانستان."
         ),
         missionLabel: text("Mission", "ماموریت", "مأموریت"),
         missionTitle: text(
@@ -573,9 +573,9 @@ export const publicTranslations = {
         ),
         valuesLabel: text("Values", "ارزښتونه", "ارزش‌ها"),
         valuesTitle: text(
-            "What guides BanMix every day",
-            "هغه څه چې هره ورځ BanMix لارښوونه کوي",
-            "آنچه هر روز BanMix را راهنمایی می‌کند"
+            "What guides BannMix every day",
+            "هغه څه چې هره ورځ BannMix لارښوونه کوي",
+            "آنچه هر روز BannMix را راهنمایی می‌کند"
         ),
         valuesBody: text(
             "Principles that shape how we produce, partner, and deliver.",
@@ -589,9 +589,9 @@ export const publicTranslations = {
             "رهبری ما"
         ),
         leadershipBody: text(
-            "The people guiding BanMix production, quality, and partnerships.",
-            "هغه خلک چې د BanMix تولید، کیفیت او شریکتیا لارښوونه کوي.",
-            "افرادی که تولید، کیفیت و شراکت‌های BanMix را هدایت می‌کنند."
+            "The people guiding BannMix production, quality, and partnerships.",
+            "هغه خلک چې د BannMix تولید، کیفیت او شریکتیا لارښوونه کوي.",
+            "افرادی که تولید، کیفیت و شراکت‌های BannMix را هدایت می‌کنند."
         ),
         galleryLabel: text(
             "Production",
@@ -599,9 +599,9 @@ export const publicTranslations = {
             "تولید"
         ),
         galleryTitle: text(
-            "Inside BanMix Production",
-            "د BanMix تولید دننه",
-            "داخل تولید BanMix"
+            "Inside BannMix Production",
+            "د BannMix تولید دننه",
+            "داخل تولید BannMix"
         ),
         galleryBody: text(
             "A look at preparation, cooking, packing, and dispatch before every batch reaches local shops.",
@@ -615,9 +615,9 @@ export const publicTranslations = {
             "تولید کابل برای خرده‌فروشی روزمره."
         ),
         showcaseBody: text(
-            "Discover the latest BanMix products prepared for shops, vendors, supermarkets, and wholesale customers.",
-            "وروستي BanMix محصولات ومومئ چې د دوکانونو، عرضه کوونکو، سوپرمارکېټونو او عمده پیرودونکو لپاره چمتو دي.",
-            "جدیدترین محصولات BanMix را که برای فروشگاه‌ها، فروشندگان، سوپرمارکت‌ها و مشتریان عمده آماده شده‌اند، کشف کنید."
+            "Discover the latest BannMix products prepared for shops, vendors, supermarkets, and wholesale customers.",
+            "وروستي BannMix محصولات ومومئ چې د دوکانونو، عرضه کوونکو، سوپرمارکېټونو او عمده پیرودونکو لپاره چمتو دي.",
+            "جدیدترین محصولات BannMix را که برای فروشگاه‌ها، فروشندگان، سوپرمارکت‌ها و مشتریان عمده آماده شده‌اند، کشف کنید."
         ),
         exploreProduct: text(
             "Explore product",
@@ -639,9 +639,9 @@ export const publicTranslations = {
             "خدماتی که از محصولات طبیعی پشتیبانی می‌کنند"
         ),
         heroBody: text(
-            "BanMix works with partners in Kabul and beyond to source, present, and distribute natural products with care and clarity.",
-            "BanMix په کابل او هاخوا کې له شریکانو سره کار کوي ترڅو طبیعي محصولات په پاملرنې او روښانتیا سره پیدا، وړاندې او وویشي.",
-            "BanMix با شرکا در کابل و فراتر از آن همکاری می‌کند تا محصولات طبیعی را با دقت و شفافیت تأمین، عرضه و توزیع کند."
+            "BannMix works with partners in Kabul and beyond to source, present, and distribute natural products with care and clarity.",
+            "BannMix په کابل او هاخوا کې له شریکانو سره کار کوي ترڅو طبیعي محصولات په پاملرنې او روښانتیا سره پیدا، وړاندې او وویشي.",
+            "BannMix با شرکا در کابل و فراتر از آن همکاری می‌کند تا محصولات طبیعی را با دقت و شفافیت تأمین، عرضه و توزیع کند."
         ),
         browseProducts: text(
             "Browse products",
@@ -656,20 +656,20 @@ export const publicTranslations = {
             "پشتیبانی عملی برای کالاهای طبیعی"
         ),
         offerBody: text(
-            "Whether you need product information, partnership conversations, or help selecting the right BanMix range, our team is here to help.",
-            "که تاسو د محصول معلومات، د شریکتیا خبرې، یا د سم BanMix لړۍ په ټاکلو کې مرستې ته اړتیا لرئ، زموږ ټیم دلته دی.",
-            "چه به اطلاعات محصول، گفت‌وگوی مشارکت، یا کمک در انتخاب مجموعه مناسب BanMix نیاز داشته باشید، تیم ما اینجاست."
+            "Whether you need product information, partnership conversations, or help selecting the right BannMix range, our team is here to help.",
+            "که تاسو د محصول معلومات، د شریکتیا خبرې، یا د سم BannMix لړۍ په ټاکلو کې مرستې ته اړتیا لرئ، زموږ ټیم دلته دی.",
+            "چه به اطلاعات محصول، گفت‌وگوی مشارکت، یا کمک در انتخاب مجموعه مناسب BannMix نیاز داشته باشید، تیم ما اینجاست."
         ),
         ctaLabel: text("Products", "محصولات", "محصولات"),
         ctaTitle: text(
-            "Explore BanMix products",
-            "د BanMix محصولات وپلټئ",
-            "کاوش محصولات BanMix"
+            "Explore BannMix products",
+            "د BannMix محصولات وپلټئ",
+            "کاوش محصولات BannMix"
         ),
         ctaBody: text(
-            "Browse our latest products and discover the BanMix range prepared for shops, vendors, and wholesale customers.",
-            "زموږ وروستي محصولات وپلټئ او د BanMix لړۍ ومومئ چې د دوکانونو، عرضه کوونکو او عمده پیرودونکو لپاره چمتو ده.",
-            "جدیدترین محصولات ما را مرور کنید و مجموعه BanMix را که برای فروشگاه‌ها، فروشندگان و مشتریان عمده آماده شده کشف کنید."
+            "Browse our latest products and discover the BannMix range prepared for shops, vendors, and wholesale customers.",
+            "زموږ وروستي محصولات وپلټئ او د BannMix لړۍ ومومئ چې د دوکانونو، عرضه کوونکو او عمده پیرودونکو لپاره چمتو ده.",
+            "جدیدترین محصولات ما را مرور کنید و مجموعه BannMix را که برای فروشگاه‌ها، فروشندگان و مشتریان عمده آماده شده کشف کنید."
         ),
         viewProducts: text("View products", "محصولات وګورئ", "مشاهده محصولات"),
         contactUs: text("Contact us", "اړیکه ونیسئ", "تماس با ما"),
@@ -683,9 +683,9 @@ export const publicTranslations = {
             "رویدادها و گردهمایی‌ها"
         ),
         heroBody: text(
-            "Meet BanMix at product showcases, community events, and partner gatherings across Kabul — and stay connected to what's next.",
-            "په کابل کې د محصولاتو نندارتونونو، ټولنیزو پیښو او د شریکانو غونډو کې BanMix وپیژنئ — او له راتلونکي سره وصل پاتې شئ.",
-            "BanMix را در نمایشگاه محصولات، رویدادهای اجتماعی و گردهمایی‌های شرکا در کابل ببینید — و از آنچه در پیش است مطلع بمانید."
+            "Meet BannMix at product showcases, community events, and partner gatherings across Kabul — and stay connected to what's next.",
+            "په کابل کې د محصولاتو نندارتونونو، ټولنیزو پیښو او د شریکانو غونډو کې BannMix وپیژنئ — او له راتلونکي سره وصل پاتې شئ.",
+            "BannMix را در نمایشگاه محصولات، رویدادهای اجتماعی و گردهمایی‌های شرکا در کابل ببینید — و از آنچه در پیش است مطلع بمانید."
         ),
         exploreProducts: text(
             "Explore products",
@@ -695,9 +695,9 @@ export const publicTranslations = {
         backToHome: text("Back to home", "بېرته کورپاڼې ته", "بازگشت به صفحه اصلی"),
         comingUpLabel: text("Coming up", "راتلونکي", "پیش رو"),
         comingUpTitle: text(
-            "Where BanMix shows up",
-            "چیرته BanMix ښکاره کېږي",
-            "جایی که BanMix حضور دارد"
+            "Where BannMix shows up",
+            "چیرته BannMix ښکاره کېږي",
+            "جایی که BannMix حضور دارد"
         ),
         comingUpBody: text(
             "Event details will appear here as they are announced. In the meantime, here's how we typically connect with our community.",
@@ -731,9 +731,9 @@ export const publicTranslations = {
         heroLabel: text("Gallery", "ګالري", "گالری"),
         heroTitle: text("Gallery", "ګالري", "گالری"),
         heroBody: text(
-            "A visual look at BanMix — our natural products, the places they come from, and the people behind the brand in Kabul.",
-            "د BanMix بصري کتنه — زموږ طبیعي محصولات، هغه ځایونه چې له هغو راځي، او هغه خلک چې په کابل کې د برانډ شاته دي.",
-            "نگاهی بصری به BanMix — محصولات طبیعی ما، مکان‌هایی که از آن‌ها می‌آیند، و افرادی که در کابل پشت این برند هستند."
+            "A visual look at BannMix — our natural products, the places they come from, and the people behind the brand in Kabul.",
+            "د BannMix بصري کتنه — زموږ طبیعي محصولات، هغه ځایونه چې له هغو راځي، او هغه خلک چې په کابل کې د برانډ شاته دي.",
+            "نگاهی بصری به BannMix — محصولات طبیعی ما، مکان‌هایی که از آن‌ها می‌آیند، و افرادی که در کابل پشت این برند هستند."
         ),
         viewProducts: text("View products", "محصولات وګورئ", "مشاهده محصولات"),
         backToHome: text("Back to home", "بېرته کورپاڼې ته", "بازگشت به صفحه اصلی"),
@@ -753,9 +753,9 @@ export const publicTranslations = {
     products: {
         heroLabel: text("Products", "محصولات", "محصولات"),
         heroTitle: text(
-            "BanMix Majoon for every shelf.",
-            "د BanMix معجون د هرې المارۍ لپاره.",
-            "معجون BanMix برای هر قفسه."
+            "BannMix Majoon for every shelf.",
+            "د BannMix معجون د هرې المارۍ لپاره.",
+            "معجون BannMix برای هر قفسه."
         ),
         heroBody: text(
             "Browse our Majoon range, packaging options, pricing, and wholesale availability for shops and markets.",
@@ -763,9 +763,9 @@ export const publicTranslations = {
             "مجموعه معجون، گزینه‌های بسته‌بندی، قیمت‌ها و موجودی عمده برای فروشگاه‌ها و بازارها را مرور کنید."
         ),
         heroVisualAlt: text(
-            "BanMix Majoon product",
-            "د BanMix معجون محصول",
-            "محصول معجون BanMix"
+            "BannMix Majoon product",
+            "د BannMix معجون محصول",
+            "محصول معجون BannMix"
         ),
         browseProducts: text(
             "Browse Products",
@@ -830,9 +830,9 @@ export const publicTranslations = {
             "سفارش‌های عمده"
         ),
         wholesaleTitle: text(
-            "Need BanMix for your shop or supermarket?",
-            "د خپل دوکان یا سوپرمارکېټ لپاره BanMix ته اړتیا لرئ؟",
-            "برای فروشگاه یا سوپرمارکت خود به BanMix نیاز دارید؟"
+            "Need BannMix for your shop or supermarket?",
+            "د خپل دوکان یا سوپرمارکېټ لپاره BannMix ته اړتیا لرئ؟",
+            "برای فروشگاه یا سوپرمارکت خود به BannMix نیاز دارید؟"
         ),
         wholesaleBody: text(
             "Contact our Kabul sales team for wholesale pricing and distribution.",
@@ -1084,9 +1084,9 @@ export const publicTranslations = {
 
     newsletter: {
         title: text(
-            "Stock updates from BanMix",
-            "له BanMix څخه د ذخیرې تازه معلومات",
-            "به‌روزرسانی موجودی از BanMix"
+            "Stock updates from BannMix",
+            "له BannMix څخه د ذخیرې تازه معلومات",
+            "به‌روزرسانی موجودی از BannMix"
         ),
         description: text(
             "Product news and ordering updates for vendors and shopkeepers.",
@@ -1101,18 +1101,18 @@ export const publicTranslations = {
         subscribe: text("Subscribe", "ګډون وکړئ", "عضویت"),
         emailLabel: text("Email address", "برېښنالیک", "آدرس ایمیل"),
         unavailable: text(
-            "Newsletter signup is not available yet. Contact BanMix for product and stock updates.",
-            "د خبرپاڼې ګډون لا شتون نلري. د محصول او ذخیرې تازه معلوماتو لپاره له BanMix سره اړیکه ونیسئ.",
-            "عضویت خبرنامه هنوز در دسترس نیست. برای به‌روزرسانی محصول و موجودی با BanMix تماس بگیرید."
+            "Newsletter signup is not available yet. Contact BannMix for product and stock updates.",
+            "د خبرپاڼې ګډون لا شتون نلري. د محصول او ذخیرې تازه معلوماتو لپاره له BannMix سره اړیکه ونیسئ.",
+            "عضویت خبرنامه هنوز در دسترس نیست. برای به‌روزرسانی محصول و موجودی با BannMix تماس بگیرید."
         ),
     },
 
     contact: {
         heroLabel: text("Contact", "اړیکه", "تماس"),
         heroTitle: text(
-            "Get in touch with BanMix",
-            "له BanMix سره اړیکه ونیسئ",
-            "با BanMix در تماس باشید"
+            "Get in touch with BannMix",
+            "له BannMix سره اړیکه ونیسئ",
+            "با BannMix در تماس باشید"
         ),
         heroBody: text(
             "Questions about products, wholesale orders, or partnerships — our Kabul team is ready to help.",
@@ -1146,11 +1146,6 @@ export const publicTranslations = {
         formName: text("Your name", "ستاسو نوم", "نام شما"),
         formEmail: text("Email address", "برېښنالیک", "آدرس ایمیل"),
         formSubject: text("Subject", "موضوع", "موضوع"),
-        formSubjectDefault: text(
-            "BanMix inquiry",
-            "د BanMix پوښتنه",
-            "استعلام BanMix"
-        ),
         formMessage: text("Message", "پیغام", "پیام"),
         formHeaderLabel: text(
             "Send a message",
@@ -1222,9 +1217,9 @@ export const publicTranslations = {
         city: text("Kabul, Afghanistan", "کابل، افغانستان", "کابل، افغانستان"),
         locationLabel: text("Location", "موقعیت", "موقعیت"),
         locationTitle: text(
-            "Visit BanMix in Kabul",
-            "په کابل کې BanMix وپیژنئ",
-            "بازدید از BanMix در کابل"
+            "Visit BannMix in Kabul",
+            "په کابل کې BannMix وپیژنئ",
+            "بازدید از BannMix در کابل"
         ),
         locationBody: text(
             "Find our location and get directions when you're ready to visit or collect an order.",
@@ -1235,9 +1230,9 @@ export const publicTranslations = {
         hoursLabel: text("Working hours", "کاري ساعته", "ساعات کاری"),
         directionsLabel: text("Get directions", "لارښوونه ترلاسه کړئ", "مسیریابی"),
         mapTitle: text(
-            "BanMix location in Kabul",
-            "د BanMix موقعیت په کابل کې",
-            "موقعیت BanMix در کابل"
+            "BannMix location in Kabul",
+            "د BannMix موقعیت په کابل کې",
+            "موقعیت BannMix در کابل"
         ),
         mapComingSoon: text(
             "Map location coming soon",
@@ -1245,9 +1240,9 @@ export const publicTranslations = {
             "موقعیت نقشه به‌زودی"
         ),
         socialLabel: text(
-            "Connect with BanMix",
-            "له BanMix سره وصل شئ",
-            "با BanMix در ارتباط باشید"
+            "Connect with BannMix",
+            "له BannMix سره وصل شئ",
+            "با BannMix در ارتباط باشید"
         ),
         facebookLabel: text("Facebook", "فېسبوک", "فیس‌بوک"),
         instagramLabel: text("Instagram", "انسټاګرام", "اینستاگرام"),
@@ -1255,9 +1250,9 @@ export const publicTranslations = {
 
     footer: {
         description: text(
-            "BanMix produces Majoon in Kabul and supplies local vendors, shopkeepers, and markets across Afghanistan.",
-            "BanMix په کابل کې معجون تولیدوي او په افغانستان کې محلي عرضه کوونکو، دوکاندارانو او مارکېټونو ته یې رسوي.",
-            "BanMix در کابل معجون تولید می‌کند و آن را به فروشندگان، دکانداران و بازارهای محلی در افغانستان می‌رساند."
+            "BannMix produces Majoon in Kabul and supplies local vendors, shopkeepers, and markets across Afghanistan.",
+            "BannMix په کابل کې معجون تولیدوي او په افغانستان کې محلي عرضه کوونکو، دوکاندارانو او مارکېټونو ته یې رسوي.",
+            "BannMix در کابل معجون تولید می‌کند و آن را به فروشندگان، دکانداران و بازارهای محلی در افغانستان می‌رساند."
         ),
         companyTitle: text("Company", "شرکت", "شرکت"),
         exploreTitle: text("Explore", "وپلټئ", "کاوش"),
@@ -1402,9 +1397,9 @@ export const HOME_QUALITY_INGREDIENTS = [
     {
         title: text("Natural sweeteners", "طبیعي خوږونکي", "شیرین‌کننده‌های طبیعی"),
         body: text(
-            "Sweeteners selected as part of the BanMix Majoon recipe.",
-            "خوږونکي چې د BanMix معجون ترکیب برخه دي.",
-            "شیرین‌کننده‌هایی که بخشی از ترکیب معجون BanMix هستند."
+            "Sweeteners selected as part of the BannMix Majoon recipe.",
+            "خوږونکي چې د BannMix معجون ترکیب برخه دي.",
+            "شیرین‌کننده‌هایی که بخشی از ترکیب معجون BannMix هستند."
         ),
     },
     {
@@ -1522,7 +1517,7 @@ export const HOME_AUDIENCES = [
 export const HOME_ORDERING_STEPS = [
     {
         step: "01",
-        title: text("Contact BanMix", "له BanMix سره اړیکه", "تماس با BanMix"),
+        title: text("Contact BannMix", "له BannMix سره اړیکه", "تماس با BannMix"),
         body: text(
             "Contact the team through WhatsApp or phone.",
             "له ټیم سره په واتساپ یا تلیفون اړیکه ونیسئ.",
@@ -1571,9 +1566,9 @@ export const HOME_DISTRIBUTION_POINTS = [
         icon: "factory",
         title: text("Kabul production", "د کابل تولید", "تولید کابل"),
         body: text(
-            "BanMix Majoon is made locally in Kabul.",
-            "د BanMix معجون په کابل کې په محلي توګه جوړېږي.",
-            "معجون BanMix به‌صورت محلی در کابل ساخته می‌شود."
+            "BannMix Majoon is made locally in Kabul.",
+            "د BannMix معجون په کابل کې په محلي توګه جوړېږي.",
+            "معجون BannMix به‌صورت محلی در کابل ساخته می‌شود."
         ),
     },
     {
@@ -1626,26 +1621,26 @@ export const HOME_DISTRIBUTION_POINTS = [
 export const HOME_FAQ = [
     {
         question: text(
-            "Where is BanMix produced?",
-            "BanMix چیرته تولیدېږي؟",
-            "BanMix کجا تولید می‌شود؟"
+            "Where is BannMix produced?",
+            "BannMix چیرته تولیدېږي؟",
+            "BannMix کجا تولید می‌شود؟"
         ),
         answer: text(
-            "BanMix Majoon is produced locally in Kabul, Afghanistan.",
-            "د BanMix معجون په کابل، افغانستان کې په محلي توګه تولیدېږي.",
-            "معجون BanMix به‌صورت محلی در کابل، افغانستان تولید می‌شود."
+            "BannMix Majoon is produced locally in Kabul, Afghanistan.",
+            "د BannMix معجون په کابل، افغانستان کې په محلي توګه تولیدېږي.",
+            "معجون BannMix به‌صورت محلی در کابل، افغانستان تولید می‌شود."
         ),
     },
     {
         question: text(
-            "Does BanMix supply wholesale customers?",
-            "ایا BanMix عمده پیرودونکو ته عرضه کوي؟",
-            "آیا BanMix به مشتریان عمده عرضه می‌کند؟"
+            "Does BannMix supply wholesale customers?",
+            "ایا BannMix عمده پیرودونکو ته عرضه کوي؟",
+            "آیا BannMix به مشتریان عمده عرضه می‌کند؟"
         ),
         answer: text(
-            "Yes. BanMix supplies shops, vendors, supermarkets, and wholesale customers.",
-            "هو. BanMix دوکانونو، عرضه کوونکو، سوپرمارکېټونو او عمده پیرودونکو ته عرضه کوي.",
-            "بله. BanMix به فروشگاه‌ها، فروشندگان، سوپرمارکت‌ها و مشتریان عمده عرضه می‌کند."
+            "Yes. BannMix supplies shops, vendors, supermarkets, and wholesale customers.",
+            "هو. BannMix دوکانونو، عرضه کوونکو، سوپرمارکېټونو او عمده پیرودونکو ته عرضه کوي.",
+            "بله. BannMix به فروشگاه‌ها، فروشندگان، سوپرمارکت‌ها و مشتریان عمده عرضه می‌کند."
         ),
     },
     {
@@ -1655,28 +1650,28 @@ export const HOME_FAQ = [
             "چگونه می‌توانم سفارش عمده ثبت کنم؟"
         ),
         answer: text(
-            "Contact the BanMix team by WhatsApp or phone with the products and quantities you need. The team confirms availability, pricing, and order details before distribution is arranged. Messaging WhatsApp starts a conversation — it does not confirm an order on its own.",
-            "له د BanMix ټیم سره په واتساپ یا تلیفون اړیکه ونیسئ او هغه محصولات او مقدارونه ووایاست چې ورته اړتیا لرئ. ټیم شتون، قیمت او د فرمایش تفصیل تاییدوي مخکې له دې چې ویش تنظیم شي. په واتساپ پیغام استول خبرې پیلوي — پخپله فرمایش نه تاییدوي.",
-            "از طریق واتساپ یا تلفن با تیم BanMix تماس بگیرید و محصولات و مقادیر مورد نیاز را بگویید. تیم موجودی، قیمت و جزئیات سفارش را پیش از تنظیم توزیع تأیید می‌کند. پیام واتساپ گفت‌وگو را شروع می‌کند — به‌تنهایی سفارش را تأیید نمی‌کند."
+            "Contact the BannMix team by WhatsApp or phone with the products and quantities you need. The team confirms availability, pricing, and order details before distribution is arranged. Messaging WhatsApp starts a conversation — it does not confirm an order on its own.",
+            "له د BannMix ټیم سره په واتساپ یا تلیفون اړیکه ونیسئ او هغه محصولات او مقدارونه ووایاست چې ورته اړتیا لرئ. ټیم شتون، قیمت او د فرمایش تفصیل تاییدوي مخکې له دې چې ویش تنظیم شي. په واتساپ پیغام استول خبرې پیلوي — پخپله فرمایش نه تاییدوي.",
+            "از طریق واتساپ یا تلفن با تیم BannMix تماس بگیرید و محصولات و مقادیر مورد نیاز را بگویید. تیم موجودی، قیمت و جزئیات سفارش را پیش از تنظیم توزیع تأیید می‌کند. پیام واتساپ گفت‌وگو را شروع می‌کند — به‌تنهایی سفارش را تأیید نمی‌کند."
         ),
     },
     {
         question: text(
-            "Where can I find BanMix products?",
-            "BanMix محصولات چیرته موندلی شم؟",
-            "محصولات BanMix را کجا پیدا کنم؟"
+            "Where can I find BannMix products?",
+            "BannMix محصولات چیرته موندلی شم؟",
+            "محصولات BannMix را کجا پیدا کنم؟"
         ),
         answer: text(
-            "BanMix is supplied through local retail and wholesale channels. Contact the team for current availability in your area.",
-            "BanMix د محلي پرچون او عمده چینلونو له لارې عرضه کېږي. د خپلې سیمې د اوسني شتون لپاره له ټیم سره اړیکه ونیسئ.",
-            "BanMix از طریق کانال‌های خرده‌فروشی و عمده محلی عرضه می‌شود. برای موجودی فعلی منطقه خود با تیم تماس بگیرید."
+            "BannMix is supplied through local retail and wholesale channels. Contact the team for current availability in your area.",
+            "BannMix د محلي پرچون او عمده چینلونو له لارې عرضه کېږي. د خپلې سیمې د اوسني شتون لپاره له ټیم سره اړیکه ونیسئ.",
+            "BannMix از طریق کانال‌های خرده‌فروشی و عمده محلی عرضه می‌شود. برای موجودی فعلی منطقه خود با تیم تماس بگیرید."
         ),
     },
     {
         question: text(
-            "Does BanMix supply outside Kabul?",
-            "ایا BanMix له کابل هاخوا عرضه کوي؟",
-            "آیا BanMix خارج از کابل عرضه می‌کند؟"
+            "Does BannMix supply outside Kabul?",
+            "ایا BannMix له کابل هاخوا عرضه کوي؟",
+            "آیا BannMix خارج از کابل عرضه می‌کند؟"
         ),
         answer: text(
             "Distribution is coordinated from Kabul. Contact the team to discuss supply for your location.",
@@ -1686,21 +1681,21 @@ export const HOME_FAQ = [
     },
     {
         question: text(
-            "How should BanMix products be stored?",
-            "د BanMix محصولات باید څنګه وساتل شي؟",
-            "محصولات BanMix چگونه باید نگهداری شوند؟"
+            "How should BannMix products be stored?",
+            "د BannMix محصولات باید څنګه وساتل شي؟",
+            "محصولات BannMix چگونه باید نگهداری شوند؟"
         ),
         answer: text(
-            "Follow the storage guidance on each product label. The BanMix team can confirm handling details when you order.",
-            "د هر محصول په لیبل کې د ساتنې لارښوونه تعقیب کړئ. د BanMix ټیم کولی شي د فرمایش پر مهال د ساتنې تفصیل تایید کړي.",
-            "راهنمای نگهداری روی برچسب هر محصول را دنبال کنید. تیم BanMix می‌تواند هنگام سفارش جزئیات نگهداری را تأیید کند."
+            "Follow the storage guidance on each product label. The BannMix team can confirm handling details when you order.",
+            "د هر محصول په لیبل کې د ساتنې لارښوونه تعقیب کړئ. د BannMix ټیم کولی شي د فرمایش پر مهال د ساتنې تفصیل تایید کړي.",
+            "راهنمای نگهداری روی برچسب هر محصول را دنبال کنید. تیم BannMix می‌تواند هنگام سفارش جزئیات نگهداری را تأیید کند."
         ),
     },
     {
         question: text(
-            "How can a shop or supermarket become a BanMix customer?",
-            "یو دوکان یا سوپرمارکېټ څنګه د BanMix پیرودونکی کېدای شي؟",
-            "چگونه یک فروشگاه یا سوپرمارکت می‌تواند مشتری BanMix شود؟"
+            "How can a shop or supermarket become a BannMix customer?",
+            "یو دوکان یا سوپرمارکېټ څنګه د BannMix پیرودونکی کېدای شي؟",
+            "چگونه یک فروشگاه یا سوپرمارکت می‌تواند مشتری BannMix شود؟"
         ),
         answer: text(
             "Get in touch by WhatsApp, phone, or the contact page. Share your business type, products of interest, and quantities so the team can follow up.",
@@ -1713,9 +1708,9 @@ export const HOME_FAQ = [
 export const HOME_TESTIMONIALS = [
     {
         quote: text(
-            "Customers ask for BanMix by name. Restocking is easy and the quality stays consistent.",
-            "پیرودونکي د BanMix نوم په نوم غواړي. بیا ذخیره کول اسانه دي او کیفیت ثابت پاتې کیږي.",
-            "مشتریان BanMix را با نام می‌خواهند. موجود کردن دوباره آسان است و کیفیت پایدار می‌ماند."
+            "Customers ask for BannMix by name. Restocking is easy and the quality stays consistent.",
+            "پیرودونکي د BannMix نوم په نوم غواړي. بیا ذخیره کول اسانه دي او کیفیت ثابت پاتې کیږي.",
+            "مشتریان BannMix را با نام می‌خواهند. موجود کردن دوباره آسان است و کیفیت پایدار می‌ماند."
         ),
         name: text(
             "Shopkeeper, Kabul",
@@ -1725,9 +1720,9 @@ export const HOME_TESTIMONIALS = [
     },
     {
         quote: text(
-            "We keep BanMix Majoon on our main shelf. It sells steadily and delivery is reliable.",
-            "موږ د BanMix معجون په اصلي المارۍ کې ساتو. په ثابت ډول پلورل کیږي او رسول باوري دي.",
-            "معجون BanMix را در قفسه اصلی نگه می‌داریم. فروش پایدار دارد و تحویل قابل اعتماد است."
+            "We keep BannMix Majoon on our main shelf. It sells steadily and delivery is reliable.",
+            "موږ د BannMix معجون په اصلي المارۍ کې ساتو. په ثابت ډول پلورل کیږي او رسول باوري دي.",
+            "معجون BannMix را در قفسه اصلی نگه می‌داریم. فروش پایدار دارد و تحویل قابل اعتماد است."
         ),
         name: text(
             "Market vendor",
@@ -1771,9 +1766,9 @@ export const HOME_NEWS = [
             "مسیرهای فروشنده گسترش‌یافته در کابل"
         ),
         body: text(
-            "More neighborhoods can now receive BanMix Majoon on regular supply days.",
-            "اوس نورې سیمې کولی شي په منظم رسولو ورځو کې د BanMix معجون ترلاسه کړي.",
-            "محله‌های بیشتری اکنون می‌توانند در روزهای تأمین منظم معجون BanMix دریافت کنند."
+            "More neighborhoods can now receive BannMix Majoon on regular supply days.",
+            "اوس نورې سیمې کولی شي په منظم رسولو ورځو کې د BannMix معجون ترلاسه کړي.",
+            "محله‌های بیشتری اکنون می‌توانند در روزهای تأمین منظم معجون BannMix دریافت کنند."
         ),
     },
     {
@@ -1795,9 +1790,9 @@ export const ABOUT_VALUES = [
     {
         title: text("Quality", "کیفیت", "کیفیت"),
         body: text(
-            "Consistent batches so vendors can recommend BanMix with confidence.",
-            "ثابتې برخې ترڅو عرضه کوونکي په ډاډ سره BanMix وړاندیز کړي.",
-            "محموله‌های یکنواخت تا فروشندگان با اطمینان BanMix را پیشنهاد کنند."
+            "Consistent batches so vendors can recommend BannMix with confidence.",
+            "ثابتې برخې ترڅو عرضه کوونکي په ډاډ سره BannMix وړاندیز کړي.",
+            "محموله‌های یکنواخت تا فروشندگان با اطمینان BannMix را پیشنهاد کنند."
         ),
     },
     {
@@ -1835,9 +1830,9 @@ export const ABOUT_TEAM = [
             "بنیان‌گذار و مدیرعامل"
         ),
         description: text(
-            "Leads BanMix production strategy and long-term partnerships with shops and markets across Afghanistan.",
-            "د BanMix د تولید ستراتیژي او له دوکانونو او مارکېټونو سره اوږدمهاله شریکتیا رهبري کوي.",
-            "استراتژی تولید BanMix و شراکت‌های بلندمدت با فروشگاه‌ها و بازارها را رهبری می‌کند."
+            "Leads BannMix production strategy and long-term partnerships with shops and markets across Afghanistan.",
+            "د BannMix د تولید ستراتیژي او له دوکانونو او مارکېټونو سره اوږدمهاله شریکتیا رهبري کوي.",
+            "استراتژی تولید BannMix و شراکت‌های بلندمدت با فروشگاه‌ها و بازارها را رهبری می‌کند."
         ),
     },
     {
@@ -1848,9 +1843,9 @@ export const ABOUT_TEAM = [
             "مسئول کیفیت"
         ),
         description: text(
-            "Oversees batch consistency, ingredient standards, and the checks that keep BanMix Majoon reliable for vendors.",
-            "د برخو ثبات، د اجزاو معیارونه او هغه چکونه څاري چې د BanMix معجون د عرضه کوونکو لپاره باوري ساتي.",
-            "ثبات محموله‌ها، استاندارد مواد و کنترل‌هایی را نظارت می‌کند که معجون BanMix را برای فروشندگان قابل اعتماد نگه می‌دارد."
+            "Oversees batch consistency, ingredient standards, and the checks that keep BannMix Majoon reliable for vendors.",
+            "د برخو ثبات، د اجزاو معیارونه او هغه چکونه څاري چې د BannMix معجون د عرضه کوونکو لپاره باوري ساتي.",
+            "ثبات محموله‌ها، استاندارد مواد و کنترل‌هایی را نظارت می‌کند که معجون BannMix را برای فروشندگان قابل اعتماد نگه می‌دارد."
         ),
     },
     {
@@ -1900,9 +1895,9 @@ export const SERVICES_ITEMS = [
         icon: "natural",
         title: text("Natural focus", "طبیعي تمرکز", "تمرکز بر طبیعت"),
         content: text(
-            "Every service is rooted in BanMix's focus on natural goods — not generic trade, but products we stand behind.",
-            "هر خدمت د BanMix د طبیعي توکو په تمرکز بنا دی — نه عمومي سوداګري، بلکې محصولات چې موږ یې ملاتړ کوو.",
-            "هر خدمت بر تمرکز BanMix بر کالاهای طبیعی استوار است — نه تجارت عمومی، بلکه محصولاتی که پشت آن‌ها ایستاده‌ایم."
+            "Every service is rooted in BannMix's focus on natural goods — not generic trade, but products we stand behind.",
+            "هر خدمت د BannMix د طبیعي توکو په تمرکز بنا دی — نه عمومي سوداګري، بلکې محصولات چې موږ یې ملاتړ کوو.",
+            "هر خدمت بر تمرکز BannMix بر کالاهای طبیعی استوار است — نه تجارت عمومی، بلکه محصولاتی که پشت آن‌ها ایستاده‌ایم."
         ),
     },
 ];
@@ -1937,9 +1932,9 @@ export const ABOUT_GALLERY = [
 /** WhatsApp / phone used for online ordering CTAs (frontend-only). */
 export const ORDER_CONTACTS = {
     whatsapp: "93766687135",
-    phoneDisplay: "+93 (0) 766 687 135",
+    phoneDisplay: "+93 766 687 135",
     phoneHref: "tel:+93766687135",
-    email: "orders@banmix.com",
+    email: "info@bannmix.af",
     /** Optional location fields — rows/map hide when empty. */
     location: {
         address: "Naw'abad Deh'mazang, Kabul 100301, Afghanistan",

@@ -336,7 +336,11 @@ export const validateSectionForm = (form, schema, { isEdit = false } = {}) => {
     const hasCtaLabel = hasTranslationValue(form.button_text);
     const schemaHasCta = (schema?.fields ?? []).some(
         (field) => field.key === "button_url" || field.key === "button_text"
-    );
+    ) && schema?.section !== "social_links";
+
+    if (schema?.section === "social_links" && ctaUrl && !/^https?:\/\/[^\s/]+/i.test(ctaUrl)) {
+        return "Profile URL must start with https:// or http://.";
+    }
 
     if (schemaHasCta && ctaUrl && !hasCtaLabel) {
         return "Add a CTA label when a CTA link is set.";

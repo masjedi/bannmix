@@ -1,11 +1,11 @@
 ---
 name: banmix-frontend-brand
-description: Design, build, review, or improve BanMix frontend interfaces using the official BanMix brand system. Use for React, Vite, Tailwind CSS, responsive pages, components, public pages, dashboards, light/dark themes, animations, UI/UX improvements, product pages, navigation, cards, forms, modals, tables, landing pages, and other frontend work for BanMix.
+description: Design, build, review, or improve BannMix frontend interfaces using the official BannMix brand system. Use for React, Vite, Tailwind CSS, responsive pages, components, public pages, dashboards, light/dark themes, animations, UI/UX improvements, product pages, navigation, cards, forms, modals, tables, landing pages, and other frontend work for BannMix.
 ---
 
-# BanMix Frontend Brand
+# BannMix Frontend Brand
 
-Apply the BanMix frontend design system to all relevant frontend work.
+Apply the BannMix frontend design system to all relevant frontend work.
 
 Before making significant UI changes, inspect:
 
@@ -24,12 +24,12 @@ Do not replace working architecture unnecessarily.
 Use:
 
 ```text
-BanMix Blue     #2590C7
-BanMix Orange   #E86E2B
-BanMix Green    #0E6843
-BanMix Dark     #20211A
-BanMix Navy     #071426
-BanMix Cream    #FFF8EE
+BannMix Blue     #2590C7
+BannMix Orange   #E86E2B
+BannMix Green    #0E6843
+BannMix Dark     #20211A
+BannMix Navy     #071426
+BannMix Cream    #FFF8EE
 ```
 
 ## Hierarchy
