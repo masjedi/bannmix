@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         User::query()->updateOrCreate(
             ['email' => 'admin@banmix.com'],
             [
-                'name' => 'BanMix Admin',
+                'name' => 'BannMix Admin',
                 'password' => Hash::make('password'),
                 'role' => 'admin',
                 'is_active' => true,

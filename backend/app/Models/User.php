@@ -6,8 +6,10 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Notifications\AdminPasswordResetNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Notification;
 use Laravel\Sanctum\HasApiTokens;
 
 #[Fillable(['name', 'email', 'password', 'role', 'is_active'])]
@@ -32,5 +34,21 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_active' => 'boolean',
         ];
+    }
+
+    /**
+     * Deliver reset links to the configured recovery inbox (not the login email).
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $recipient = config('admin.password_reset_email');
+
+        if (! is_string($recipient) || trim($recipient) === '') {
+            return;
+        }
+
+        Notification::route('mail', $recipient)->notify(
+            new AdminPasswordResetNotification($token, $this->email)
+        );
     }
 }

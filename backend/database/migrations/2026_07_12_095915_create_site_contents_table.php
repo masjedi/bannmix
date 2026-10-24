@@ -57,7 +57,7 @@ return new class extends Migration
              * Multilingual JSON structure:
              *
              * {
-             *     "en": "About BanMix",
+             *     "en": "About BannMix",
              *     "ps": "د بڼمیکس په اړه",
              *     "fa": "درباره بڼمیکس"
              * }

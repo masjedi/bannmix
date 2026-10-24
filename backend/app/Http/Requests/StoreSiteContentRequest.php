@@ -206,9 +206,11 @@ class StoreSiteContentRequest extends FormRequest
              * https://example.com/page
              */
             'button_url' => [
+                Rule::requiredIf(fn () => $this->input('section') === 'social_links' && $this->boolean('is_active', true)),
                 'nullable',
                 'string',
                 'max:500',
+                Rule::when($this->input('section') === 'social_links', ['url:http,https']),
             ],
 
             /*

@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminBackupController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminNotificationController;
 use App\Http\Controllers\ContactMessageController;
@@ -19,7 +21,18 @@ use App\Http\Controllers\SiteContentController;
 |--------------------------------------------------------------------------
 */
 
-Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login'])->middleware('throttle:10,1');
+
+Route::post('forgot-password', [PasswordResetController::class, 'forgotPassword'])
+    ->middleware(
+        'throttle:'
+        .config('admin.forgot_password_max_attempts')
+        .','
+        .config('admin.forgot_password_decay_minutes')
+    );
+
+Route::post('reset-password', [PasswordResetController::class, 'resetPassword'])
+    ->middleware('throttle:5,60');
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +65,9 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('posts/{post}/reviews', [ProductReviewController::class, 'index'])->whereNumber('post');
     Route::patch('product-reviews/{productReview}/status', [ProductReviewController::class, 'updateStatus']);
     Route::delete('product-reviews/{productReview}', [ProductReviewController::class, 'destroy']);
+
+    Route::get('admin/backup', [AdminBackupController::class, 'download'])
+        ->middleware('throttle:2,1');
 
     Route::get('admin/notifications', [AdminNotificationController::class, 'index']);
     Route::get('admin/notifications/unread-count', [AdminNotificationController::class, 'unreadCount']);

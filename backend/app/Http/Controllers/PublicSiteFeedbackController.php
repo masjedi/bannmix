@@ -28,7 +28,7 @@ class PublicSiteFeedbackController extends Controller
 
         return response()->json([
             'data' => $feedback,
-        ])->header('Cache-Control', 'public, max-age=60, stale-while-revalidate=300');
+        ])->header('Cache-Control', 'no-cache');
     }
 
     public function store(StoreSiteFeedbackRequest $request)

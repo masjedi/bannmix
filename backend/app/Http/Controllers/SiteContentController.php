@@ -148,7 +148,7 @@ class SiteContentController extends Controller
         return response()->json([
             'message' => 'Public website content retrieved successfully.',
             'data' => $payload,
-        ])->header('Cache-Control', 'public, max-age=60, stale-while-revalidate=300');
+        ])->header('Cache-Control', 'no-cache');
     }
 
     /**
@@ -209,6 +209,11 @@ class SiteContentController extends Controller
                     ],
                 ],
             ];
+            $payload['includes']['faq'] = [
+                'sections' => $this->queryPublicPageContents('faq')
+                    ->map(fn(SiteContent $item) => $this->publicContentResource($item, $locale))
+                    ->groupBy('section')->map(fn($items) => $items->values()->all())->all(),
+            ];
         }
 
         return $payload;
@@ -221,15 +226,25 @@ class SiteContentController extends Controller
         string $page,
         ?string $section = null
     ): Collection {
-        return SiteContent::query()
+        $query = SiteContent::query()
             ->active()
             ->forContentPage($page)
             ->when(
                 $section !== null,
                 fn($builder) => $builder->forSection($section)
-            )
-            ->ordered()
-            ->get();
+            );
+
+        if ($page === 'home' && ($section === null || $section === 'hero')) {
+            // Home publishes the newest three active records, independent of manual ordering.
+            $heroes = (clone $query)->forSection('hero')->latest('id')->limit(3)->get();
+            if ($section === 'hero') {
+                return $heroes;
+            }
+
+            return $query->where('section', '!=', 'hero')->ordered()->get()->concat($heroes);
+        }
+
+        return $query->ordered()->get();
     }
 
     /**

@@ -30,6 +30,7 @@ class PublicContentCache
      */
     private const RELATED_PAGES = [
         'events' => ['home'],
+        'faq' => ['home'],
     ];
 
     public static function pageKey(

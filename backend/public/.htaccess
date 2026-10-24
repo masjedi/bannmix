@@ -5,6 +5,9 @@
 
     RewriteEngine On
 
+    # Prefer React for "/" (Laravel also has index.php in this folder)
+    DirectoryIndex index.html index.php
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -18,8 +21,23 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Send Requests To Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+    # Retire unrelated URL trees even if old files remain on disk.
+    RewriteRule ^(brand-a-z|bedding-furniture)(/|$) - [R=404,L,NC]
+
+    # Static files (dist assets, index.html, favicon, …)
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Laravel API (/api/*)
+    RewriteRule ^api(/|$) index.php [L]
+
+    # Serve crawler-visible metadata for the seven public React routes.
+    RewriteRule ^(about|products|services|events|gallery|contact)/?$ $1.html [L]
+    RewriteRule ^(products|events)/[A-Za-z0-9_-]+/?$ seo-detail.php [L]
+
+    # Unknown HTML pages should not serve the SPA homepage.
+    RewriteRule \.html$ - [R=404,L,NC]
+
+    # React SPA — all other routes
+    RewriteRule ^ index.html [L]
 </IfModule>
