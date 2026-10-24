@@ -219,7 +219,7 @@ const LeadershipSection = ({
                 </FadeUp>
 
                 <div
-                    className={`about-team-grid mt-12 grid gap-5 sm:gap-6 ${teamGridClass(members.length)}`}
+                    className={`about-team-grid mt-8 grid gap-5 sm:mt-9 sm:gap-6 ${teamGridClass(members.length)}`}
                 >
                     {members.map((member, index) => (
                         <FadeUp

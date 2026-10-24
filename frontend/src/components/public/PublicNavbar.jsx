@@ -103,11 +103,11 @@ const PublicNavbar = () => {
 
         translate({
 
-            en: "Hello BannMix, I would like to order Majoon for my shop.",
+            en: "Hello BannMix, I would like to order PiawarryBann for my shop.",
 
-            ps: "سلام BannMix، زه غواړم د خپل دوکان لپاره معجون فرمایش ورکړم.",
+            ps: "سلام BannMix، زه غواړم د خپل دوکان لپاره پیاوړی‌بڼ فرمایش ورکړم.",
 
-            fa: "سلام BannMix، می‌خواهم برای فروشگاهم معجون سفارش دهم.",
+            fa: "سلام BannMix، می‌خواهم برای فروشگاهم پیاوړی‌بڼ سفارش دهم.",
 
         })
 

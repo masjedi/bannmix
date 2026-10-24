@@ -320,9 +320,9 @@ const ProductDetails = () => {
 
     const priceAlertHref = useMemo(() => {
         const message = translate({
-            en: `Hello BannMix, please notify me about price updates for: ${product?.title || "Majoon"}`,
-            ps: `سلام BannMix، مهرباني وکړئ د قیمت تازه معلوماتو لپاره خبر راکړئ: ${product?.title || "معجون"}`,
-            fa: `سلام BannMix، لطفاً درباره به‌روزرسانی قیمت اطلاع دهید: ${product?.title || "معجون"}`,
+            en: `Hello BannMix, please notify me about price updates for: ${product?.title || "PiawarryBann"}`,
+            ps: `سلام BannMix، مهرباني وکړئ د قیمت تازه معلوماتو لپاره خبر راکړئ: ${product?.title || "پیاوړی‌بڼ"}`,
+            fa: `سلام BannMix، لطفاً درباره به‌روزرسانی قیمت اطلاع دهید: ${product?.title || "پیاوړی‌بڼ"}`,
         });
 
         return `https://wa.me/${ORDER_CONTACTS.whatsapp}?text=${encodeURIComponent(message)}`;

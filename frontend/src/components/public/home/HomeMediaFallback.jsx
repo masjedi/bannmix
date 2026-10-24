@@ -1,5 +1,5 @@
 const HomeMediaFallback = ({
-    label = "BannMix Majoon",
+    label = "BannMix PiawarryBann",
     hint = "",
     className = "",
 }) => (

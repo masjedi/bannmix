@@ -1,51 +1,62 @@
+import { useState } from "react";
+
 import { Eye, Target } from "lucide-react";
 
-import {
-    Container,
-    FadeUp,
-    PageSection,
-    PublicCard,
-    SectionLabel,
-} from "../ui";
+import { Container, FadeUp, PageSection, SectionLabel } from "../ui";
 import { hasText } from "./aboutUtils";
 
-const InfoSideCard = ({ label, title, description, icon: Icon, className = "" }) => {
+const storyParagraphs = (value) => {
+    if (!hasText(value)) return [];
+
+    return value.trim().split(/\r?\n+/).map((part) => part.trim()).filter(Boolean).flatMap((part) => {
+        if (part.length <= 320 || typeof Intl.Segmenter !== "function") {
+            return [part];
+        }
+
+        const sentences = Array.from(
+            new Intl.Segmenter(undefined, { granularity: "sentence" }).segment(part),
+            ({ segment }) => segment.trim()
+        ).filter(Boolean);
+        const paragraphs = [];
+        let current = "";
+
+        for (const sentence of sentences) {
+            if (current && current.length + sentence.length > 320) {
+                paragraphs.push(current);
+                current = sentence;
+            } else {
+                current = current ? `${current} ${sentence}` : sentence;
+            }
+        }
+
+        if (current) paragraphs.push(current);
+        return paragraphs;
+    });
+};
+
+const InfoSideCard = ({ label, title, description, icon: Icon }) => {
     if (!hasText(title) && !hasText(description)) return null;
+    const showLabel = hasText(label) &&
+        label.trim().toLocaleLowerCase() !== title?.trim().toLocaleLowerCase();
 
     return (
-        <PublicCard hover className={`flex h-full flex-col ${className}`}>
-            <div className="flex items-start gap-3">
-                {Icon ? (
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-btn bg-brand-green/10 text-brand-green dark:bg-brand-green/20">
-                        <Icon size={18} strokeWidth={1.75} />
-                    </span>
-                ) : null}
-                <div className="min-w-0 flex-1">
-                    {hasText(label) ? <SectionLabel>{label}</SectionLabel> : null}
-                    {hasText(title) ? (
-                        <h3
-                            className={[
-                                "text-xl font-extrabold tracking-tight text-content text-content sm:text-2xl",
-                                hasText(label) ? "mt-2" : "",
-                            ].join(" ")}
-                        >
-                            {title}
-                        </h3>
-                    ) : null}
+        <article className="about-principle-card">
+            <div className="about-principle-heading">
+                <span className="about-principle-icon" aria-hidden="true">
+                    <Icon size={19} strokeWidth={1.75} />
+                </span>
+                <div className="min-w-0">
+                    {showLabel ? <SectionLabel>{label}</SectionLabel> : null}
+                    {hasText(title) ? <h3 className="about-principle-title">{title}</h3> : null}
                 </div>
             </div>
             {hasText(description) ? (
-                <p className="mt-4 break-words text-sm leading-7 text-content-secondary sm:text-base">
-                    {description}
-                </p>
+                <p className="about-principle-description">{description}</p>
             ) : null}
-        </PublicCard>
+        </article>
     );
 };
 
-/**
- * Combined Story + Mission + Vision with adaptive layout based on available data.
- */
 const StoryMissionVision = ({
     story,
     mission,
@@ -54,109 +65,86 @@ const StoryMissionVision = ({
     missionLabel,
     visionLabel,
 }) => {
+    const [failedImage, setFailedImage] = useState("");
+    const paragraphs = storyParagraphs(story?.description);
+    const [leadParagraph, ...remainingParagraphs] = paragraphs;
     const hasStory =
-        hasText(story?.title) || hasText(story?.description) || hasText(story?.image);
+        hasText(story?.title) || paragraphs.length > 0 || hasText(story?.image);
     const hasMission = hasText(mission?.title) || hasText(mission?.description);
     const hasVision = hasText(vision?.title) || hasText(vision?.description);
+    const showImage = hasText(story?.image) && failedImage !== story.image;
 
     if (!hasStory && !hasMission && !hasVision) return null;
 
-    const bothSides = hasStory && (hasMission || hasVision);
-    const onlyMv = !hasStory && hasMission && hasVision;
-    const onlyOneMv = !hasStory && ((hasMission && !hasVision) || (!hasMission && hasVision));
-
     return (
-        <PageSection>
+        <PageSection pad={false} border={false} className="about-story-section">
             <Container>
-                <div
-                    className={[
-                        "grid gap-5",
-                        bothSides ? "lg:grid-cols-[1.15fr_0.85fr] lg:gap-6" : "",
-                        onlyMv ? "sm:grid-cols-2" : "",
-                        onlyOneMv || (hasStory && !hasMission && !hasVision)
-                            ? "grid-cols-1"
-                            : "",
-                    ]
-                        .filter(Boolean)
-                        .join(" ")}
-                >
-                    {hasStory ? (
-                        <FadeUp>
-                            <article className="public-card flex h-full min-w-0 flex-col p-6 sm:p-8">
+                {hasStory ? (
+                    <>
+                        <div className={`about-story-intro ${showImage ? "" : "is-text-only"}`}>
+                            <FadeUp className="about-story-heading">
                                 {hasText(storyLabel) ? (
-                                    <SectionLabel>{storyLabel}</SectionLabel>
+                                    <SectionLabel className="about-story-label">{storyLabel}</SectionLabel>
                                 ) : null}
                                 {hasText(story?.title) ? (
-                                    <h2
-                                        className={[
-                                            "max-w-xl text-[clamp(1.6rem,2.8vw,2.4rem)] font-extrabold leading-tight tracking-tight text-content text-content",
-                                            hasText(storyLabel) ? "mt-3" : "",
-                                        ].join(" ")}
-                                    >
-                                        {story.title}
-                                    </h2>
+                                    <h2 className="about-story-title">{story.title}</h2>
                                 ) : null}
-                                {hasText(story?.description) ? (
-                                    <p className="mt-5 max-w-2xl break-words text-base leading-8 text-content-secondary">
-                                        {story.description}
-                                    </p>
+                                {leadParagraph ? (
+                                    <p className="about-story-lead">{leadParagraph}</p>
                                 ) : null}
-                                {hasText(story?.image) ? (
-                                    <div className="home-hero-media mt-8 overflow-hidden p-2 sm:p-3">
+                            </FadeUp>
+
+                            {showImage ? (
+                                <FadeUp delay={80}>
+                                    <figure className="about-story-image-wrap">
                                         <img
                                             src={story.image}
                                             alt=""
-                                            className="aspect-[16/10] w-full rounded-[16px] object-cover"
-                                            onError={(event) => {
-                                                event.currentTarget.parentElement?.remove();
-                                            }}
+                                            loading="lazy"
+                                            width={800}
+                                            height={600}
+                                            className="about-story-image"
+                                            onError={() => setFailedImage(story.image)}
                                         />
-                                    </div>
-                                ) : null}
-                            </article>
-                        </FadeUp>
-                    ) : null}
-
-                    {(hasMission || hasVision) && (
-                        <div
-                            className={[
-                                "grid gap-5",
-                                bothSides && hasMission && hasVision
-                                    ? "lg:grid-rows-2"
-                                    : "",
-                                !hasStory && hasMission && hasVision
-                                    ? "sm:contents"
-                                    : "",
-                                bothSides || onlyOneMv ? "h-full" : "",
-                            ]
-                                .filter(Boolean)
-                                .join(" ")}
-                        >
-                            {hasMission ? (
-                                <FadeUp delay={60} className="h-full min-h-0">
-                                    <InfoSideCard
-                                        label={missionLabel}
-                                        title={mission.title}
-                                        description={mission.description}
-                                        icon={Target}
-                                        className="min-h-0"
-                                    />
-                                </FadeUp>
-                            ) : null}
-                            {hasVision ? (
-                                <FadeUp delay={120} className="h-full min-h-0">
-                                    <InfoSideCard
-                                        label={visionLabel}
-                                        title={vision.title}
-                                        description={vision.description}
-                                        icon={Eye}
-                                        className="min-h-0"
-                                    />
+                                    </figure>
                                 </FadeUp>
                             ) : null}
                         </div>
-                    )}
-                </div>
+
+                        {remainingParagraphs.length > 0 ? (
+                            <FadeUp delay={100} className="about-story-body">
+                                {remainingParagraphs.map((paragraph, index) => (
+                                    <p key={index}>{paragraph}</p>
+                                ))}
+                            </FadeUp>
+                        ) : null}
+                    </>
+                ) : null}
+
+                {hasMission || hasVision ? (
+                    <div className={`about-principles ${hasStory ? "has-story" : ""} ${hasMission && hasVision ? "" : "is-single"}`}>
+                        {hasMission ? (
+                            <FadeUp delay={60}>
+                                <InfoSideCard
+                                    label={missionLabel}
+                                    title={mission.title}
+                                    description={mission.description}
+                                    icon={Target}
+                                />
+                            </FadeUp>
+                        ) : null}
+                        {hasVision ? (
+                            <FadeUp delay={120}>
+                                <InfoSideCard
+                                    label={visionLabel}
+                                    title={vision.title}
+                                    description={vision.description}
+                                    icon={Eye}
+                                />
+                            </FadeUp>
+                        ) : null}
+                    </div>
+                ) : null}
             </Container>
         </PageSection>
     );

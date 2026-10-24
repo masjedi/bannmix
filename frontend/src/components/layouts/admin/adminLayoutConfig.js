@@ -21,7 +21,6 @@ import {
     ShoppingBag,
     Sparkles,
     Star,
-    Store,
     Truck,
     Users,
     Video,
@@ -100,9 +99,9 @@ export const HOME_SECTION_NAV_ITEMS = [
     },
     {
         label: "PiawarryBann",
-        section: "majoon",
+        section: "piawarrybann",
         icon: Package,
-        publicAnchor: "our-majoon",
+        publicAnchor: "our-piawarrybann",
     },
     {
         label: "Intro Video",
@@ -147,22 +146,10 @@ export const HOME_SECTION_NAV_ITEMS = [
         publicAnchor: "who-we-serve",
     },
     {
-        label: "Ordering Process",
-        section: "ordering",
-        icon: Store,
-        publicAnchor: "wholesale-process",
-    },
-    {
         label: "Why BannMix",
         section: "highlights",
         icon: Star,
         publicAnchor: "home-highlights",
-    },
-    {
-        label: "Distribution",
-        section: "distribution",
-        icon: Truck,
-        publicAnchor: "distribution",
     },
     {
         label: "Testimonials",
@@ -311,7 +298,7 @@ export const SIDEBAR_NAV_GROUPS = [
                     {
                         type: "home",
                         label: "PiawarryBann",
-                        section: "majoon",
+                        section: "piawarrybann",
                         icon: Package,
                     },
                     {
@@ -367,24 +354,6 @@ export const SIDEBAR_NAV_GROUPS = [
                         label: "Why BannMix",
                         section: "highlights",
                         icon: Star,
-                    },
-                ],
-            },
-            {
-                key: "home-commerce",
-                label: "Ordering & Reach",
-                items: [
-                    {
-                        type: "home",
-                        label: "Ordering Process",
-                        section: "ordering",
-                        icon: Store,
-                    },
-                    {
-                        type: "home",
-                        label: "Distribution",
-                        section: "distribution",
-                        icon: Truck,
                     },
                 ],
             },

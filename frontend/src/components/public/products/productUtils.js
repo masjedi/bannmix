@@ -104,9 +104,9 @@ export const whatsappOrder = (title, translate, options = {}) => {
     });
 
     const message = translate({
-        en: `Hello BannMix, I want to order: ${title || "Majoon"}${qtyPart}`,
-        ps: `سلام BannMix، زه غواړم دا فرمایش ورکړم: ${title || "معجون"}${qtyPart}`,
-        fa: `سلام BannMix، می‌خواهم این را سفارش دهم: ${title || "معجون"}${qtyPart}`,
+        en: `Hello BannMix, I want to order: ${title || "PiawarryBann"}${qtyPart}`,
+        ps: `سلام BannMix، زه غواړم دا فرمایش ورکړم: ${title || "پیاوړی‌بڼ"}${qtyPart}`,
+        fa: `سلام BannMix، می‌خواهم این را سفارش دهم: ${title || "پیاوړی‌بڼ"}${qtyPart}`,
     });
 
     return `https://wa.me/${ORDER_CONTACTS.whatsapp}?text=${encodeURIComponent(message)}`;

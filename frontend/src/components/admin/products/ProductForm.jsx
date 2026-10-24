@@ -336,7 +336,7 @@ const ProductForm = ({
 
                         onChange={updateField}
 
-                        placeholder="Majoon"
+                        placeholder="PiawarryBann"
 
                         className={inputClassName}
 

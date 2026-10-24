@@ -58,7 +58,7 @@ const ValuesSection = ({ label, title, description, values = [] }) => {
                     />
                 </FadeUp>
 
-                <div className={`mt-10 grid gap-5 ${valuesGridClass(items.length)}`}>
+                <div className={`mt-7 grid gap-4 sm:mt-8 ${valuesGridClass(items.length)}`}>
                     {items.map((item, index) => {
                         const Icon = resolveIcon(item.icon, index);
                         return (

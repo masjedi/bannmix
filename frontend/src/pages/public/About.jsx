@@ -12,13 +12,10 @@ import {
     pickFirst,
     pickImage,
 } from "../../components/public/about/aboutUtils";
-import ProductsCtaSection from "../../components/public/ProductsCtaSection";
 import { PublicPage } from "../../components/public/ui";
 import { useLanguage } from "../../context/LanguageContext";
 import usePublicPageContent from "../../hooks/usePublicPageContent";
-import publicTranslations, {
-    ORDER_CONTACTS,
-} from "../../i18n/publicTranslations";
+import publicTranslations from "../../i18n/publicTranslations";
 
 const buildBlock = (item) => {
     if (!item) return null;
@@ -43,7 +40,6 @@ const buildBlock = (item) => {
 const About = () => {
     const { translate } = useLanguage();
     const t = publicTranslations.about;
-    const productsCta = publicTranslations.services;
     const { error, getSection, getFirstSectionItem } =
         usePublicPageContent("about");
 
@@ -85,7 +81,7 @@ const About = () => {
     );
 
     return (
-        <PublicPage>
+        <PublicPage className="about-page">
             {hero ? (
                 <InnerPageHero
                     eyebrow={hero.label}
@@ -121,15 +117,6 @@ const About = () => {
                 team={team}
             />
 
-            <ProductsCtaSection
-                label={translate(productsCta.ctaLabel)}
-                title={translate(productsCta.ctaTitle)}
-                description={translate(productsCta.ctaBody)}
-                primaryCtaText={translate(productsCta.viewProducts)}
-                primaryCtaUrl="/products"
-                secondaryCtaText={translate(productsCta.contactUs)}
-                secondaryCtaUrl={ORDER_CONTACTS.phoneHref}
-            />
 
             {error ? (
                 <p className="sr-only" role="status" aria-live="polite">

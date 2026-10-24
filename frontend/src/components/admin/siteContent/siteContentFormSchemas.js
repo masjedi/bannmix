@@ -119,7 +119,7 @@ export const PAGE_SECTION_SCHEMAS = {
             fields: [{ key: "title", label: "Badge text", type: "text", required: true }],
         },
         {
-            section: "majoon",
+            section: "piawarrybann",
             label: "PiawarryBann",
             description: "Product spotlight attributes shown in the PiawarryBann grid.",
             mode: "list",
@@ -196,22 +196,6 @@ export const PAGE_SECTION_SCHEMAS = {
             description: "Key strengths or selling points.",
             mode: "list",
             itemLabel: "Highlight",
-            fields: cardItemFields,
-        },
-        {
-            section: "ordering",
-            label: "Ordering Process",
-            description: "Steps for wholesale or retail ordering.",
-            mode: "list",
-            itemLabel: "Step",
-            fields: cardItemFields,
-        },
-        {
-            section: "distribution",
-            label: "Distribution",
-            description: "How products reach customers.",
-            mode: "list",
-            itemLabel: "Distribution point",
             fields: cardItemFields,
         },
         {

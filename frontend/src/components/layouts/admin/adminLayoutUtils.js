@@ -116,7 +116,7 @@ const PAGE_LABELS = {
 const SECTION_LABELS = {
     hero: "Hero",
     trust_strip: "Trust Strip",
-    majoon: "PiawarryBann",
+    piawarrybann: "PiawarryBann",
     intro_video: "Intro Video",
     quality: "Quality & Ingredients",
     about_intro: "About Intro",

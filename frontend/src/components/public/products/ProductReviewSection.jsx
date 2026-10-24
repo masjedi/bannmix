@@ -9,6 +9,13 @@ import publicTranslations from "../../../i18n/publicTranslations";
 import ProductRating from "./ProductRating";
 import { formatProductRating, getProductRating, getProductReviewCount } from "./productUtils";
 
+const EMAIL_PATTERN = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+const FIELD_LIMITS = {
+    reviewer_name: 120,
+    reviewer_email: 190,
+    comment: 2000,
+};
+
 const extractReviews = (response) => {
     const payload = response?.data ?? response;
     const records = Array.isArray(payload?.data)
@@ -106,19 +113,46 @@ const ProductReviewSection = ({ product, onReviewSubmitted }) => {
         loadReviews();
     }, [loadReviews]);
 
+    const updateField = (field) => (event) => {
+        setForm((current) => ({
+            ...current,
+            [field]: event.target.value.slice(0, FIELD_LIMITS[field]),
+        }));
+        setSuccess("");
+        setFieldErrors((current) => {
+            if (!current[field]) return current;
+            const next = { ...current };
+            delete next[field];
+            return next;
+        });
+    };
+
     const validateForm = () => {
         const errors = {};
+        const name = form.reviewer_name.trim();
+        const email = form.reviewer_email.trim();
+        const comment = form.comment.trim();
 
-        if (!form.reviewer_name.trim()) {
+        if (!name) {
             errors.reviewer_name = translate(t.errorName);
+        } else if (name.length < 2) {
+            errors.reviewer_name = translate(t.errorNameMin);
+        } else if (name.length > FIELD_LIMITS.reviewer_name) {
+            errors.reviewer_name = translate(t.errorNameMax);
         }
 
         if (form.rating < 1) {
             errors.rating = translate(t.errorRating);
         }
 
-        if (form.reviewer_email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.reviewer_email)) {
+        if (email.length > FIELD_LIMITS.reviewer_email) {
+            errors.reviewer_email = translate(t.errorEmailMax);
+        } else if (email && !EMAIL_PATTERN.test(email)) {
             errors.reviewer_email = translate(t.errorEmail);
+        }
+
+        if (comment.length > FIELD_LIMITS.comment) {
+            errors.comment = translate(t.errorCommentMax);
         }
 
         setFieldErrors(errors);
@@ -210,12 +244,21 @@ const ProductReviewSection = ({ product, onReviewSubmitted }) => {
                         {translate(t.writeReview)}
                     </h3>
 
-                    <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+                    <form onSubmit={handleSubmit} noValidate className="mt-5 space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-content-secondary">
+                            <p
+                                id="review-rating-label"
+                                className="block text-sm font-medium text-content-secondary"
+                            >
                                 {translate(t.ratingLabel)}
-                            </label>
-                            <div className="mt-2">
+                            </p>
+                            <div
+                                className="mt-2"
+                                role="group"
+                                aria-labelledby="review-rating-label"
+                                aria-invalid={Boolean(fieldErrors.rating)}
+                                aria-describedby={fieldErrors.rating ? "review-rating-error" : undefined}
+                            >
                                 <ReviewStars
                                     value={form.rating}
                                     onChange={(value) => {
@@ -223,6 +266,7 @@ const ProductReviewSection = ({ product, onReviewSubmitted }) => {
                                             ...current,
                                             rating: value,
                                         }));
+                                        setSuccess("");
                                         if (fieldErrors.rating) {
                                             setFieldErrors((current) => {
                                                 const next = { ...current };
@@ -235,72 +279,93 @@ const ProductReviewSection = ({ product, onReviewSubmitted }) => {
                                 />
                             </div>
                             {fieldErrors.rating ? (
-                                <p className="mt-1 text-xs text-red-600">{fieldErrors.rating}</p>
+                                <p id="review-rating-error" className="mt-1 text-xs text-red-600" role="alert">
+                                    {fieldErrors.rating}
+                                </p>
                             ) : null}
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-content-secondary">
+                            <label
+                                htmlFor="review-name"
+                                className="block text-sm font-medium text-content-secondary"
+                            >
                                 {translate(t.nameLabel)}
                             </label>
                             <input
+                                id="review-name"
                                 type="text"
+                                name="reviewer_name"
+                                autoComplete="name"
+                                required
+                                minLength={2}
+                                maxLength={FIELD_LIMITS.reviewer_name}
+                                aria-invalid={Boolean(fieldErrors.reviewer_name)}
+                                aria-describedby={fieldErrors.reviewer_name ? "review-name-error" : undefined}
                                 value={form.reviewer_name}
-                                onChange={(event) =>
-                                    setForm((current) => ({
-                                        ...current,
-                                        reviewer_name: event.target.value,
-                                    }))
-                                }
+                                onChange={updateField("reviewer_name")}
                                 disabled={submitting}
                                 className="mt-2 h-10 w-full rounded-lg border border-line bg-theme-page px-3 text-sm outline-none transition focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20"
                             />
                             {fieldErrors.reviewer_name ? (
-                                <p className="mt-1 text-xs text-red-600">
+                                <p id="review-name-error" className="mt-1 text-xs text-red-600" role="alert">
                                     {fieldErrors.reviewer_name}
                                 </p>
                             ) : null}
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-content-secondary">
+                            <label
+                                htmlFor="review-email"
+                                className="block text-sm font-medium text-content-secondary"
+                            >
                                 {translate(t.emailLabel)}
                             </label>
                             <input
+                                id="review-email"
                                 type="email"
+                                name="reviewer_email"
+                                autoComplete="email"
+                                inputMode="email"
+                                maxLength={FIELD_LIMITS.reviewer_email}
+                                aria-invalid={Boolean(fieldErrors.reviewer_email)}
+                                aria-describedby={fieldErrors.reviewer_email ? "review-email-error" : undefined}
                                 value={form.reviewer_email}
-                                onChange={(event) =>
-                                    setForm((current) => ({
-                                        ...current,
-                                        reviewer_email: event.target.value,
-                                    }))
-                                }
+                                onChange={updateField("reviewer_email")}
                                 disabled={submitting}
                                 className="mt-2 h-10 w-full rounded-lg border border-line bg-theme-page px-3 text-sm outline-none transition focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20"
                             />
                             {fieldErrors.reviewer_email ? (
-                                <p className="mt-1 text-xs text-red-600">
+                                <p id="review-email-error" className="mt-1 text-xs text-red-600" role="alert">
                                     {fieldErrors.reviewer_email}
                                 </p>
                             ) : null}
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-content-secondary">
+                            <label
+                                htmlFor="review-comment"
+                                className="block text-sm font-medium text-content-secondary"
+                            >
                                 {translate(t.commentLabel)}
                             </label>
                             <textarea
+                                id="review-comment"
+                                name="comment"
+                                maxLength={FIELD_LIMITS.comment}
+                                aria-invalid={Boolean(fieldErrors.comment)}
+                                aria-describedby={fieldErrors.comment ? "review-comment-error" : undefined}
                                 value={form.comment}
-                                onChange={(event) =>
-                                    setForm((current) => ({
-                                        ...current,
-                                        comment: event.target.value,
-                                    }))
-                                }
+                                onChange={updateField("comment")}
                                 disabled={submitting}
                                 rows={4}
                                 className="mt-2 w-full rounded-lg border border-line bg-theme-page px-3 py-2 text-sm outline-none transition focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20"
                             />
+                            {fieldErrors.comment ? (
+                                <p id="review-comment-error" className="mt-1 text-xs text-red-600" role="alert">
+                                    {fieldErrors.comment}
+                                </p>
+                            ) : null}
                         </div>
 
                         {error ? (

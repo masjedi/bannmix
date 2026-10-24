@@ -2,13 +2,10 @@ import { useMemo } from "react";
 
 import ServicesGrid from "../../components/public/services/ServicesGrid";
 import InnerPageHero from "../../components/public/InnerPageHero";
-import ProductsCtaSection from "../../components/public/ProductsCtaSection";
 import { PublicPage } from "../../components/public/ui";
 import { useLanguage } from "../../context/LanguageContext";
 import usePublicPageContent from "../../hooks/usePublicPageContent";
-import publicTranslations, {
-    ORDER_CONTACTS,
-} from "../../i18n/publicTranslations";
+import publicTranslations from "../../i18n/publicTranslations";
 
 const Services = () => {
     const { translate } = useLanguage();
@@ -51,15 +48,6 @@ const Services = () => {
                 items={items}
             />
 
-            <ProductsCtaSection
-                label={translate(t.ctaLabel)}
-                title={translate(t.ctaTitle)}
-                description={translate(t.ctaBody)}
-                primaryCtaText={translate(t.viewProducts)}
-                primaryCtaUrl="/products"
-                secondaryCtaText={translate(t.contactUs)}
-                secondaryCtaUrl={ORDER_CONTACTS.phoneHref}
-            />
 
             {error ? (
                 <p className="sr-only" role="status" aria-live="polite">

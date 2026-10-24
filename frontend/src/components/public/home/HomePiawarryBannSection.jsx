@@ -6,15 +6,15 @@ import {
 } from "../ui";
 import { resolveHomeIcon } from "./homeUtils";
 
-const HomeMajoonSection = ({
+const HomePiawarryBannSection = ({
     label,
     title,
     attributes = [],
 }) => (
     <PageSection
-        id="our-majoon"
+        id="our-piawarrybann"
         border={false}
-        className="home-majoon home-section-compact"
+        className="home-piawarrybann home-section-compact"
     >
         <Container>
             <FadeUp>
@@ -24,7 +24,7 @@ const HomeMajoonSection = ({
                 />
             </FadeUp>
 
-            <ul className="home-majoon-grid mt-8 sm:mt-10">
+            <ul className="home-piawarrybann-grid mt-8 sm:mt-10">
                 {attributes.map((item, index) => {
                     const Icon = resolveHomeIcon(item.icon);
 
@@ -33,7 +33,7 @@ const HomeMajoonSection = ({
                             key={item.title}
                             as="li"
                             delay={index * 60}
-                            className="home-majoon-item"
+                            className="home-piawarrybann-item"
                         >
                             <span className="home-info-icon">
                                 <Icon
@@ -42,10 +42,10 @@ const HomeMajoonSection = ({
                                     aria-hidden="true"
                                 />
                             </span>
-                            <h3 className="home-majoon-item-title">
+                            <h3 className="home-piawarrybann-item-title">
                                 {item.title}
                             </h3>
-                            <p className="home-majoon-item-body">{item.body}</p>
+                            <p className="home-piawarrybann-item-body">{item.body}</p>
                         </FadeUp>
                     );
                 })}
@@ -54,4 +54,4 @@ const HomeMajoonSection = ({
     </PageSection>
 );
 
-export default HomeMajoonSection;
+export default HomePiawarryBannSection;

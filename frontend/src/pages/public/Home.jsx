@@ -19,13 +19,11 @@ import { feedbackApi } from "../../api/feedbackApi";
 import { publicProductsApi } from "../../api/publicProductsApi";
 import HomeHeroCarousel from "../../components/public/HomeHeroCarousel";
 import HomeAudienceSection from "../../components/public/home/HomeAudienceSection";
-import HomeDistributionSection from "../../components/public/home/HomeDistributionSection";
 import HomeFaqSection from "../../components/public/home/HomeFaqSection";
 import HomeFeaturedProducts from "../../components/public/home/HomeFeaturedProducts";
 import HomeIntroVideoSection from "../../components/public/home/HomeIntroVideoSection";
-import HomeMajoonSection from "../../components/public/home/HomeMajoonSection";
+import HomePiawarryBannSection from "../../components/public/home/HomePiawarryBannSection";
 import HomeMediaFallback from "../../components/public/home/HomeMediaFallback";
-import HomeOrderingSection from "../../components/public/home/HomeOrderingSection";
 import HomeQualitySection from "../../components/public/home/HomeQualitySection";
 import HomeTestimonialsCarousel from "../../components/public/home/HomeTestimonialsCarousel";
 import {
@@ -54,8 +52,7 @@ import {
 import { useLanguage } from "../../context/LanguageContext";
 import usePublicPageContent from "../../hooks/usePublicPageContent";
 import publicTranslations, {
-    HOME_DISTRIBUTION_POINTS,
-    HOME_MAJOON_ATTRIBUTES,
+    HOME_PIAWARRYBANN_ATTRIBUTES,
     HOME_QUALITY_POINTS,
 } from "../../i18n/publicTranslations";
 
@@ -72,15 +69,13 @@ const Home = () => {
     const introVideoId = extractYouTubeId(introVideo?.video_url);
     const heroRecords = getSection("hero");
     const [activeHeroSlide, setActiveHeroSlide] = useState(0);
-    const majoonItems = getSection("majoon");
+    const piawarrybannItems = getSection("piawarrybann");
     const trustStripItems = getSection("trust_strip");
     const qualityIngredientItems = getSection("quality");
     const qualityPointItems = getSection("quality_points");
     const aboutIntro = getFirstSectionItem("about_intro");
     const aboutIntroPointItems = getSection("about_intro_points");
     const audienceItems = getSection("audience");
-    const orderingItems = getSection("ordering");
-    const distributionItems = getSection("distribution");
     const highlightItems = getSection("highlights");
     const faqSectionItems = getSection("faq");
     const faqPageItems = getIncludedSection("faq", "items");
@@ -184,7 +179,9 @@ const Home = () => {
 
     const introLabel = aboutIntro?.subtitle || "";
     const introTitle = aboutIntro?.title || "";
-    const introDescription = aboutIntro?.content || "";
+    const introContent = (aboutIntro?.content || "").trim();
+    const introDescription =
+        introContent.match(/^.*?[.!?؟](?=\s|$)/u)?.[0] || introContent;
     const aboutImageSrc = useMemo(() => {
         const urls = Array.isArray(aboutIntro?.image_urls)
             ? aboutIntro.image_urls
@@ -215,23 +212,23 @@ const Home = () => {
     const heroCtaUrl = hero?.button_url?.trim() || "";
     const heroCtaIsExternal = /^https?:\/\//i.test(heroCtaUrl);
 
-    const majoonAttributes = useMemo(() => {
-        if (majoonItems.length > 0) {
-            return majoonItems.map((item, index) => ({
+    const piawarrybannAttributes = useMemo(() => {
+        if (piawarrybannItems.length > 0) {
+            return piawarrybannItems.map((item, index) => ({
                 icon:
-                    HOME_MAJOON_ATTRIBUTES[index % HOME_MAJOON_ATTRIBUTES.length]
+                    HOME_PIAWARRYBANN_ATTRIBUTES[index % HOME_PIAWARRYBANN_ATTRIBUTES.length]
                         ?.icon || "package",
                 title: item.title || "",
                 body: item.content || "",
             }));
         }
 
-        return HOME_MAJOON_ATTRIBUTES.map((item) => ({
+        return HOME_PIAWARRYBANN_ATTRIBUTES.map((item) => ({
             icon: item.icon,
             title: translate(item.title),
             body: translate(item.body),
         }));
-    }, [majoonItems, translate]);
+    }, [piawarrybannItems, translate]);
 
     const qualityIngredients = useMemo(
         () =>
@@ -273,22 +270,6 @@ const Home = () => {
         [audienceItems]
     );
 
-    const orderingSteps = useMemo(
-        () =>
-            orderingItems.map((item, index) => ({
-                step: String(index + 1).padStart(2, "0"),
-                title: item.title || "",
-                body: item.content || "",
-            })),
-        [orderingItems]
-    );
-
-    const distributionPoints = distributionItems.map((item, index) => ({
-        icon: HOME_DISTRIBUTION_POINTS[index % HOME_DISTRIBUTION_POINTS.length]?.icon || "truck",
-        title: item.title || "",
-        body: item.content || "",
-    }));
-
     const testimonialItems = useMemo(() => {
         const fromCms = testimonialCmsItems.map((item, index) => ({
             id: `cms-${item.id ?? index}`,
@@ -329,7 +310,7 @@ const Home = () => {
                     aria-hidden="true"
                 />
 
-                <Container className="home-hero-shell relative grid items-center gap-10 py-14 sm:gap-12 sm:py-16 lg:grid-cols-[minmax(0,0.45fr)_minmax(0,0.55fr)] lg:gap-14 lg:py-20 xl:gap-16 xl:py-[4.75rem]">
+                <Container className="home-hero-shell relative grid gap-10 py-14 sm:gap-12 sm:py-16 lg:grid-cols-[minmax(0,0.45fr)_minmax(0,0.55fr)] lg:gap-14 lg:py-20 xl:gap-16 xl:py-[4.75rem]">
                     <FadeUp className="home-hero-copy order-1 lg:order-2">
                         <p className="type-eyebrow text-brand-orange">
                             {heroEyebrow}
@@ -450,10 +431,10 @@ const Home = () => {
                 </section>
             ) : null}
 
-            <HomeMajoonSection
-                label={translate(t.majoonLabel)}
-                title={translate(t.majoonTitle)}
-                attributes={majoonAttributes}
+            <HomePiawarryBannSection
+                label={translate(t.piawarrybannLabel)}
+                title={translate(t.piawarrybannTitle)}
+                attributes={piawarrybannAttributes}
             />
 
             {introVideoId ? (
@@ -633,18 +614,6 @@ const Home = () => {
                 />
             ) : null}
 
-            {orderingSteps.length > 0 ? (
-                <HomeOrderingSection
-                    label={translate(t.processLabel)}
-                    title={translate(t.processTitle)}
-                    description={translate(t.processBody)}
-                    note={translate(t.processNote)}
-                    steps={orderingSteps}
-                    whatsappHref={processWhatsAppHref}
-                    whatsappLabel={translate(t.orderWhatsApp)}
-                />
-            ) : null}
-
             {highlightItems.length > 0 ? (
                 <PageSection
                     id="home-highlights"
@@ -699,13 +668,6 @@ const Home = () => {
                     </Container>
                 </PageSection>
             ) : null}
-
-            {distributionPoints.length > 0 ? <HomeDistributionSection
-                label={translate(t.distributionLabel)}
-                title={translate(t.distributionTitle)}
-                description={translate(t.distributionBody)}
-                points={distributionPoints}
-            /> : null}
 
             {latestNews.length > 0 ? (
                 <PageSection

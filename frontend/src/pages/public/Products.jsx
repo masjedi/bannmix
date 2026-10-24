@@ -11,7 +11,6 @@ import ProductGrid from "../../components/public/products/ProductGrid";
 import InnerPageHero from "../../components/public/InnerPageHero";
 import ProductPagination from "../../components/public/products/ProductPagination";
 import ProductToolbar from "../../components/public/products/ProductToolbar";
-import WholesaleCTA from "../../components/public/products/WholesaleCTA";
 import {
     CATALOG_ID,
     SEARCH_MAX_LENGTH,
@@ -19,9 +18,7 @@ import {
 } from "../../components/public/products/productUtils";
 import { useLanguage } from "../../context/LanguageContext";
 import usePublicPageContent from "../../hooks/usePublicPageContent";
-import publicTranslations, {
-    ORDER_CONTACTS,
-} from "../../i18n/publicTranslations";
+import publicTranslations from "../../i18n/publicTranslations";
 
 const useDebounce = (value, delay = 350) => {
     const [debounced, setDebounced] = useState(value);
@@ -306,17 +303,6 @@ const Products = () => {
                 </Container>
             </section>
 
-            <WholesaleCTA
-                label={translate(t.wholesaleLabel)}
-                title={translate(t.wholesaleTitle)}
-                description={translate(t.wholesaleBody)}
-                whatsappLabel={translate(
-                    publicTranslations.common.whatsappOrder
-                )}
-                contactLabel={translate(t.contactSales)}
-                contactHref={ORDER_CONTACTS.phoneHref}
-                translate={translate}
-            />
             {contentError ? <p className="sr-only" role="status" aria-live="polite">{contentError}</p> : null}
         </PublicPage>
     );
